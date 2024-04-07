@@ -9,5 +9,10 @@ package personajes;
  * @author Alejandro
  */
 public class Angel {
-    
+
+    private float vida;
+    private float energia;
+    private int[] posicion;
+    private Potenciador[] potenciadores;
+    private int almasLiberadas;
 }
