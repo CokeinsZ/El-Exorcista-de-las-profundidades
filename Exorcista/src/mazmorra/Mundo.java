@@ -9,5 +9,5 @@ package mazmorra;
  * @author Alejandro
  */
 public class Mundo {
-    
+    private String tipoMundo;
 }
