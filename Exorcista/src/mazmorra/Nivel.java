@@ -9,5 +9,5 @@ package mazmorra;
  * @author Alejandro
  */
 public class Nivel {
-    
+    private String dificultad;
 }
