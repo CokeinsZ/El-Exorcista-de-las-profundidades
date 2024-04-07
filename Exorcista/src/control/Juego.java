@@ -9,5 +9,5 @@ package control;
  * @author Alejandro
  */
 public class Juego {
-    
+    private int puntajeTotal;
 }
