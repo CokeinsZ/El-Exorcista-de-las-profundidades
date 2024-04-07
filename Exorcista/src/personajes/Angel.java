@@ -4,6 +4,8 @@
  */
 package personajes;
 
+import ayudas.Potenciador;
+
 /**
  *
  * @author Alejandro
