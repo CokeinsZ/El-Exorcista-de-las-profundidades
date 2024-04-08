@@ -11,5 +11,10 @@
  cielos, nuestra misión es liberar a las almas cautivas y purificar la mazmorra de la
  influencia demoníaca.
 
+Proyecto desarrollado por:
+-Stiven Alejandro Carvajal Pérez
+-Luis Fernando Salazar Grillo
+-Victor Manuel Garcia Castañeda
+
 ##Diagrama de clases
 https://lucid.app/lucidchart/dc6e4e90-8e13-457e-98a0-fa67d14f322c/edit?viewport_loc=-1430%2C-595%2C4232%2C1707%2C0_0&invitationId=inv_ed458415-694e-4e51-bd92-edc8ea97fc34
