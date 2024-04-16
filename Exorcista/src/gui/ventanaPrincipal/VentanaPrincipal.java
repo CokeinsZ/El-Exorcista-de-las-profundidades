@@ -4,8 +4,15 @@
  */
 package gui.ventanaPrincipal;
 
+import control.Juego;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import personajes.Angel;
 
 
 /**
@@ -14,6 +21,13 @@ import java.awt.Graphics2D;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private Juego juego;
+
+    public void setJuego(Juego juego) {
+        this.juego = juego;
+    }
+    
+    
     /**
      * Creates new form VentanaPrincipal
      */
@@ -22,10 +36,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g){         
         Graphics2D contextoGrafico = (Graphics2D) g;
-        
-        
+                
+        juego.dibujarNivel(contextoGrafico);
+                       
     }
     
     @SuppressWarnings("unchecked")
@@ -33,6 +48,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -48,6 +69,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        juego.manejarTecla(evt);
+        repaint();
+
+    }//GEN-LAST:event_formKeyPressed
+
+    public static void main(String[] args) {
+        VentanaPrincipal ventana = new VentanaPrincipal();
+        ventana.setSize(1080, 720);
+        ventana.setLocationRelativeTo(null);
+                
+        Juego juego = null;
+        try {
+            juego = new Juego();
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cargar la imagen", "Error en imagen", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ventana.setJuego(juego);
+        
+        ventana.setVisible(true);
+
+    }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

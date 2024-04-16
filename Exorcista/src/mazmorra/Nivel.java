@@ -4,10 +4,16 @@
  */
 package mazmorra;
 
+import java.awt.Graphics2D;
+
 /**
  *
  * @author Alejandro
  */
 public class Nivel {
     private String dificultad;
+
+    public void dibujarNivel(Graphics2D g) {
+        
+    }
 }
