@@ -5,6 +5,7 @@
 package gui.ventanaPrincipal;
 
 import control.Juego;
+import gui.inicio.MenuPrincipal;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -33,6 +34,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
+        setSize(1080, 720);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
     }
 
     @Override
@@ -49,6 +54,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -75,25 +85,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formKeyPressed
 
-    public static void main(String[] args) {
-        VentanaPrincipal ventana = new VentanaPrincipal();
-        ventana.setSize(1080, 720);
-        ventana.setLocationRelativeTo(null);
-                
-        Juego juego = null;
-        try {
-            juego = new Juego();
-            
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo cargar la imagen", "Error en imagen", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        //juego.manejarClick(evt);
         
-        ventana.setJuego(juego);
-        
-        ventana.setVisible(true);
-
-    }
+    }//GEN-LAST:event_formMousePressed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -6,6 +6,7 @@ package control;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,6 +39,13 @@ public class Juego {
             
             angel.mover(e);
         }
+    }
+
+    public void manejarClick(MouseEvent evt) {
+        int x = evt.getX();
+        int y = evt.getY();
+        
+        angel.lanzarRayo(x, y);
     }
 
     
