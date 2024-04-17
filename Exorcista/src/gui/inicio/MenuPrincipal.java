@@ -24,7 +24,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     public void setImagenFondo() {
         try {
-            this.imagenFondo = ImageIO.read(new File("C:\\Users\\Alejandro\\source\\repos\\El-Exorcista-de-las-profundidades\\Exorcista\\src\\imagenes\\menuInicio\\inicio.jpg"));
+            this.imagenFondo = ImageIO.read(new File("src\\imagenes\\menuInicio\\inicio.jpg"));
             
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error con la imagen", JOptionPane.ERROR_MESSAGE);
