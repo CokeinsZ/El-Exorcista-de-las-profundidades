@@ -144,7 +144,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bIniciarJuegoActionPerformed
 
     private void bCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCerrarActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_bCerrarActionPerformed
 
 

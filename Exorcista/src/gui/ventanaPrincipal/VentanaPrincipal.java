@@ -45,6 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Graphics2D contextoGrafico = (Graphics2D) g;
                 
         juego.dibujarNivel(contextoGrafico);
+        juego.lanzarRayos(contextoGrafico);
                        
     }
     
@@ -86,7 +87,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyPressed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        //juego.manejarClick(evt);
+        juego.manejarClick(evt);
         
     }//GEN-LAST:event_formMousePressed
    

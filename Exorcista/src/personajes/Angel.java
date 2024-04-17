@@ -27,6 +27,10 @@ public class Angel extends Rectangle{
     
     private int[] posicionesAnteriores;
     
+    private boolean seHizoClick;
+    private int cX;
+    private int cY;
+    
     private Image imagenFondo;
     private void cargarImagen() throws IOException {
         try {
@@ -48,6 +52,8 @@ public class Angel extends Rectangle{
         
         this.posicionesAnteriores = new int[] {x, y};
         
+        this.seHizoClick = false;
+        
         cargarImagen();
     }
     
@@ -60,6 +66,8 @@ public class Angel extends Rectangle{
         this.almasLiberadas = 0;
         
         this.posicionesAnteriores = new int[] {0, 0};
+        
+        this.seHizoClick = false;
         
         cargarImagen();
     }
@@ -96,9 +104,21 @@ public class Angel extends Rectangle{
         }
                
     }
+    
+    public void setPosicionRayos(boolean click, int x, int y) {
+        this.seHizoClick = click;
+        this.cX = x;
+        this.cY = y;
+                
+    }
 
-    public void lanzarRayo(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void lanzarRayo(Graphics2D g) {
+        if (!seHizoClick)
+            return;
+        
+        int posXrayo = this.x;
+        int posYrayo = this.y;
+        g.drawLine(posXrayo, posXrayo, posXrayo++, posXrayo++);
     }
     
 }

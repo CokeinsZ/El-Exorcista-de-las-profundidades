@@ -21,6 +21,7 @@ public class Juego {
     private int puntajeTotal;
     private Angel angel;
     private ArrayList<Mundo> mundos;
+    
 
     public Juego() throws IOException {
         this.puntajeTotal = 0;
@@ -42,10 +43,12 @@ public class Juego {
     }
 
     public void manejarClick(MouseEvent evt) {
-        int x = evt.getX();
-        int y = evt.getY();
+        angel.setPosicionRayos(true, puntajeTotal, puntajeTotal);
         
-        angel.lanzarRayo(x, y);
+    }
+
+    public void lanzarRayos(Graphics2D contextoGrafico) {
+        angel.lanzarRayo(contextoGrafico);
     }
 
     
