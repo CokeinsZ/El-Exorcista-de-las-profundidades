@@ -30,7 +30,7 @@ public class Angel extends Rectangle{
     private Image imagenFondo;
     private void cargarImagen() throws IOException {
         try {
-            this.imagenFondo = ImageIO.read(new File("src\\imagenes\\personajes\\angel\\angel.png"));
+            this.imagenFondo = ImageIO.read(new File("C:\\Users\\Alejandro\\source\\repos\\El-Exorcista-de-las-profundidades\\Exorcista\\src\\imagenes\\personajes\\angel\\angel.png"));
             
         } catch (IOException e) {
             e.printStackTrace();
