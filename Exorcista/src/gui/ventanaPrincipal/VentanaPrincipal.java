@@ -5,16 +5,8 @@
 package gui.ventanaPrincipal;
 
 import control.Juego;
-import gui.inicio.MenuPrincipal;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import personajes.Angel;
-
 
 /**
  *
@@ -49,8 +41,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                        
     }
     
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
