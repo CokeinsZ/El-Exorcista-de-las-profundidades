@@ -74,11 +74,11 @@ public class Angel extends Rectangle{
     
     public void dibujarAngel (Graphics2D g) {
         //Limpia la posición donde anteriormente se encontraba el angel
-        g.clearRect(posicionesAnteriores[0], posicionesAnteriores[1], width, height);
+        //g.clearRect(posicionesAnteriores[0], posicionesAnteriores[1], width, height);
         
-        //Dibuja la imagen y el rectangulo que contiene a la imagen
+        //Dibuja la imagen
         g.drawImage(this.imagenFondo, this.x, this.y, null);
-        g.draw(this);
+
     }
 
     public void mover(KeyEvent e) {
@@ -102,23 +102,11 @@ public class Angel extends Rectangle{
         if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
             x -= 10;
         }
-               
+                       
     }
     
-    public void setPosicionRayos(boolean click, int x, int y) {
-        this.seHizoClick = click;
-        this.cX = x;
-        this.cY = y;
-                
+    public void lanzarRayos(Graphics2D contextoGrafico) {
+        //TO-DO
     }
-
-    public void lanzarRayo(Graphics2D g) {
-        if (!seHizoClick)
-            return;
         
-        int posXrayo = this.x;
-        int posYrayo = this.y;
-        g.drawLine(posXrayo, posXrayo, posXrayo++, posXrayo++);
-    }
-    
 }

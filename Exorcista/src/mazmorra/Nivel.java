@@ -5,13 +5,24 @@
 package mazmorra;
 
 import java.awt.Graphics2D;
+import java.io.File;
 
 /**
  *
  * @author Alejandro
  */
 public class Nivel {
+    private LectorArchivos lector;
     private String dificultad;
+
+    public Nivel(LectorArchivos lector, String dificultad) {
+        this.lector = lector;
+        this.dificultad = dificultad;
+        
+        lector.leerArchivoNivel();
+    }
+    
+    
 
     public void dibujarNivel(Graphics2D g) {
         

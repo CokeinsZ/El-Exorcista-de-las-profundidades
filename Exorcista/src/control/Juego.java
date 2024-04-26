@@ -4,13 +4,14 @@
  */
 package control;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import mazmorra.Nivel;
 
-import mazmorra.Mundo;
 import personajes.Angel;
 
 /**
@@ -19,17 +20,24 @@ import personajes.Angel;
  */
 public class Juego {
     private int puntajeTotal;
-    private Angel angel;
-    private ArrayList<Mundo> mundos;
-    
+    private int numNivel;
 
+    private Angel angel;
+    private ArrayList<Nivel> niveles;
+    
     public Juego() throws IOException {
         this.puntajeTotal = 0;
         this.angel = new Angel(100, 100);
     }
     
-    public void dibujarNivel(Graphics2D g) {
+    public void dibujarJuego(Graphics2D g) {
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, 1280, 720);
+        
         angel.dibujarAngel(g);
+        angel.lanzarRayos(g);
+        niveles.get(numNivel - 1).dibujarNivel(g);
+        
     }
 
     public void manejarTecla(KeyEvent e) {
@@ -43,12 +51,8 @@ public class Juego {
     }
 
     public void manejarClick(MouseEvent evt) {
-        angel.setPosicionRayos(true, puntajeTotal, puntajeTotal);
+        //TO-DO
         
-    }
-
-    public void lanzarRayos(Graphics2D contextoGrafico) {
-        angel.lanzarRayo(contextoGrafico);
     }
 
     

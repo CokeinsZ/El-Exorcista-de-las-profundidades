@@ -5,16 +5,8 @@
 package gui.ventanaPrincipal;
 
 import control.Juego;
-import gui.inicio.MenuPrincipal;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import personajes.Angel;
-
 
 /**
  *
@@ -44,8 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void paint(Graphics g){         
         Graphics2D contextoGrafico = (Graphics2D) g;
                 
-        juego.dibujarNivel(contextoGrafico);
-        juego.lanzarRayos(contextoGrafico);
+        juego.dibujarJuego(contextoGrafico);
                        
     }
     
