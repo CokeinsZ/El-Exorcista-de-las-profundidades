@@ -27,7 +27,10 @@ public class Juego {
     
     public Juego() throws IOException {
         this.puntajeTotal = 0;
-        this.angel = new Angel(100, 100);
+        this.numNivel = 1;
+        this.angel = new Angel(100, 100);  
+        
+        niveles = new ArrayList<>();
     }
     
     public void dibujarJuego(Graphics2D g) {
@@ -36,7 +39,7 @@ public class Juego {
         
         angel.dibujarAngel(g);
         angel.lanzarRayos(g);
-        niveles.get(numNivel - 1).dibujarNivel(g);
+        //niveles.get(numNivel - 1).dibujarNivel(g);
         
     }
 
