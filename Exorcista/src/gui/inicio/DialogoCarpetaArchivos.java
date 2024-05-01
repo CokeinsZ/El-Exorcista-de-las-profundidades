@@ -31,7 +31,7 @@ public class DialogoCarpetaArchivos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFileChooser1 = new javax.swing.JFileChooser("archivosNiveles");
+        jFileChooser1 = new javax.swing.JFileChooser("archivos");
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
