@@ -4,10 +4,16 @@
  */
 package personajes;
 
+import sprite.Dibujo;
+
 /**
  *
  * @author Alejandro
  */
-public class Alma {
+public class Alma extends Dibujo {
+    
+    public Alma(int posX, int posY, int ancho, int alto) {
+        super(posX, posY, ancho, alto);
+    }
     
 }

@@ -4,10 +4,16 @@
  */
 package personajes;
 
+import sprite.Dibujo;
+
 /**
  *
  * @author Alejandro
  */
-public class Demonio {
+public class Demonio extends Dibujo{
+    
+    public Demonio(int posX, int posY, int ancho, int alto) {
+        super(posX, posY, ancho, alto);
+    }
     
 }

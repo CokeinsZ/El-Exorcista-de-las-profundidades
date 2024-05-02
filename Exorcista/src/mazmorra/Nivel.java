@@ -6,16 +6,19 @@ package mazmorra;
 
 import java.awt.Graphics2D;
 import java.io.File;
+import sprite.Dibujo;
 
 /**
  *
  * @author Alejandro
  */
-public class Nivel {
+public class Nivel extends Dibujo {
     private LectorArchivos lector;
     private String dificultad;
 
     public Nivel(LectorArchivos lector, String dificultad) {
+        super(0, 0, 1280, 720);
+        
         this.lector = lector;
         this.dificultad = dificultad;
         

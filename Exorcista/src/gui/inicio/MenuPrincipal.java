@@ -25,8 +25,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     public void setImagenes() {
         try {
-            this.imagenFondo = ImageIO.read(new File("src\\imagenes\\menuInicio\\inicio.jpg"));
-            this.imagenLogo = ImageIO.read(new File("src\\imagenes\\icono\\logo.png"));
+            this.imagenFondo = ImageIO.read(new File("imagenes\\menuInicio\\inicio.jpg"));
+            this.imagenLogo = ImageIO.read(new File("imagenes\\icono\\logo.png"));
             
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error con la imagen", JOptionPane.ERROR_MESSAGE);

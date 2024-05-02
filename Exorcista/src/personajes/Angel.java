@@ -5,7 +5,6 @@
 package personajes;
 
 import ayudas.Potenciador;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -13,78 +12,47 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import sprite.Dibujo;
 
 /**
  *
  * @author Alejandro
  */
-public class Angel extends Rectangle{
+public class Angel extends Dibujo {
+    
+    public final static int ANCHO = 100;
+    public final static int ALTO = 100;
     
     private float vida;
     private float energia;
     private Potenciador[] potenciadores;
     private int almasLiberadas;
-    
-    private int[] posicionesAnteriores;
-    
-    private boolean seHizoClick;
-    private int cX;
-    private int cY;
-    
-    private Image imagenFondo;
+                
     private void cargarImagen() throws IOException {
-        try {
-            this.imagenFondo = ImageIO.read(new File("src\\imagenes\\personajes\\angel\\angel.png"));
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        this.imagen = ImageIO.read(new File("imagenes\\personajes\\angel\\angel2.png"));
+           
     }
 
     public Angel(int x, int y) throws IOException {
-        super(x, y, 100, 100);
+        super(x, y, ANCHO, ALTO);
         
         this.vida = 100;
         this.energia = 100;
         this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
         this.almasLiberadas = 0;
-        
-        this.posicionesAnteriores = new int[] {x, y};
-        
-        this.seHizoClick = false;
-        
+                        
         cargarImagen();
     }
-    
-    public Angel() throws IOException {
-        super(0, 0, 100, 100);
         
-        this.vida = 100;
-        this.energia = 100;
-        this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
-        this.almasLiberadas = 0;
-        
-        this.posicionesAnteriores = new int[] {0, 0};
-        
-        this.seHizoClick = false;
-        
-        cargarImagen();
-    }
-    
     public void dibujarAngel (Graphics2D g) {
-        //Limpia la posición donde anteriormente se encontraba el angel
-        //g.clearRect(posicionesAnteriores[0], posicionesAnteriores[1], width, height);
         
         //Dibuja la imagen
-        g.drawImage(this.imagenFondo, this.x, this.y, null);
+        g.drawImage(this.imagen, this.x, this.y, width, height, null);
 
     }
 
     public void mover(KeyEvent e) {
         
-        this.posicionesAnteriores = new int[] {x, y};
-
         if (e.getKeyCode() == KeyEvent.VK_UP && y > 0){
             y -= 10;
         }

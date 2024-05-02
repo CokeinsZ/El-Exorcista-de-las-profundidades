@@ -4,10 +4,16 @@
  */
 package ayudas;
 
+import sprite.Dibujo;
+
 /**
  *
  * @author Alejandro
  */
-public class Tesoro {
+public class Tesoro extends Dibujo {
+    
+    public Tesoro(int posX, int posY, int ancho, int alto) {
+        super(posX, posY, ancho, alto);
+    }
     
 }
