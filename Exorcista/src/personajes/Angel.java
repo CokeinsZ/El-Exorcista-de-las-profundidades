@@ -50,6 +50,11 @@ public class Angel extends Dibujo {
         
         //Dibuja la imagen
         g.drawImage(this.imagen, this.x, this.y, width, height, null);
+        try {
+            g.drawImage(ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png")), 50, 50, null);
+        } catch (IOException ex) {
+            Logger.getLogger(Angel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
