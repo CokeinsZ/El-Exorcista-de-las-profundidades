@@ -38,7 +38,8 @@ public class Juego {
         g.fillRect(0, 0, 1280, 720);
         
         angel.dibujarAngel(g);
-        angel.lanzarRayos(g);
+        
+        //angel.lanzarRayos(g);
         //niveles.get(numNivel - 1).dibujarNivel(g);
         
     }
