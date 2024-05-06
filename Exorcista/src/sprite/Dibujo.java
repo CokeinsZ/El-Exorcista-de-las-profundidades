@@ -4,8 +4,12 @@
  */
 package sprite;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -19,6 +23,12 @@ public abstract class Dibujo extends Rectangle {
         super(posX, posY, ancho, alto);
         
     }
+    
+    protected void cargarImagen(String ruta) throws IOException {
+        imagen = ImageIO.read(new File(ruta));
+    }
+    
+    public abstract void dibujar(Graphics2D g);
 
     public int getPosX() {
         return (int) super.getX();
@@ -55,13 +65,6 @@ public abstract class Dibujo extends Rectangle {
     public Image getImagen() {
         return imagen;
     }
-
-    public void setImagen(Image image) {
-        this.imagen = image;
-    }
-    
-    
-    
-    
+   
     
 }

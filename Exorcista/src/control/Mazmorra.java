@@ -10,38 +10,33 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import mazmorra.Nivel;
+import nivel.Nivel;
 
 import personajes.Angel;
+import sprite.Dibujo;
 
 /**
  *
  * @author Alejandro
  */
-public class Juego {
+public class Mazmorra extends Dibujo{
+    public static final int ANCHO = 1280;
+    public static final int ALTO = 720;
+    
     private int puntajeTotal;
     private int numNivel;
 
     private Angel angel;
     private ArrayList<Nivel> niveles;
     
-    public Juego() throws IOException {
+    public Mazmorra() throws IOException {
+        super(0,0,ANCHO,ALTO);
+        
         this.puntajeTotal = 0;
         this.numNivel = 1;
         this.angel = new Angel(100, 100);  
         
         niveles = new ArrayList<>();
-    }
-    
-    public void dibujarJuego(Graphics2D g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 1280, 720);
-        
-        angel.dibujarAngel(g);
-        
-        //angel.lanzarRayos(g);
-        //niveles.get(numNivel - 1).dibujarNivel(g);
-        
     }
 
     public void manejarTecla(KeyEvent e) {
@@ -57,6 +52,14 @@ public class Juego {
     public void manejarClick(MouseEvent evt) {
         //TO-DO
         
+    }
+
+    @Override
+    public void dibujar(Graphics2D g) {
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, ANCHO, ALTO);
+                
+        niveles.get(numNivel - 1).dibujar(g, angel);
     }
 
     

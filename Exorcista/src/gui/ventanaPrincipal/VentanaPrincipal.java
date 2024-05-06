@@ -4,7 +4,7 @@
  */
 package gui.ventanaPrincipal;
 
-import control.Juego;
+import control.Mazmorra;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -14,9 +14,9 @@ import java.awt.Graphics2D;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    private Juego juego;
+    private Mazmorra juego;
 
-    public void setJuego(Juego juego) {
+    public void setJuego(Mazmorra juego) {
         this.juego = juego;
     }
     

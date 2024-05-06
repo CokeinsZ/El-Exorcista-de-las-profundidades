@@ -4,7 +4,7 @@
  */
 package gui.inicio;
 
-import control.Juego;
+import control.Mazmorra;
 import gui.ventanaPrincipal.VentanaPrincipal;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -153,9 +153,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void bIniciarJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIniciarJuegoActionPerformed
         VentanaPrincipal ventana = new VentanaPrincipal();
                 
-        Juego juego = null;
+        Mazmorra juego = null;
         try {
-            juego = new Juego();
+            juego = new Mazmorra();
             
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo cargar la imagen", "Error en imagen", JOptionPane.ERROR_MESSAGE);

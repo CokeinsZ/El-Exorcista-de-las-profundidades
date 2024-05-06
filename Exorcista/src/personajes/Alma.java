@@ -4,6 +4,7 @@
  */
 package personajes;
 
+import java.awt.Graphics2D;
 import sprite.Dibujo;
 
 /**
@@ -14,6 +15,11 @@ public class Alma extends Dibujo {
     
     public Alma(int posX, int posY, int ancho, int alto) {
         super(posX, posY, ancho, alto);
+    }
+
+    @Override
+    public void dibujar(Graphics2D g) {
+        g.drawImage(imagen, x, y, null);
     }
     
 }

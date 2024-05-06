@@ -4,7 +4,7 @@
  */
 package personajes;
 
-import ayudas.Potenciador;
+import potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -30,11 +30,6 @@ public class Angel extends Dibujo {
     private Potenciador[] potenciadores;
     private int almasLiberadas;
                 
-    private void cargarImagen() throws IOException {
-        this.imagen = ImageIO.read(new File("imagenes\\personajes\\angel\\angel2.png"));
-           
-    }
-
     public Angel(int x, int y) throws IOException {
         super(x, y, ANCHO, ALTO);
         
@@ -43,18 +38,14 @@ public class Angel extends Dibujo {
         this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
         this.almasLiberadas = 0;
                         
-        cargarImagen();
+        cargarImagen("imagenes\\personajes\\angel\\angel2.png");
     }
         
-    public void dibujarAngel (Graphics2D g) {
+    @Override
+    public void dibujar (Graphics2D g) {
         
         //Dibuja la imagen
-        g.drawImage(this.imagen, this.x, this.y, width, height, null);
-        try {
-            g.drawImage(ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png")), 50, 50, null);
-        } catch (IOException ex) {
-            Logger.getLogger(Angel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        g.drawImage(this.imagen, this.x, this.y, null);
 
     }
 
