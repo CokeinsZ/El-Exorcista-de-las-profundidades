@@ -5,10 +5,11 @@
 package nivel;
 
 import herramientas.FabricaDemonios;
-import herramientas.LectorArchivos;
 import java.awt.Graphics2D;
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import personajes.Angel;
 import personajes.demonios.Demonio;
 import sprite.Dibujo;
@@ -18,25 +19,31 @@ import sprite.Dibujo;
  * @author Alejandro
  */
 public class Nivel extends Dibujo {
-    private LectorArchivos lector;
     private FabricaDemonios fabrica;
     
     private String dificultad;
     
     private ArrayList<Demonio> demonios;
 
-    public Nivel(LectorArchivos lector, FabricaDemonios fabrica, String dificultad) {
+    public Nivel(FabricaDemonios fabrica, String dificultad) {
         super(0, 0, 1280, 720);
         
-        this.lector = lector;
         this.fabrica = fabrica;
         
         this.dificultad = dificultad;
         
-        lector.leerArchivoNivel();
+        this.demonios = new ArrayList<>();
+        try {
+            agregarDemonio();
+        } catch (IOException ex) {
+            System.out.println("Algo fallo");
+        }
+        
     }
     
-    public void agregarDemonio()
+    public void agregarDemonio() throws IOException {
+        demonios.add(fabrica.crearDemonio(Demonio.TIPO_HIELO));
+    }
 
     public void dibujar(Graphics2D g, Angel angel) {
         angel.dibujar(g);

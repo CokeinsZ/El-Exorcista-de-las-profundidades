@@ -4,6 +4,7 @@
  */
 package potenciadores;
 
+import java.awt.Graphics2D;
 import sprite.Dibujo;
 
 /**
@@ -14,6 +15,11 @@ public class Tesoro extends Dibujo {
     
     public Tesoro(int posX, int posY, int ancho, int alto) {
         super(posX, posY, ancho, alto);
+    }
+
+    @Override
+    public void dibujar(Graphics2D g) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

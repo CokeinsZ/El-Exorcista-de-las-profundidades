@@ -17,8 +17,8 @@ public class FabricaDemonios {
     public Demonio crearDemonio(int tipo) throws IOException {
         Random r = new Random();
         
-        int x = r.nextInt(Mazmorra);
-        int y = r.nextInt(x);
+        int x = r.nextInt(Mazmorra.ANCHO);
+        int y = r.nextInt(Mazmorra.ALTO);
         
         switch (tipo) {
             case Demonio.TIPO_SUPERIOR:
@@ -31,10 +31,10 @@ public class FabricaDemonios {
                 return null;
 
             case Demonio.TIPO_SELVATICO:
-                return null;
+                return new DemonioSelvatico(x, y);
 
             case Demonio.TIPO_HIELO:
-                return null;
+                return new DemonioHielo(x, y);
 
             default:
                 throw new AssertionError();

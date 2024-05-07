@@ -36,7 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void paint(Graphics g){         
         Graphics2D contextoGrafico = (Graphics2D) g;
                 
-        juego.dibujarJuego(contextoGrafico);
+        juego.dibujar(contextoGrafico);
                        
     }
     

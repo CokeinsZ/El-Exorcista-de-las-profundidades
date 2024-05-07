@@ -4,6 +4,7 @@
  */
 package control;
 
+import herramientas.FabricaDemonios;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -37,6 +38,7 @@ public class Mazmorra extends Dibujo{
         this.angel = new Angel(100, 100);  
         
         niveles = new ArrayList<>();
+        niveles.add(new Nivel(new FabricaDemonios(), "easy"));
     }
 
     public void manejarTecla(KeyEvent e) {
