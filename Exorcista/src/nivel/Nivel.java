@@ -6,6 +6,7 @@ package nivel;
 
 import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
+import interfaces.Notificable;
 import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -31,8 +32,10 @@ public class Nivel extends Dibujo
     private Angel angel;
     
     private ArrayList<Demonio> demonios;
+    
+    private Notificable notificador;
 
-    public Nivel(FabricaDemonios fabrica, int numNivel, Angel angel) throws IOException {
+    public Nivel(FabricaDemonios fabrica, int numNivel, Angel angel, Notificable notificador) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
         super(0, 0, 800, 600);
         
@@ -45,6 +48,8 @@ public class Nivel extends Dibujo
         
         demonios = new ArrayList<>();
         this.fabrica = fabrica;
+        
+        this.notificador = notificador;
         
         crearDemonios();
         
@@ -119,7 +124,7 @@ public class Nivel extends Dibujo
     }
     
     public void agregarDemonio(int tipo) throws IOException {
-        demonios.add(fabrica.crearDemonio(tipo, this, angel));
+        demonios.add(fabrica.crearDemonio(tipo, this, angel, notificador));
     }
 
 

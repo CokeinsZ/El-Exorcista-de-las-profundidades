@@ -5,6 +5,7 @@
 package personajes.demonios;
 
 import interfaces.Delimitable;
+import interfaces.Notificable;
 import personajes.Angel;
 import sprite.Dibujo;
 
@@ -24,12 +25,16 @@ public abstract class Demonio extends Dibujo {
     protected int velocidad;
     protected Angel enemigo;
     
+    protected Notificable notificador;
+    
     protected Delimitable bordes;
     
-    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo) {
+    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador) {
         super(x, y, width, height);
         this.bordes = bordes;
         this.enemigo = enemigo;
+        
+        this.notificador = notificador;
     }
         
     public abstract void seguirAngel();

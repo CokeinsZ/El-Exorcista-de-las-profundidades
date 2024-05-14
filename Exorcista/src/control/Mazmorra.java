@@ -6,6 +6,7 @@ package control;
 
 import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
+import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -22,7 +23,8 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public class Mazmorra extends Dibujo {
+public class Mazmorra extends Dibujo
+                      implements Notificable{
 
     private int puntajeTotal;
     private int numNivel;
@@ -84,8 +86,13 @@ public class Mazmorra extends Dibujo {
     
     public void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(new Nivel(new FabricaDemonios(), 3, angel));
+        niveles.add(new Nivel(new FabricaDemonios(), 3, angel, this));
         
+    }
+
+    @Override
+    public void notificarCambios() {
+        refrescador.refrescar();
     }
 
     
