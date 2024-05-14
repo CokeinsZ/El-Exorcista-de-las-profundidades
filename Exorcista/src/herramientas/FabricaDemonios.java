@@ -8,6 +8,7 @@ import control.Mazmorra;
 import interfaces.Delimitable;
 import java.io.IOException;
 import java.util.Random;
+import personajes.Angel;
 import personajes.demonios.*;
 
 /**
@@ -15,31 +16,40 @@ import personajes.demonios.*;
  * @author Alejandro
  */
 public class FabricaDemonios {
-    public Demonio crearDemonio(int tipo, Delimitable bordes) throws IOException {
+    public Demonio crearDemonio(int tipo, Delimitable bordes, Angel enemigo) throws IOException {
         Random r = new Random();
         
-        int x = r.nextInt(bordes.getAncho());
-        int y = r.nextInt(bordes.getAlto());
+        int x;
+        int y;
         
         switch (tipo) {
             case Demonio.TIPO_SUPERIOR:
+                x = r.nextInt(bordes.getAncho());
+                y = r.nextInt(bordes.getAlto());
                 return null;
                 
             case Demonio.TIPO_FUEGO:
-                return new DemonioFuego(x, y);
+                x = r.nextInt(bordes.getAncho() - DemonioFuego.ANCHO);
+                y = r.nextInt(bordes.getAlto() - DemonioFuego.ALTO);
+                return new DemonioFuego(x, y, bordes, enemigo);
 
             case Demonio.TIPO_ELECTRICO:
-                return null;
+                x = r.nextInt(bordes.getAncho() - DemonioElectrico.ANCHO);
+                y = r.nextInt(bordes.getAlto() - DemonioElectrico.ALTO);
+                return new DemonioElectrico(x, y, bordes, enemigo);
 
             case Demonio.TIPO_SELVATICO:
-                return new DemonioSelvatico(x, y);
+                x = r.nextInt(bordes.getAncho() - DemonioSelvatico.ANCHO);
+                y = r.nextInt(bordes.getAlto() - DemonioSelvatico.ALTO);
+                return new DemonioSelvatico(x, y, bordes, enemigo);
 
             case Demonio.TIPO_HIELO:
-                return new DemonioHielo(x, y);
+                x = r.nextInt(bordes.getAncho() - DemonioHielo.ANCHO);
+                y = r.nextInt(bordes.getAlto() - DemonioHielo.ALTO);
+                return new DemonioHielo(x, y, bordes, enemigo);
 
-            default:
-                throw new AssertionError();
         }
         
+        return null;
     }
 }

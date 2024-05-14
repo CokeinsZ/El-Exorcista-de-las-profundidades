@@ -20,7 +20,7 @@ public class Angel extends Dibujo {
     public final static int ANCHO = 100;
     public final static int ALTO = 100;
     
-    public final int PASO = 10;
+    public final int VELOCIDAD = 10;
     
     private float vida;
     private float energia;
@@ -53,22 +53,22 @@ public class Angel extends Dibujo {
     public boolean mover(int codigo) {
         
         if (codigo == KeyEvent.VK_UP && y > 0){
-            y -= PASO;
+            y -= VELOCIDAD;
             return true;
         }
         
         if (codigo == KeyEvent.VK_DOWN && y < bordes.getAlto()- ALTO) {
-            y += PASO;
+            y += VELOCIDAD;
             return true;
         }
             
         if (codigo == KeyEvent.VK_RIGHT && x < bordes.getAncho()- ALTO) {
-            x += PASO;
+            x += VELOCIDAD;
             return true;
         }
             
         if (codigo == KeyEvent.VK_LEFT && x > 0) {
-            x -= PASO;
+            x -= VELOCIDAD;
             return true;
         }
                        

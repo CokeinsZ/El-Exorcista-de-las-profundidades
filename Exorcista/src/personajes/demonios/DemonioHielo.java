@@ -4,8 +4,10 @@
  */
 package personajes.demonios;
 
+import interfaces.Delimitable;
 import java.awt.Graphics2D;
 import java.io.IOException;
+import personajes.Angel;
 
 /**
  *
@@ -15,8 +17,8 @@ public class DemonioHielo extends Demonio{
     public static final int ANCHO = 100;
     public static final int ALTO = 100; 
     
-    public DemonioHielo(int posX, int posY) throws IOException {
-        super(posX, posY, ANCHO, ALTO);
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo) throws IOException {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo);
         
         cargarImagen("imagenes\\personajes\\demonios\\demonioInferior\\DemonioHielo2.png");
     }

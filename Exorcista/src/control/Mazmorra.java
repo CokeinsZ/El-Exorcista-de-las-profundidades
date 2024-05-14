@@ -4,6 +4,7 @@
  */
 package control;
 
+import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
 import interfaces.Refrescable;
 import java.awt.Color;
@@ -81,9 +82,10 @@ public class Mazmorra extends Dibujo {
 
     }
     
-    public void agregarNivel() {
-        niveles.add(new Nivel(null, "Facil", angel));
+    public void agregarNivel() throws IOException {
         numNivel++;
+        niveles.add(new Nivel(new FabricaDemonios(), 3, angel));
+        
     }
 
     

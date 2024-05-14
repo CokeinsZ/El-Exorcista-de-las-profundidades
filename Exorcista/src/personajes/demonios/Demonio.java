@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.Delimitable;
 import personajes.Angel;
 import sprite.Dibujo;
 
@@ -11,7 +12,7 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public abstract class Demonio extends Dibujo{
+public abstract class Demonio extends Dibujo {
     public static final int TIPO_SUPERIOR = 1;
     public static final int TIPO_FUEGO = 2;
     public static final int TIPO_ELECTRICO = 3;
@@ -23,8 +24,12 @@ public abstract class Demonio extends Dibujo{
     protected int velocidad;
     protected Angel enemigo;
     
-    public Demonio(int x, int y, int width, int height) {
+    protected Delimitable bordes;
+    
+    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo) {
         super(x, y, width, height);
+        this.bordes = bordes;
+        this.enemigo = enemigo;
     }
         
     public abstract void seguirAngel();
