@@ -5,6 +5,7 @@
 package herramientas;
 
 import control.Mazmorra;
+import interfaces.Delimitable;
 import java.io.IOException;
 import java.util.Random;
 import personajes.demonios.*;
@@ -14,11 +15,11 @@ import personajes.demonios.*;
  * @author Alejandro
  */
 public class FabricaDemonios {
-    public Demonio crearDemonio(int tipo) throws IOException {
+    public Demonio crearDemonio(int tipo, Delimitable bordes) throws IOException {
         Random r = new Random();
         
-        int x = r.nextInt(Mazmorra.ANCHO);
-        int y = r.nextInt(Mazmorra.ALTO);
+        int x = r.nextInt(bordes.getAncho());
+        int y = r.nextInt(bordes.getAlto());
         
         switch (tipo) {
             case Demonio.TIPO_SUPERIOR:

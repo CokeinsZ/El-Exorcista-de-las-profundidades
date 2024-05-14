@@ -9,5 +9,6 @@ package interfaces;
  * @author Alejandro
  */
 public interface Delimitable {
-    
+    public int getAncho();
+    public int getAlto();
 }

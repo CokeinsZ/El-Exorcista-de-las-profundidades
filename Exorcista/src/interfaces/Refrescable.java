@@ -9,5 +9,5 @@ package interfaces;
  * @author Alejandro
  */
 public interface Refrescable {
-    
+    public void refrescar();
 }

@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import personajes.Angel;
 import sprite.Dibujo;
 
 /**
@@ -17,10 +18,18 @@ public abstract class Demonio extends Dibujo{
     public static final int TIPO_SELVATICO = 4;
     public static final int TIPO_HIELO = 5;
 
+    protected int vida;
+    protected int daño;
+    protected int velocidad;
+    protected Angel enemigo;
     
-    
-    public Demonio(int posX, int posY, int ancho, int alto) {
-        super(posX, posY, ancho, alto);
+    public Demonio(int x, int y, int width, int height) {
+        super(x, y, width, height);
     }
         
+    public abstract void seguirAngel();
+    public abstract boolean atacar();
+    public abstract void mover();
+    public abstract void recibirImapcto(int daño);
+    
 }

@@ -5,11 +5,12 @@
 package nivel;
 
 import herramientas.FabricaDemonios;
+import interfaces.Delimitable;
+import java.applet.AudioClip;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import personajes.Angel;
 import personajes.demonios.Demonio;
 import sprite.Dibujo;
@@ -18,26 +19,28 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public class Nivel extends Dibujo {
+public class Nivel extends Dibujo 
+                   implements Delimitable {
+    
     private FabricaDemonios fabrica;
     
     private String dificultad;
+    private AudioClip soundTrack;
+    
+    private Angel angel;
     
     private ArrayList<Demonio> demonios;
 
-    public Nivel(FabricaDemonios fabrica, String dificultad) {
-        super(0, 0, 1280, 720);
+    public Nivel(FabricaDemonios fabrica, String dificultad, Angel angel) {
+        //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
+        super(0, 0, 800, 600);
         
         this.fabrica = fabrica;
         
         this.dificultad = dificultad;
         
-        this.demonios = new ArrayList<>();
-        try {
-            agregarDemonio();
-        } catch (IOException ex) {
-            System.out.println("Algo fallo");
-        }
+        this.angel = angel;
+        angel.setBordes(this);
         
     }
     
@@ -45,16 +48,12 @@ public class Nivel extends Dibujo {
         demonios.add(fabrica.crearDemonio(Demonio.TIPO_HIELO));
     }
 
-    public void dibujar(Graphics2D g, Angel angel) {
-        angel.dibujar(g);
-        
-        for (Demonio demonio: demonios) {
-            demonio.dibujar(g);
-        }
-    }
 
     @Override
     public void dibujar(Graphics2D g) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        g.setColor(Color.red);
+        g.drawRect(x, y, width, height);
+        
+        angel.dibujar(g);
     }
 }

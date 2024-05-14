@@ -4,7 +4,8 @@
  */
 package control;
 
-import herramientas.FabricaDemonios;
+import interfaces.Delimitable;
+import interfaces.Refrescable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -20,34 +21,49 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public class Mazmorra extends Dibujo{
-    public static final int ANCHO = 1280;
-    public static final int ALTO = 720;
-    
+public class Mazmorra extends Dibujo {
+
     private int puntajeTotal;
     private int numNivel;
 
     private Angel angel;
     private ArrayList<Nivel> niveles;
     
-    public Mazmorra() throws IOException {
-        super(0,0,ANCHO,ALTO);
+    private Color color;
+    
+    private Refrescable refrescador;
+    
+    public Mazmorra(int width, int height, Refrescable refrescador) throws IOException {
+        super(0,0,width,height);
         
         this.puntajeTotal = 0;
-        this.numNivel = 1;
-        this.angel = new Angel(100, 100);  
+        this.numNivel = 0;
         
+        this.color = Color.BLACK;
+        
+        setAngel();
         niveles = new ArrayList<>();
-        niveles.add(new Nivel(new FabricaDemonios(), "easy"));
+ 
+        this.refrescador = refrescador;
+        agregarNivel();
+    }
+    
+    private void setAngel()  throws IOException {
+        //int xCentro = (width /2) - (Angel.ANCHO/2); esto luego se factoriza y queda
+        int xCentro = (width - Angel.ANCHO) / 2;
+        int yCentro = (height - Angel.ALTO) / 2;
+        
+        this.angel = new Angel(xCentro, yCentro, null);
     }
 
-    public void manejarTecla(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP
-                || e.getKeyCode() == KeyEvent.VK_DOWN
-                || e.getKeyCode() == KeyEvent.VK_RIGHT
-                || e.getKeyCode() == KeyEvent.VK_LEFT){
-            
-            angel.mover(e);
+    public void manejarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_UP
+                || codigo == KeyEvent.VK_DOWN
+                || codigo == KeyEvent.VK_RIGHT
+                || codigo == KeyEvent.VK_LEFT) {
+
+            if (angel.mover(codigo))
+                refrescador.refrescar();
         }
     }
 
@@ -59,9 +75,15 @@ public class Mazmorra extends Dibujo{
     @Override
     public void dibujar(Graphics2D g) {
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, ANCHO, ALTO);
-                
-        niveles.get(numNivel - 1).dibujar(g, angel);
+        g.fillRect(0, 0, width , height);
+        
+        niveles.get(numNivel-1).dibujar(g);
+
+    }
+    
+    public void agregarNivel() {
+        niveles.add(new Nivel(null, "Facil", angel));
+        numNivel++;
     }
 
     

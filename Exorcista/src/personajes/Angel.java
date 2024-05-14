@@ -4,16 +4,11 @@
  */
 package personajes;
 
+import interfaces.Delimitable;
 import potenciadores.Potenciador;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import sprite.Dibujo;
 
 /**
@@ -25,12 +20,16 @@ public class Angel extends Dibujo {
     public final static int ANCHO = 100;
     public final static int ALTO = 100;
     
+    public final int PASO = 10;
+    
     private float vida;
     private float energia;
     private Potenciador[] potenciadores;
     private int almasLiberadas;
+    
+    private Delimitable bordes;
                 
-    public Angel(int x, int y) throws IOException {
+    public Angel(int x, int y, Delimitable bordes) throws IOException {
         super(x, y, ANCHO, ALTO);
         
         this.vida = 100;
@@ -39,6 +38,8 @@ public class Angel extends Dibujo {
         this.almasLiberadas = 0;
                         
         cargarImagen("imagenes\\personajes\\angel\\angel2.png");
+        
+        this.bordes = bordes;
     }
         
     @Override
@@ -49,26 +50,33 @@ public class Angel extends Dibujo {
 
     }
 
-    public void mover(KeyEvent e) {
+    public boolean mover(int codigo) {
         
-        if (e.getKeyCode() == KeyEvent.VK_UP && y > 0){
-            y -= 10;
+        if (codigo == KeyEvent.VK_UP && y > 0){
+            y -= PASO;
+            return true;
         }
         
-        if (e.getKeyCode() == KeyEvent.VK_DOWN && y < 620) {
-            //La ventana va hasta Y: 720 y el angel mide 100 de ancho, por lo que debe llegar solo hasta 720-100
-            y += 10;
+        if (codigo == KeyEvent.VK_DOWN && y < bordes.getAlto()- ALTO) {
+            y += PASO;
+            return true;
         }
             
-        if ( e.getKeyCode() == KeyEvent.VK_RIGHT && x < 980) {
-            //La ventana va hasta X:1080 y el angel mide 100 de ancho, por lo que debe llegar solo hasta 1080-100
-            x += 10;
+        if (codigo == KeyEvent.VK_RIGHT && x < bordes.getAncho()- ALTO) {
+            x += PASO;
+            return true;
         }
             
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0) {
-            x -= 10;
+        if (codigo == KeyEvent.VK_LEFT && x > 0) {
+            x -= PASO;
+            return true;
         }
                        
+        return false;
+    }
+    
+    public void setBordes(Delimitable bordes) {
+        this.bordes = bordes;
     }
     
     public void lanzarRayos(Graphics2D contextoGrafico) {
