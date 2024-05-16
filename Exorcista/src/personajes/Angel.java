@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package personajes;
 
 import interfaces.Delimitable;
@@ -11,10 +8,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import sprite.Dibujo;
 
-/**
- *
- * @author Alejandro
- */
+
 public class Angel extends Dibujo {
     
     public final static int ANCHO = 100;
@@ -80,7 +74,11 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics2D contextoGrafico) {
-        //TO-DO
+    // Implementar la lógica para lanzar rayos al presionar la tecla de espacio (KeyEvent.VK_SPACE)
+    // Por ejemplo, aquí suponemos que al presionar la tecla de espacio, se crea y dibuja un rayo en la posición del Angel
+    
+    // Verificar si se ha presionado la tecla de espacio
+    
     }
         
 }

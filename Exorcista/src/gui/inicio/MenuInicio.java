@@ -65,6 +65,7 @@ public class MenuInicio extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        bInicar.setFont(new java.awt.Font("Wide Latin", 3, 18)); // NOI18N
         bInicar.setText("Iniciar Juego");
         bInicar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,16 +78,16 @@ public class MenuInicio extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(530, 530, 530)
+                .addGap(422, 422, 422)
                 .addComponent(bInicar)
-                .addContainerGap(657, Short.MAX_VALUE))
+                .addContainerGap(619, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(173, 173, 173)
                 .addComponent(bInicar)
-                .addContainerGap(637, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
