@@ -13,6 +13,10 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import nivel.elementos.cofre.Cofre;
+import nivel.elementos.pared.Pared;
+import nivel.elementos.trampa.Trampa;
+import personajes.Alma;
 import personajes.Angel;
 import personajes.demonios.Demonio;
 import sprite.Dibujo;
@@ -31,23 +35,30 @@ public class Nivel extends Dibujo
     
     private Angel angel;
     
+    private ArrayList<Cofre> cofres;
+    private ArrayList<Alma> almas;
+    private ArrayList<Trampa> trampas;    
+    private ArrayList<Pared> paredes;
     private ArrayList<Demonio> demonios;
     
     private Notificable notificador;
 
-    public Nivel(FabricaDemonios fabrica, int numNivel, Angel angel, Notificable notificador) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
         super(0, 0, 800, 600);
         
-        this.fabrica = fabrica;
+        this.fabrica = new FabricaDemonios();
         
         this.numNivel = numNivel;
         
         this.angel = angel;
         angel.setBordes(this);
+        this.cofres = cofres;
+        this.almas = almas;
+        this.trampas = trampas;
+        this.paredes = paredes;
         
         demonios = new ArrayList<>();
-        this.fabrica = fabrica;
         
         this.notificador = notificador;
         
