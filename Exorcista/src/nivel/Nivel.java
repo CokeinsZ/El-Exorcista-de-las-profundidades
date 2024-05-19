@@ -65,7 +65,7 @@ public class Nivel extends Dibujo
             }
             */
             
-           agregarCantidadDemonios(Demonio.TIPO_HIELO,numDemonios);
+           agregarcantidadDemonios(Demonio.TIPO_HIELO,numDemonios);
         
         } else if (numNivel == 2) {
             int numDemoniosHielo = 5;
@@ -83,15 +83,15 @@ public class Nivel extends Dibujo
             
             */
             
-            agregarCantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
-            agregarCantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelvatico);
+            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
+            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelvatico);
 
         
         } else if (numNivel == 3) {
-            int numDemoniosHielo = 5;
-            int numDemoniosSelavatico = 5;
-            int numDemoniosFuego = 5;
-            int numDemoniosElectrico = 5;
+            int numDemoniosHielo = 1;
+            int numDemoniosSelavatico = 1;
+            int numDemoniosFuego = 1;
+            int numDemoniosElectrico = 1;
             
             
             /*
@@ -113,10 +113,10 @@ public class Nivel extends Dibujo
 
             */
             
-            agregarCantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
-            agregarCantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
-            agregarCantidadDemonios(Demonio.TIPO_FUEGO, numDemoniosFuego);
-            agregarCantidadDemonios(Demonio.TIPO_ELECTRICO,numDemoniosElectrico);
+            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
+            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
+            agregarcantidadDemonios(Demonio.TIPO_FUEGO, numDemoniosFuego);
+            agregarcantidadDemonios(Demonio.TIPO_ELECTRICO,numDemoniosElectrico);
         
         } else if (numNivel > 3) {
             Random r = new Random();
@@ -143,10 +143,16 @@ public class Nivel extends Dibujo
             for (int i = 0; i < numDemoniosElectrico; i++) {
                 agregarDemonio(Demonio.TIPO_ELECTRICO);
             }
-
-                
-
             */
+            
+            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
+            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
+            agregarcantidadDemonios(Demonio.TIPO_FUEGO, numDemoniosFuego);
+            agregarcantidadDemonios(Demonio.TIPO_ELECTRICO,numDemoniosElectrico);
+            
+            
+            
+            
         }
     }
     
@@ -154,7 +160,8 @@ public class Nivel extends Dibujo
         demonios.add(fabrica.crearDemonio(tipo, this, angel, notificador));
     }
     
-    public void agregarCantidadDemonios(int tipodemonio,int cantidadDemonios) throws IOException{
+    
+    public void agregarcantidadDemonios(int tipodemonio,int cantidadDemonios) throws IOException{
         
         for (int i = 0; i < cantidadDemonios; i++) {
             
@@ -163,8 +170,10 @@ public class Nivel extends Dibujo
             
         }
         
-  
+        
+   
     }
+    
     
     //esto verifica que no se colisionen entre si  
     public boolean validarColisionDemonioconDemonio(Demonio Demonio){
@@ -184,6 +193,7 @@ public class Nivel extends Dibujo
     }
     
     // aqui creo un demonio en una posicion valida
+    
     public void verificarDemonio (int tipoDemonio) throws IOException{
         
       
@@ -210,6 +220,9 @@ public class Nivel extends Dibujo
           
     }
     
+ 
+    
+    
     public void agregarDemonio(Demonio demonio) {
         demonios.add(demonio);
         
@@ -228,3 +241,4 @@ public class Nivel extends Dibujo
         }
     }
 }
+
