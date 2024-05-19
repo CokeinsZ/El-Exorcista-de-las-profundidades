@@ -6,7 +6,7 @@ package nivel.elementos.pared;
 
 import nivel.elementos.pared.Pared;
 import java.awt.Graphics2D;
-import java.io.IOException;
+import java.awt.Image;
 
 /**
  *
@@ -14,10 +14,9 @@ import java.io.IOException;
  */
 public class ParedEstructural extends Pared {
 
-    public ParedEstructural(int x, int y) throws IOException {
-        super(x, y);
+    public ParedEstructural(int x, int y, Image imagen) {
+        super(x, y, imagen);
         
-        cargarImagen("imagenes\\paredes\\ParedEstructural2.png");
     }
 
     @Override

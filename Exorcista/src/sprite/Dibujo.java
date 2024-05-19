@@ -19,13 +19,10 @@ public abstract class Dibujo extends Rectangle {
         
     protected Image imagen;
 
-    public Dibujo(int x, int y, int ancho, int alto) {
+    public Dibujo(int x, int y, int ancho, int alto, Image imagen) {
         super(x, y, ancho, alto);      
         
-    }
-    
-    protected final void cargarImagen(String ruta) throws IOException {
-        this.imagen = ImageIO.read(new File(ruta));
+        this.imagen = imagen;
     }
     
     public abstract void dibujar(Graphics2D g);

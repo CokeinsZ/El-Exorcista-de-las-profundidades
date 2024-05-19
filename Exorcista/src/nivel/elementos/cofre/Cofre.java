@@ -6,6 +6,7 @@ package nivel.elementos.cofre;
 
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.Random;
 import nivel.elementos.cofre.potenciadores.PotenciadorAtaque;
@@ -22,11 +23,10 @@ public class Cofre extends Dibujo {
     
     private Potenciador potenciador;
     
-    public Cofre(int x, int y) throws IOException {
-        super(x, y, ANCHO, ALTO);
+    public Cofre(int x, int y, Image imagen, Image imagenPotenciadorVida, Image imagenPotenciadorAtaque) {
+        super(x, y, ANCHO, ALTO, imagen);
         
-        cargarImagen("imagenes\\cofres\\cofre2.png");
-        crearPotenciador();
+        crearPotenciador(imagenPotenciadorVida, imagenPotenciadorAtaque);
     }
 
     @Override
@@ -34,19 +34,19 @@ public class Cofre extends Dibujo {
         g.drawImage(imagen, x, y, null);
     }
     
-    public void crearPotenciador() {
+    public final void crearPotenciador(Image imagenPotenciadorVida, Image imagenPotenciadorAtaque) {
         int tipo;
         {
             Random r = new Random();
             
-            tipo = r.nextInt(2);
+            tipo = r.nextInt(1, 3);
         }
         
         if (tipo == Potenciador.TIPO_VIDA) {
-            potenciador = new PotenciadorVida(x, y);
+            potenciador = new PotenciadorVida(x, y, imagenPotenciadorVida);
             
         } else if (tipo == Potenciador.TIPO_ATAQUE) {
-            potenciador = new PotenciadorAtaque(x, y);
+            potenciador = new PotenciadorAtaque(x, y, imagenPotenciadorAtaque);
         }
     }
     

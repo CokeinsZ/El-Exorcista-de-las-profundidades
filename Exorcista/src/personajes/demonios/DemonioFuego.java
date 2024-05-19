@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
@@ -25,21 +26,15 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador);
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
         
-        cargarImagenes();
+        this.imagenFuego = imagenFuego;
     }
 
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y, width, height, null);
-    }
-
-    private void cargarImagenes() throws IOException {
-        imagen = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
-        
-        imagenFuego = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\fire2.png"));
     }
 
     @Override
@@ -61,5 +56,6 @@ public class DemonioFuego extends Demonio{
     public void recibirImapcto(int daño) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
 }

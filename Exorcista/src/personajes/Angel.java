@@ -4,9 +4,11 @@
  */
 package personajes;
 
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import sprite.Dibujo;
@@ -29,16 +31,14 @@ public class Angel extends Dibujo {
     
     private Delimitable bordes;
                 
-    public Angel(int x, int y, Delimitable bordes) throws IOException {
-        super(x, y, ANCHO, ALTO);
+    public Angel(int x, int y, Delimitable bordes, Image[] imagenes) {
+        super(x, y, ANCHO, ALTO, imagenes[ConstantesComunes.IMAGEN_ANGEL]);
         
         this.vida = 100;
         this.energia = 100;
         this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
         this.almasLiberadas = 0;
-                        
-        cargarImagen("imagenes\\personajes\\angel\\angel2.png");
-        
+                                
         this.bordes = bordes;
     }
         

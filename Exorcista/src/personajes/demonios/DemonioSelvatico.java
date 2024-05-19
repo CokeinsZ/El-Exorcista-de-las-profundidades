@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
@@ -23,21 +24,15 @@ public class DemonioSelvatico extends Demonio{
     
     private Image imagenRoca;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador);
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
         
-        cargarImagenes();
+        this.imagenRoca = imagenRoca;
     }
 
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y, width, height, null);
-    }
-    
-    private void cargarImagenes() throws IOException {
-        imagen = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioSelvatico2.png"));
-        
-        imagenRoca = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\roca2.png"));
     }
 
     @Override
@@ -59,5 +54,5 @@ public class DemonioSelvatico extends Demonio{
     public void recibirImapcto(int daño) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

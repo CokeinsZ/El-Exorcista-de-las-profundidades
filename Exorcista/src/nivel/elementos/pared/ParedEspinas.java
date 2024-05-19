@@ -6,17 +6,17 @@ package nivel.elementos.pared;
 
 import nivel.elementos.pared.Pared;
 import java.awt.Graphics2D;
-import java.io.IOException;
+import java.awt.Image;
 
 /**
  *
  * @author Alejandro
  */
 public class ParedEspinas extends Pared {
-    public ParedEspinas(int x, int y) throws IOException {
-        super(x, y);
+    
+    public ParedEspinas(int x, int y, Image imagen) {
+        super(x, y, imagen);
         
-        cargarImagen("imagenes\\paredes\\ParedEspinas2.png");
     }
 
     @Override
