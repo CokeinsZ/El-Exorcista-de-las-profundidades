@@ -4,9 +4,11 @@
  */
 package personajes.demonios;
 
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import personajes.Angel;
 
@@ -20,12 +22,11 @@ public class DemonioElectrico extends Demonio {
     
     private Thread hiloSeguirAngel;
     
-    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador);
+    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
         
         velocidad = 20;
         
-        cargarImagen("imagenes\\personajes\\demonios\\demonioInferior\\DemonioElectrico2.png");
         setHiloSeguirAngel();
     }
     

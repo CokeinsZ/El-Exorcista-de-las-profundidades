@@ -5,6 +5,7 @@
 package nivel.elementos.pared;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import sprite.Dibujo;
 
@@ -16,10 +17,9 @@ public class Puerta extends Dibujo {
     public static final int ANCHO = 100;
     public static final int ALTO = 100;
 
-    public Puerta(int x, int y) throws IOException {
-        super(x, y, ANCHO, ALTO);
+    public Puerta(int x, int y, Image imagen) {
+        super(x, y, ANCHO, ALTO, imagen);
         
-        cargarImagen("imagenes\\paredes\\Puertas\\puerta2.png");
     }
 
     @Override

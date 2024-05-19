@@ -5,6 +5,7 @@
 package nivel.elementos.cofre.potenciadores;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 
 /**
  *
@@ -12,8 +13,8 @@ import java.awt.Graphics2D;
  */
 public class PotenciadorAtaque extends Potenciador {
 
-    public PotenciadorAtaque(int x, int y) {
-        super(x, y);
+    public PotenciadorAtaque(int x, int y, Image imagen) {
+        super(x, y, imagen);
     }
 
     @Override

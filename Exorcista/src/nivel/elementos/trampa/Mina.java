@@ -5,6 +5,7 @@
 package nivel.elementos.trampa;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 
 /**
@@ -13,10 +14,9 @@ import java.io.IOException;
  */
 public class Mina extends Trampa{
 
-    public Mina(int x, int y) throws IOException {
-        super(x, y);
+    public Mina(int x, int y, Image imagen) throws IOException {
+        super(x, y, imagen);
         
-        cargarImagen("imagenes\\trampas\\mina2.png");
     }
 
     @Override

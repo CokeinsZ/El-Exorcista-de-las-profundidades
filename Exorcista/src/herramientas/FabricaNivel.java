@@ -4,8 +4,10 @@
  */
 package herramientas;
 
+import interfaces.ConstantesComunes;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,10 +29,14 @@ import personajes.Angel;
 public class FabricaNivel {
     private LectorArchivos lector;
     private Random random;
+    
+    private Image[] imagenes;
 
-    public FabricaNivel() {
+    public FabricaNivel(Image[] imagenes) {
         lector = new LectorArchivos();
         random = new Random();
+        
+        this.imagenes = imagenes;
     }
     
     public Nivel crearNivel(int numNivel, Angel angel, Notificable notificador) throws IOException {
@@ -77,7 +83,7 @@ public class FabricaNivel {
             x = 0;
         }
         
-        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta);
+        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, imagenes);
    
     }
 
@@ -86,21 +92,21 @@ public class FabricaNivel {
         
         switch (tipoPared) {
             case Pared.TIPO_ESTRUCTURAL:
-                return new ParedEstructural(x, y);
+                return new ParedEstructural(x, y, imagenes[ConstantesComunes.IMAGEN_PARED_ESTRUCTURAL]);
 
             case Pared.TIPO_ESPINAS:
-                return new ParedEspinas(x, y);
+                return new ParedEspinas(x, y, imagenes[ConstantesComunes.IMAGEN_PARED_ESPINA]);
         }
         
         return null;
     }
 
     private Alma crearAlma(int x, int y) throws IOException {
-        return new Alma(x, y);
+        return new Alma(x, y, imagenes[ConstantesComunes.IMAGEN_ALMA]);
     }
 
     private Cofre crearCofre(int x, int y) throws IOException {
-        return new Cofre(x, y);                
+        return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], null, null);                
     }
 
     private Trampa crearTrampa(int x, int y) throws IOException {
@@ -111,14 +117,14 @@ public class FabricaNivel {
         
         switch (tipo) {
             case Trampa.TIPO_MINA:
-                return new Mina(x, y);
+                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_MINA]);
         }
         
         return null;
     }
 
-    private Puerta crearPuerta(int x, int y) {
-        return new Puerta(x, y);
+    private Puerta crearPuerta(int x, int y) throws IOException {
+        return new Puerta(x, y, imagenes[ConstantesComunes.IMAGEN_PUERTA]);
     }
     
     

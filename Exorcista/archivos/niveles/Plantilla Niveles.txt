@@ -3,11 +3,11 @@
 #  $        P
 #   *       #
 #       $   #
-#!!!        #
+#!!!       #
 #############
 
 
 #: Pared	P: Puerta
-$: Cofre
+$: Cofre        
 *: trampa
 !: Almas

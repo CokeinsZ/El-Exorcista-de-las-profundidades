@@ -10,6 +10,7 @@ import interfaces.Notificable;
 import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,12 +45,15 @@ public class Nivel extends Dibujo
     private ArrayList<Demonio> demonios;
     
     private Notificable notificador;
+    
+    private Image[] imagenes;
 
-    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
-        super(0, 0, 1280, 720);
+        super(0, 0, 1280, 720, null);
         
-        this.fabrica = new FabricaDemonios();
+        this.imagenes = imagenes;
+        this.fabrica = new FabricaDemonios(imagenes);
         
         this.numNivel = numNivel;
         
@@ -143,9 +147,7 @@ public class Nivel extends Dibujo
 
 
     @Override
-    public void dibujar(Graphics2D g) {        
-        angel.dibujar(g);
-        
+    public void dibujar(Graphics2D g) {               
         for (Pared pared: paredes) {
             pared.dibujar(g);
         }
@@ -167,5 +169,7 @@ public class Nivel extends Dibujo
         for (Demonio demonio: demonios) {
             demonio.dibujar(g);
         }
+        
+        angel.dibujar(g);
     }
 }

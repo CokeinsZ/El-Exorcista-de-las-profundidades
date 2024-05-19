@@ -4,6 +4,7 @@
  */
 package nivel.elementos.cofre.potenciadores;
 
+import java.awt.Image;
 import sprite.Dibujo;
 
 /**
@@ -17,8 +18,8 @@ public abstract class Potenciador extends Dibujo {
     public static final int ANCHO = 50;
     public static final int ALTO = 50;
 
-    public Potenciador(int x, int y) {
-        super(x, y, ANCHO, ALTO);
+    public Potenciador(int x, int y, Image imagen) {
+        super(x, y, ANCHO, ALTO, imagen);
     }
     
     
