@@ -19,31 +19,31 @@ public abstract class Dibujo extends Rectangle {
         
     protected Image imagen;
 
-    public Dibujo(int posX, int posY, int ancho, int alto) {
-        super(posX, posY, ancho, alto);
+    public Dibujo(int x, int y, int ancho, int alto) {
+        super(x, y, ancho, alto);      
         
     }
     
-    protected void cargarImagen(String ruta) throws IOException {
-        imagen = ImageIO.read(new File(ruta));
+    protected final void cargarImagen(String ruta) throws IOException {
+        this.imagen = ImageIO.read(new File(ruta));
     }
     
     public abstract void dibujar(Graphics2D g);
 
-    public int getPosX() {
-        return (int) super.getX();
+    public double getX() {
+        return x;
     }
 
-    public void setPosX(int posX) {
-        x = posX;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getPosY() {
-        return (int) super.getY();
+    public double getY() {
+        return y;
     }
 
-    public void setPosY(int posY) {
-        y = posY;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getAncho() {

@@ -5,38 +5,50 @@
 package gui.ventanaPrincipal;
 
 import control.Mazmorra;
+import interfaces.Refrescable;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Alejandro
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame 
+                              implements Refrescable {
 
-    private Mazmorra juego;
-
-    public void setJuego(Mazmorra juego) {
-        this.juego = juego;
-    }
+    private Mazmorra mazmorra;
     
+    private BufferedImage buffer;
+
+    public void setMazmorra(Mazmorra mazmorra) {
+        this.mazmorra = mazmorra;
+    }
     
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(int ancho, int alto) {
         initComponents();
-        setSize(1080, 720);
-        setLocationRelativeTo(null);
-        setResizable(false);
-
+        setSize(ancho, alto);
+        
+        buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
     }
 
     @Override
     public void paint(Graphics g){         
         Graphics2D contextoGrafico = (Graphics2D) g;
                 
-        juego.dibujar(contextoGrafico);
+        Graphics2D graficosBuffer = buffer.createGraphics();
+        graficosBuffer.clearRect(0, 0, getWidth(), getHeight());
+        
+        mazmorra.dibujar(graficosBuffer);
+        
+        contextoGrafico.drawImage(buffer, 0, 0, null);
                        
     }
     
@@ -72,15 +84,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        juego.manejarTecla(evt);
-        repaint();
+        mazmorra.manejarTecla(evt.getKeyCode());
 
     }//GEN-LAST:event_formKeyPressed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        juego.manejarClick(evt);
+        mazmorra.manejarClick(evt);
         
     }//GEN-LAST:event_formMousePressed
+
+    @Override
+    public void refrescar() {
+        repaint();
+    }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

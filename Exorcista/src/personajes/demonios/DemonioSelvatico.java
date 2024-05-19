@@ -4,11 +4,14 @@
  */
 package personajes.demonios;
 
+import interfaces.Delimitable;
+import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import personajes.Angel;
 
 /**
  *
@@ -20,8 +23,8 @@ public class DemonioSelvatico extends Demonio{
     
     private Image imagenRoca;
     
-    public DemonioSelvatico(int posX, int posY) throws IOException {
-        super(posX, posY, ANCHO, ALTO);
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador);
         
         cargarImagenes();
     }
@@ -32,9 +35,29 @@ public class DemonioSelvatico extends Demonio{
     }
     
     private void cargarImagenes() throws IOException {
-        imagen = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
+        imagen = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioSelvatico2.png"));
         
-        imagenRoca = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\fire2.png"));
+        imagenRoca = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\roca2.png"));
+    }
+
+    @Override
+    public void seguirAngel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean atacar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mover() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void recibirImapcto(int daño) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

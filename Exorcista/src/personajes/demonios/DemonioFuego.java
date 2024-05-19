@@ -4,11 +4,16 @@
  */
 package personajes.demonios;
 
+import interfaces.Delimitable;
+import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import personajes.Angel;
+import static personajes.demonios.DemonioElectrico.ALTO;
+import static personajes.demonios.DemonioElectrico.ANCHO;
 
 /**
  *
@@ -20,8 +25,8 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY) throws IOException {
-        super(posX, posY, ANCHO, ALTO);
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador);
         
         cargarImagenes();
     }
@@ -35,6 +40,26 @@ public class DemonioFuego extends Demonio{
         imagen = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
         
         imagenFuego = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\fire2.png"));
+    }
+
+    @Override
+    public void seguirAngel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean atacar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mover() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void recibirImapcto(int daño) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
