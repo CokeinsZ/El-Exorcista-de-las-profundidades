@@ -88,10 +88,10 @@ public class Nivel extends Dibujo
 
         
         } else if (numNivel == 3) {
-            int numDemoniosHielo = 1;
-            int numDemoniosSelavatico = 1;
-            int numDemoniosFuego = 1;
-            int numDemoniosElectrico = 1;
+            int numDemoniosHielo = 10;
+            int numDemoniosSelavatico = 7;
+            int numDemoniosFuego = 6;
+            int numDemoniosElectrico = 10;
             
             
             /*
@@ -126,6 +126,8 @@ public class Nivel extends Dibujo
             int numDemoniosFuego = r.nextInt(15);
             int numDemoniosElectrico = r.nextInt(15);
             
+            /*
+            
             for (int i = 0; i < numDemoniosHielo; i++) {
                 agregarDemonio(Demonio.TIPO_HIELO);
             }
@@ -141,6 +143,10 @@ public class Nivel extends Dibujo
             for (int i = 0; i < numDemoniosElectrico; i++) {
                 agregarDemonio(Demonio.TIPO_ELECTRICO);
             }
+
+                
+
+            */
         }
     }
     
