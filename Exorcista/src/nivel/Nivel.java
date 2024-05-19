@@ -59,14 +59,20 @@ public class Nivel extends Dibujo
         if (numNivel == 1) {
             int numDemonios = 10;
             
+            /*
             for (int i = 0; i < numDemonios; i++) {
                 agregarDemonio(Demonio.TIPO_HIELO);
             }
+            */
+            
+           agregarcantidadDemonios(Demonio.TIPO_HIELO,numDemonios);
         
         } else if (numNivel == 2) {
             int numDemoniosHielo = 5;
             int numDemoniosSelvatico = 10;
             
+            
+            /*
             for (int i = 0; i < numDemoniosHielo; i++) {
                 agregarDemonio(Demonio.TIPO_HIELO);
             }
@@ -74,13 +80,21 @@ public class Nivel extends Dibujo
             for (int i = 0; i < numDemoniosSelvatico; i++) {
                 agregarDemonio(Demonio.TIPO_SELVATICO);
             }
+            
+            */
+            
+            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
+            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelvatico);
+
         
         } else if (numNivel == 3) {
-            int numDemoniosHielo = 10;
-            int numDemoniosSelavatico = 5;
-            int numDemoniosFuego = 5;
-            int numDemoniosElectrico = 5;
+            int numDemoniosHielo = 1;
+            int numDemoniosSelavatico = 1;
+            int numDemoniosFuego = 1;
+            int numDemoniosElectrico = 1;
             
+            
+            /*
             for (int i = 0; i < numDemoniosHielo; i++) {
                 agregarDemonio(Demonio.TIPO_HIELO);
             }
@@ -96,6 +110,13 @@ public class Nivel extends Dibujo
             for (int i = 0; i < numDemoniosElectrico; i++) {
                 agregarDemonio(Demonio.TIPO_ELECTRICO);
             }
+
+            */
+            
+            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
+            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
+            agregarcantidadDemonios(Demonio.TIPO_FUEGO, numDemoniosFuego);
+            agregarcantidadDemonios(Demonio.TIPO_ELECTRICO,numDemoniosElectrico);
         
         } else if (numNivel > 3) {
             Random r = new Random();
@@ -126,6 +147,74 @@ public class Nivel extends Dibujo
     public void agregarDemonio(int tipo) throws IOException {
         demonios.add(fabrica.crearDemonio(tipo, this, angel, notificador));
     }
+    
+    
+    public void agregarcantidadDemonios(int tipodemonio,int cantidadDemonios) throws IOException{
+        
+        for (int i = 0; i < cantidadDemonios; i++) {
+            
+            verificarDemonio(tipodemonio);
+            
+            
+        }
+        
+        
+   
+    }
+    
+    
+    //esto verifica que no se colisionen entre si  
+    public boolean validarColisionDemonioconDemonio(Demonio Demonio){
+                   
+        
+            for (Demonio otrodemonio : demonios) {          
+                // Verificar la colisión entre las dos pulgas usando el método de colisión de cuadrados
+                if (Demonio.intersects(otrodemonio) || Demonio.intersects(angel)) {
+                    // Hay colisión entre las pulgas, retorna falso
+                    return false;
+                }
+            }
+            // No hay colisión con ninguna de las pulgas existentes, retorna verdadero
+            return true;
+        
+        
+    }
+    
+    // aqui creo un demonio en una posicion valida
+    
+    public void verificarDemonio (int tipoDemonio) throws IOException{
+        
+      
+        Demonio demonionuevo = null;
+        boolean control = false;
+        int iterador = 0;
+        
+       
+        while(control == false){
+            
+          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador);
+          
+          //se llama el metodo para verificar la colision de demonios con demonio y si esto 
+          //nos retorna falso lo que debemos de hacer es volver a verificar que no se esten colisionando
+          control = validarColisionDemonioconDemonio(demonionuevo); 
+                               
+          
+                   
+        }
+        
+        agregarDemonio(demonionuevo);
+
+       
+          
+    }
+    
+ 
+    
+    
+    public void agregarDemonio(Demonio demonio) {
+        demonios.add(demonio);
+        
+    } 
 
 
     @Override
