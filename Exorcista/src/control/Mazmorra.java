@@ -98,7 +98,7 @@ public class Mazmorra extends Dibujo
     
     public final void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(fabricaNivel.crearNivel(numNivel, angel, this));
+        niveles.add(fabricaNivel.crearNivel(3, angel, this));
         
     }
 

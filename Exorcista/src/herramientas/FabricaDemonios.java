@@ -26,7 +26,7 @@ public class FabricaDemonios {
     }
     
     
-    public Demonio crearDemonio(int tipo, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
+    public Demonio crearDemonio(int tipo, Delimitable bordes, Angel enemigo, Notificable notificador) {
         Random r = new Random();
         
         int x;
