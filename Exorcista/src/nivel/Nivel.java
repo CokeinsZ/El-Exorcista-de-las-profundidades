@@ -128,18 +128,28 @@ public class Nivel extends Dibujo
         Iterator<Pared> iteradorParedes = paredes.iterator();
         Iterator<Demonio> iteradorDemonios = demonios.iterator();
         Iterator<Trampa> iteradorTrampas = trampas.iterator();
+        Iterator<Alma> iteradorAlmas = almas.iterator();
+        Iterator<Cofre> iteradorCofres = cofres.iterator();
         
         boolean resultado = true;
-        while (iteradorDemonios.hasNext()) {
+        while (iteradorParedes.hasNext()) {
             //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
             
             if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
                 resultado = false;
             
-            if (iteradorParedes.hasNext() && demonio.intersects(iteradorParedes.next()))
+            if (demonio.intersects(iteradorParedes.next()))
                 resultado = false;
             
-            if (demonio.intersects(iteradorDemonios.next())) {
+            if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
+                resultado = false;
+            }
+            
+            if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
+                resultado = false;
+            }
+            
+            if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
                 resultado = false;
             }
         }
