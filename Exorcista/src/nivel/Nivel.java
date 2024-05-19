@@ -45,7 +45,7 @@ public class Nivel extends Dibujo
 
     public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
-        super(0, 0, 800, 600);
+        super(0, 0, 1280, 720);
         
         this.fabrica = new FabricaDemonios();
         
@@ -140,11 +140,24 @@ public class Nivel extends Dibujo
 
 
     @Override
-    public void dibujar(Graphics2D g) {
-        g.setColor(Color.red);
-        g.drawRect(x, y, width, height);
-        
+    public void dibujar(Graphics2D g) {        
         angel.dibujar(g);
+        
+        for (Pared pared: paredes) {
+            pared.dibujar(g);
+        }
+        
+        for (Cofre cofre: cofres) {
+            cofre.dibujar(g);
+        }
+        
+        for (Alma alma: almas) {
+            alma.dibujar(g);
+        }
+        
+        for (Trampa trampa: trampas) {
+            trampa.dibujar(g);
+        }
         
         for (Demonio demonio: demonios) {
             demonio.dibujar(g);

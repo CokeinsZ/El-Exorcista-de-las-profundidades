@@ -5,13 +5,17 @@
 package herramientas;
 
 import interfaces.Notificable;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import nivel.Nivel;
+import nivel.elementos.cofre.Cofre;
 import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.ParedEspinas;
 import nivel.elementos.pared.ParedEstructural;
+import nivel.elementos.trampa.Mina;
+import nivel.elementos.trampa.Trampa;
 import personajes.Alma;
 import personajes.Angel;
 
@@ -29,41 +33,54 @@ public class FabricaNivel {
     }
     
     public Nivel crearNivel(int numNivel, Angel angel, Notificable notificador) throws IOException {
-        lector.setBufferedReader("Plantilla Niveles.txt");
+        lector.setBufferedReader("archivos\\niveles\\Plantilla Niveles.txt");
+        ArrayList<Cofre> cofres = new ArrayList<>();
+        ArrayList<Alma> almas = new ArrayList<>();
+        ArrayList<Trampa> trampas = new ArrayList<>();
         ArrayList<Pared> paredes = new ArrayList<>();
-        ArrayList<Pared> cofres = new ArrayList<>();
-        ArrayList<Pared> almas = new ArrayList<>();
-        ArrayList<Pared> trampas = new ArrayList<>();
         
         String linea;
-        while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {            
-            int contadorLinea = 1;
-            for (int contadorCaracter = 1; contadorCaracter < linea.length(); contadorCaracter++) {
-                if (linea.charAt(contadorCaracter - 1) == '#') {
-                    paredes.add(crearPared(contadorCaracter * Pared.ANCHO, contadorLinea * Pared.ALTO));
-                
-                } else if (linea.charAt(contadorCaracter - 1) == '!') {
-                    paredes.add(crearAlma(contadorCaracter * Pared.ANCHO, contadorLinea * Pared.ALTO));
-                
-                } else if (linea.charAt(contadorCaracter - 1) == '#') {
-                    paredes.add(crearPared(contadorCaracter * Pared.ANCHO, contadorLinea * Pared.ALTO));
-                
-                } else if (linea.charAt(contadorCaracter - 1) == '#') {
-                    paredes.add(crearPared(contadorCaracter * Pared.ANCHO, contadorLinea * Pared.ALTO));
-                
-                } else if (linea.charAt(contadorCaracter - 1) == '#') {
-                    paredes.add(crearPared(contadorCaracter * Pared.ANCHO, contadorLinea * Pared.ALTO));
-                
+        int x = 0;
+        int y = 0;
+        while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {                        
+            for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
+                switch (linea.charAt(posCaracter)) {
+                    case '$':
+                        cofres.add(crearCofre(x, y));
+                        break;
+                    
+                    case '!':
+                        almas.add(crearAlma(x , y));
+                        break;
+                        
+                    case '*':
+                        trampas.add(crearTrampa(x, y));
+                        break;
+                    
+                    case '#':
+                        paredes.add(crearPared(x, y));
+                        break;         
+                        
+                    case 'P':
+                        paredes.add(crearPared(x, y));
+                        break;
+                        
+                    default:
+                        break;
                 }
+                x += Pared.ANCHO;
             }
+            
+            y += Pared.ALTO;
+            x = 0;
         }
         
-        return new Nivel(numNivel, angel, notificador, null, null, null, paredes);
+        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes);
    
     }
 
     private Pared crearPared(int x, int y) throws IOException {
-        int tipoPared = random.nextInt(2);
+        int tipoPared = random.nextInt(1,3);
         
         switch (tipoPared) {
             case Pared.TIPO_ESTRUCTURAL:
@@ -76,8 +93,26 @@ public class FabricaNivel {
         return null;
     }
 
-    private Pared crearAlma(int i, int i0) {
-        return new Alma(i0, i0, i0, i0)
+    private Alma crearAlma(int x, int y) throws IOException {
+        return new Alma(x, y);
+    }
+
+    private Cofre crearCofre(int x, int y) throws IOException {
+        return new Cofre(x, y);                
+    }
+
+    private Trampa crearTrampa(int x, int y) throws IOException {
+        int tipo = 1;
+        
+        //Random r = new Random();
+        //tipo = r.nextInt(1, 4);
+        
+        switch (tipo) {
+            case Trampa.TIPO_MINA:
+                return new Mina(x, y);
+        }
+        
+        return null;
     }
     
     

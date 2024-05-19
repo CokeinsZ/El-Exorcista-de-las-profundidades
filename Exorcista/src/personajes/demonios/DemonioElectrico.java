@@ -72,7 +72,7 @@ public class DemonioElectrico extends Demonio {
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.drawImage(this.imagen, this.x, this.y, width, height, null);
+        g.drawImage(this.imagen, this.x, this.y, null);
     }
 
 

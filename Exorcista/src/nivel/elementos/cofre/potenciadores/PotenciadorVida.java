@@ -2,23 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package personajes;
+package nivel.elementos.cofre.potenciadores;
 
 import java.awt.Graphics2D;
-import java.io.IOException;
-import sprite.Dibujo;
 
 /**
  *
  * @author Alejandro
  */
-public class Alma extends Dibujo {
-    public static final int ANCHO = 80;
-    public static final int ALTO = 80;
-    
-    public Alma(int posX, int posY) throws IOException {
-        super(posX, posY, ANCHO, ALTO);
-        cargarImagen("imagenes\\personajes\\almas\\alma2.png");
+public class PotenciadorVida extends Potenciador {
+
+    public PotenciadorVida(int x, int y) {
+        super(x, y);
     }
 
     @Override

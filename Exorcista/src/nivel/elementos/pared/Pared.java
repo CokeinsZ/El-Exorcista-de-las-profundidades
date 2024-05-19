@@ -16,8 +16,8 @@ public abstract class Pared extends Dibujo{
     public static final int TIPO_EFIMERA = 3;
     public static final int TIPO_ESPINAS = 2;
     
-    public static final int ANCHO = 20;
-    public static final int ALTO = 20;
+    public static final int ANCHO = 100;
+    public static final int ALTO = 100;
 
     public Pared(int x, int y) {
         super(x, y, ANCHO, ALTO);

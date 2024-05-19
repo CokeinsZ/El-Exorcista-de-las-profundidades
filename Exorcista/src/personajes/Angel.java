@@ -5,7 +5,7 @@
 package personajes;
 
 import interfaces.Delimitable;
-import potenciadores.Potenciador;
+import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.IOException;

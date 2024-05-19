@@ -5,6 +5,7 @@
 package control;
 
 import herramientas.FabricaDemonios;
+import herramientas.FabricaNivel;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Refrescable;
@@ -28,6 +29,8 @@ public class Mazmorra extends Dibujo
 
     private int puntajeTotal;
     private int numNivel;
+    
+    private FabricaNivel fabricaNivel;
 
     private Angel angel;
     private ArrayList<Nivel> niveles;
@@ -45,10 +48,12 @@ public class Mazmorra extends Dibujo
         this.color = Color.BLACK;
         
         setAngel();
+        
         niveles = new ArrayList<>();
+        fabricaNivel = new FabricaNivel();
  
         this.refrescador = refrescador;
-        agregarNivel();
+        agregarNivel();     //Crea el primer nivel
     }
     
     private void setAngel()  throws IOException {
@@ -84,9 +89,9 @@ public class Mazmorra extends Dibujo
 
     }
     
-    public void agregarNivel() throws IOException {
+    public final void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(new Nivel(new FabricaDemonios(), 3, angel, this));
+        niveles.add(fabricaNivel.crearNivel(numNivel, angel, this));
         
     }
 

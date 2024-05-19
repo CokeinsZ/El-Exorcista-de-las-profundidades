@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package nivel.elementos.trampa;
+package nivel.elementos.cofre.potenciadores;
 
 import sprite.Dibujo;
 
@@ -10,14 +10,16 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public abstract class Trampa extends Dibujo {
+public abstract class Potenciador extends Dibujo {
+    public static final int TIPO_VIDA = 1;
+    public static final int TIPO_ATAQUE = 2;
+    
     public static final int ANCHO = 50;
     public static final int ALTO = 50;
-    
-    public static final int TIPO_MINA = 1;
-    
-    public Trampa(int x, int y) {
+
+    public Potenciador(int x, int y) {
         super(x, y, ANCHO, ALTO);
     }
+    
     
 }
