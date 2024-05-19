@@ -14,6 +14,7 @@ import nivel.elementos.cofre.Cofre;
 import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.ParedEspinas;
 import nivel.elementos.pared.ParedEstructural;
+import nivel.elementos.pared.Puerta;
 import nivel.elementos.trampa.Mina;
 import nivel.elementos.trampa.Trampa;
 import personajes.Alma;
@@ -38,6 +39,7 @@ public class FabricaNivel {
         ArrayList<Alma> almas = new ArrayList<>();
         ArrayList<Trampa> trampas = new ArrayList<>();
         ArrayList<Pared> paredes = new ArrayList<>();
+        Puerta puerta = null;
         
         String linea;
         int x = 0;
@@ -62,7 +64,7 @@ public class FabricaNivel {
                         break;         
                         
                     case 'P':
-                        paredes.add(crearPared(x, y));
+                        puerta = crearPuerta(x, y);
                         break;
                         
                     default:
@@ -75,7 +77,7 @@ public class FabricaNivel {
             x = 0;
         }
         
-        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes);
+        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta);
    
     }
 
@@ -113,6 +115,10 @@ public class FabricaNivel {
         }
         
         return null;
+    }
+
+    private Puerta crearPuerta(int x, int y) {
+        return new Puerta(x, y);
     }
     
     

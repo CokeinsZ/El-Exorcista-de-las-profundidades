@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import nivel.elementos.cofre.Cofre;
 import nivel.elementos.pared.Pared;
+import nivel.elementos.pared.Puerta;
 import nivel.elementos.trampa.Trampa;
 import personajes.Alma;
 import personajes.Angel;
@@ -39,11 +40,12 @@ public class Nivel extends Dibujo
     private ArrayList<Alma> almas;
     private ArrayList<Trampa> trampas;    
     private ArrayList<Pared> paredes;
+    private Puerta puerta;
     private ArrayList<Demonio> demonios;
     
     private Notificable notificador;
 
-    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
         super(0, 0, 1280, 720);
         
@@ -57,6 +59,7 @@ public class Nivel extends Dibujo
         this.almas = almas;
         this.trampas = trampas;
         this.paredes = paredes;
+        this.puerta = puerta;
         
         demonios = new ArrayList<>();
         
@@ -146,6 +149,8 @@ public class Nivel extends Dibujo
         for (Pared pared: paredes) {
             pared.dibujar(g);
         }
+        
+        puerta.dibujar(g);
         
         for (Cofre cofre: cofres) {
             cofre.dibujar(g);
