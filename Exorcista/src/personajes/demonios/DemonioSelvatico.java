@@ -19,8 +19,8 @@ import personajes.Angel;
  * @author Alejandro
  */
 public class DemonioSelvatico extends Demonio{
-    public static final int ANCHO = 100;
-    public static final int ALTO = 100; 
+    public static final int ANCHO = 80;
+    public static final int ALTO = 80; 
     
     private Image imagenRoca;
     
@@ -32,7 +32,7 @@ public class DemonioSelvatico extends Demonio{
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.drawImage(this.imagen, this.x, this.y, width, height, null);
+        g.drawImage(this.imagen, this.x, this.y, null);
     }
 
     @Override

@@ -89,10 +89,10 @@ public class Nivel extends Dibujo
 
         
         } else if (numNivel == 3) {
-            int numDemoniosHielo = 5;
-            int numDemoniosSelavatico = 5;
-            int numDemoniosFuego = 5;
-            int numDemoniosElectrico = 5;
+            int numDemoniosHielo = 4;
+            int numDemoniosSelavatico = 4;
+            int numDemoniosFuego = 3;
+            int numDemoniosElectrico = 3;
             
             agregarDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
             agregarDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
@@ -123,6 +123,30 @@ public class Nivel extends Dibujo
         }  
     }
     
+    public void moverAngel(int codigo){
+
+        //posiciones anteriores al movimiento. es decir la posicion del angel antes de moverse 
+        int xAnterior = (int) angel.getX();
+        int yAnterior =  (int) angel.getY();
+        
+        //Tengo que guardar la posicion del angel en tal caso que tenga de deshacer un movimienot
+        boolean movimientoAngel = angel.mover(codigo); // Si se mueve me retorna true de lo contrario false 
+        if(movimientoAngel == true){  
+         // Verificar colisión con los demonios
+            for (int i = 0; i < demonios.size(); i++) {
+
+                if (angel.intersects(demonios.get(i))) {
+                    // Si hay colisión, revertir el movimiento
+                    angel.revertirMovimiento(xAnterior, yAnterior);
+ 
+                     break;
+                    
+                }
+            }
+           notificador.notificarCambios();
+        }
+    }
+    
     //esto verifica que no se colisionen entre si  
     public boolean validarColision(Demonio demonio){
         Iterator<Pared> iteradorParedes = paredes.iterator();
@@ -151,6 +175,12 @@ public class Nivel extends Dibujo
             
             if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
                 resultado = false;
+            }
+            
+            if(demonio.intersects(angel)){
+                
+                resultado = false;
+                
             }
         }
         

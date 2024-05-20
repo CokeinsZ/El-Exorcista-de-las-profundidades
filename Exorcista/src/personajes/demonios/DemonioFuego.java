@@ -21,8 +21,8 @@ import static personajes.demonios.DemonioElectrico.ANCHO;
  * @author Alejandro
  */
 public class DemonioFuego extends Demonio{
-    public static final int ANCHO = 130;
-    public static final int ALTO = 130; 
+    public static final int ANCHO = 80;
+    public static final int ALTO = 80; 
     
     private Image imagenFuego;
     
@@ -34,7 +34,7 @@ public class DemonioFuego extends Demonio{
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.drawImage(this.imagen, this.x, this.y, width, height, null);
+        g.drawImage(this.imagen, this.x, this.y,null);
     }
 
     @Override

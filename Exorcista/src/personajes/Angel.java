@@ -19,8 +19,8 @@ import sprite.Dibujo;
  */
 public class Angel extends Dibujo {
     
-    public final static int ANCHO = 100;
-    public final static int ALTO = 100;
+    public final static int ANCHO = 90;
+    public final static int ALTO = 90;
     
     public final int VELOCIDAD = 10;
     
@@ -74,6 +74,12 @@ public class Angel extends Dibujo {
                        
         return false;
     }
+    
+    public void revertirMovimiento(int xAnterior, int yAnterior) {
+            // Revertir la posición del ángel a las coordenadas anteriores
+            this.x = xAnterior;
+            this.y = yAnterior;
+  }
     
     public void setBordes(Delimitable bordes) {
         this.bordes = bordes;

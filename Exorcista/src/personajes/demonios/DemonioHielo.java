@@ -17,8 +17,8 @@ import personajes.Angel;
  * @author Alejandro
  */
 public class DemonioHielo extends Demonio{
-    public static final int ANCHO = 100;
-    public static final int ALTO = 100; 
+    public static final int ANCHO = 80;
+    public static final int ALTO = 80; 
     
     public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
@@ -27,7 +27,7 @@ public class DemonioHielo extends Demonio{
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.drawImage(this.imagen, this.x, this.y, width, height, null);
+        g.drawImage(this.imagen, this.x, this.y, null);
     }
 
     @Override
