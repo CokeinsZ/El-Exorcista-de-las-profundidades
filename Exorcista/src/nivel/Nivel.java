@@ -88,10 +88,10 @@ public class Nivel extends Dibujo
 
         
         } else if (numNivel == 3) {
-            int numDemoniosHielo = 4;
-            int numDemoniosSelavatico = 4;
-            int numDemoniosFuego = 3;
-            int numDemoniosElectrico = 3;
+            int numDemoniosHielo = 5;
+            int numDemoniosSelavatico = 5;
+            int numDemoniosFuego = 5;
+            int numDemoniosElectrico = 5;
             
             agregarDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
             agregarDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
@@ -122,6 +122,64 @@ public class Nivel extends Dibujo
         }  
     }
     
+    //esto verifica que no se colisionen entre si  
+    public boolean validarColision(Demonio demonio){
+        Iterator<Pared> iteradorParedes = paredes.iterator();
+        Iterator<Demonio> iteradorDemonios = demonios.iterator();
+        Iterator<Trampa> iteradorTrampas = trampas.iterator();
+        Iterator<Alma> iteradorAlmas = almas.iterator();
+        Iterator<Cofre> iteradorCofres = cofres.iterator();
+        
+        while (iteradorParedes.hasNext()) {
+            //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
+            
+            if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
+                return false;
+            
+            if (demonio.intersects(iteradorParedes.next()))
+                return false;
+            
+            if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
+                return false;
+            }
+            
+            if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
+                return false;
+            }
+            
+            if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
+                return false;
+            }
+            
+            if (demonio.intersects(angel))
+                return false;
+        }
+        
+        // Si no hay colisión con ninguna de los demonios existentes, retorna verdadero
+        return true;      
+    }
+    
+    // aqui creo un demonio en una posicion valida
+    public void verificarPosicionDemonio (int tipoDemonio) {
+        Demonio demonionuevo = null;
+        boolean noColisiona = false;
+        
+        while(noColisiona == false){
+          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador);
+          
+          //se llama el metodo para verificar la colision de demonios con demonio y si esto 
+          //nos retorna falso lo que debemos de hacer es volver a verificar que no se esten colisionando
+          noColisiona = validarColision(demonionuevo); 
+                   
+        }
+        
+        agregarDemonio(demonionuevo);         
+    }
+    
+    public void agregarDemonio(Demonio demonio) {
+        demonios.add(demonio);
+    } 
+
     public void moverAngel(int codigo){
 
         //posiciones anteriores al movimiento. es decir la posicion del angel antes de moverse 
@@ -146,69 +204,6 @@ public class Nivel extends Dibujo
         }
     }
     
-    //esto verifica que no se colisionen entre si  
-    public boolean validarColision(Demonio demonio){
-        Iterator<Pared> iteradorParedes = paredes.iterator();
-        Iterator<Demonio> iteradorDemonios = demonios.iterator();
-        Iterator<Trampa> iteradorTrampas = trampas.iterator();
-        Iterator<Alma> iteradorAlmas = almas.iterator();
-        Iterator<Cofre> iteradorCofres = cofres.iterator();
-        
-        boolean resultado = true;
-        while (iteradorParedes.hasNext()) {
-            //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
-            
-            if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
-                resultado = false;
-            
-            if (demonio.intersects(iteradorParedes.next()))
-                resultado = false;
-            
-            if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
-                resultado = false;
-            }
-            
-            if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
-                resultado = false;
-            }
-            
-            if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
-                resultado = false;
-            }
-            
-            if(demonio.intersects(angel)){
-                
-                resultado = false;
-                
-            }
-        }
-        
-        // Si no hay colisión con ninguna de los demonios existentes, retorna verdadero
-        return resultado;      
-    }
-    
-    // aqui creo un demonio en una posicion valida
-    public void verificarPosicionDemonio (int tipoDemonio) {
-        Demonio demonionuevo = null;
-        boolean noColisiona = false;
-        
-        while(noColisiona == false){
-          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador);
-          
-          //se llama el metodo para verificar la colision de demonios con demonio y si esto 
-          //nos retorna falso lo que debemos de hacer es volver a verificar que no se esten colisionando
-          noColisiona = validarColision(demonionuevo); 
-                   
-        }
-        
-        agregarDemonio(demonionuevo);         
-    }
-    
-    public void agregarDemonio(Demonio demonio) {
-        demonios.add(demonio);
-    } 
-
-
     @Override
     public void dibujar(Graphics2D g) {               
         for (Pared pared: paredes) {
