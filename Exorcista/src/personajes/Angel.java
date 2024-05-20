@@ -6,11 +6,14 @@ package personajes;
 
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
+import interfaces.Notificable;
+import java.awt.Graphics;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 
 /**
@@ -30,8 +33,9 @@ public class Angel extends Dibujo {
     private int almasLiberadas;
     
     private Delimitable bordes;
+    private Notificable notificador;
                 
-    public Angel(int x, int y, Delimitable bordes, Image[] imagenes) {
+    public Angel(int x, int y, Delimitable bordes, Image[] imagenes, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenes[ConstantesComunes.IMAGEN_ANGEL]);
         
         this.vida = 100;
@@ -40,6 +44,7 @@ public class Angel extends Dibujo {
         this.almasLiberadas = 0;
                                 
         this.bordes = bordes;
+        this.notificador = notificador;
     }
         
     @Override
@@ -85,8 +90,9 @@ public class Angel extends Dibujo {
         this.bordes = bordes;
     }
     
-    public void lanzarRayos(Graphics2D contextoGrafico) {
-        //TO-DO
+    public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
+        Rayo rayo = new Rayo(x, y, null, notificador);
+        rayo.seguirPunto(x, y);
     }
         
 }

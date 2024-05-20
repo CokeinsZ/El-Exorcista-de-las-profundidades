@@ -89,7 +89,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_formKeyPressed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        mazmorra.manejarClick(evt);
+        mazmorra.manejarClick(evt, getGraphics());
         
         
     }//GEN-LAST:event_formMousePressed

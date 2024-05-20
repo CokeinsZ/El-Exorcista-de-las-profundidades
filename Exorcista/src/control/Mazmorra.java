@@ -9,6 +9,7 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -68,7 +69,7 @@ public class Mazmorra extends Dibujo
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;
         
-        this.angel = new Angel(xCentro, yCentro, this, imagenes);
+        this.angel = new Angel(xCentro, yCentro, this, imagenes, this);
     }
 
     public void manejarTecla(int codigo) {
@@ -81,8 +82,8 @@ public class Mazmorra extends Dibujo
         }
     }
 
-    public void manejarClick(MouseEvent evt) {
-        //TO-DO
+    public void manejarClick(MouseEvent evt, Graphics g) {
+        angel.lanzarRayos(g, evt.getX(), evt.getY());
         
     }
 
