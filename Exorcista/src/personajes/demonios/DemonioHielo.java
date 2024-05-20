@@ -10,6 +10,7 @@ import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
+import java.util.Random;
 import personajes.Angel;
 
 /**
@@ -19,6 +20,8 @@ import personajes.Angel;
 public class DemonioHielo extends Demonio{
     public static final int ANCHO = 80;
     public static final int ALTO = 80; 
+    
+    private final int VELOCIDAD = 30;
     
     public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
@@ -32,7 +35,6 @@ public class DemonioHielo extends Demonio{
 
     @Override
     public void seguirAngel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -42,7 +44,40 @@ public class DemonioHielo extends Demonio{
 
     @Override
     public void mover() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Random random = new Random();
+        int direccion = random.nextInt(1, 5);
+        
+        switch (direccion) {
+            case 1:
+                if (y > bordes.getYMin(x)) {
+                    y -= VELOCIDAD;
+                }
+                break;
+
+            case 2:
+                if (y < bordes.getYMax(x)) {
+                    y += VELOCIDAD;
+                }
+                break;
+
+            case 3:
+                if (x < bordes.getXMax(y)) {
+                    x += VELOCIDAD;
+                }
+                break;
+
+            case 4:
+                if (x > bordes.getXMin(y)) {
+                    x -= VELOCIDAD;
+                }
+                break;
+
+            default:
+                break;
+        }
+        
+        notificador.notificarCambios();
+
     }
 
     @Override

@@ -8,8 +8,8 @@ import interfaces.Notificable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import static personajes.demonios.DemonioElectrico.ALTO;
-import static personajes.demonios.DemonioElectrico.ANCHO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sprite.Dibujo;
 
 /**
@@ -21,7 +21,7 @@ public class Rayo extends Dibujo {
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
     
-    private int velocidad = 50;
+    private int velocidad = 1;
     private Notificable notificador;
     
     private Thread hiloMovimiento;
@@ -34,13 +34,24 @@ public class Rayo extends Dibujo {
         this.notificador = notificador;
         
     }
+
+    public boolean isSeLlego() {
+        return seLlego;
+    }
     
     public void moverRayo(int x, int y) {
         hiloMovimiento = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (!seLlego) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     seguirPunto(x, y);
+                    
                 }
             }
         });        
@@ -54,7 +65,7 @@ public class Rayo extends Dibujo {
    
         if (this.x < x) { 
             this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > x && this.x > 0) {
+        } else if (this.x > x) {
             this.x -= velocidad; // Mover hacia la izquierda
         }
 
@@ -64,17 +75,15 @@ public class Rayo extends Dibujo {
             this.y -= velocidad; // Mover hacia arriba
         }
         
-        seLlego = true;
+        if (this.x == x && this.y == y)
+            seLlego = true;
      
         notificador.notificarCambios();
     }
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.setColor(Color.WHITE);
-        g.drawOval(x, y, width, height);
-        
-        //g.drawImage(imagen, x, y, null);
+        g.drawImage(imagen, x, y, null);
     }
     
 }

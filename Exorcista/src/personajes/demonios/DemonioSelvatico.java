@@ -37,7 +37,6 @@ public class DemonioSelvatico extends Demonio{
 
     @Override
     public void seguirAngel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -46,8 +45,7 @@ public class DemonioSelvatico extends Demonio{
     }
 
     @Override
-    public void mover() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mover() {   
     }
 
     @Override

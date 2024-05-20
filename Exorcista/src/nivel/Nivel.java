@@ -4,6 +4,7 @@
  */
 package nivel;
 
+import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -47,6 +48,8 @@ public class Nivel extends Dibujo
     private Notificable notificador;
     
     private Image[] imagenes;
+    
+    private HiloMovimientoDemonios hiloDemonios;
 
     public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
@@ -70,6 +73,9 @@ public class Nivel extends Dibujo
         this.notificador = notificador;
         
         crearDemonios();
+        
+        hiloDemonios = new HiloMovimientoDemonios(demonios);
+        hiloDemonios.start();
         
     }
     

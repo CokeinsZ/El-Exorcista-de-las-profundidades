@@ -5,6 +5,7 @@
 package control;
 
 import herramientas.FabricaNivel;
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Refrescable;
@@ -69,21 +70,22 @@ public class Mazmorra extends Dibujo
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;
         
-        this.angel = new Angel(xCentro, yCentro, this, imagenes, this);
+        this.angel = new Angel(xCentro, yCentro, this, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
     }
 
     public void manejarTecla(int codigo) {
         if (codigo == KeyEvent.VK_UP
                 || codigo == KeyEvent.VK_DOWN
                 || codigo == KeyEvent.VK_RIGHT
-                || codigo == KeyEvent.VK_LEFT) {
+                || codigo == KeyEvent.VK_LEFT ) {
 
             niveles.get(numNivel-1).moverAngel(codigo);
         }
     }
 
     public void manejarClick(MouseEvent evt, Graphics g) {
-        angel.lanzarRayos(g, evt.getX(), evt.getY());
+        if (evt.getButton() == MouseEvent.BUTTON1)
+            angel.lanzarRayos(g, evt.getX(), evt.getY());
         
     }
 
@@ -131,6 +133,8 @@ public class Mazmorra extends Dibujo
         imagenes[11] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\puerta2.png"));
         
         imagenes[12] = ImageIO.read(new File("imagenes\\cofres\\cofre2.png"));
+        
+        imagenes[13] = ImageIO.read(new File("imagenes\\personajes\\angel\\rayo2.png"));
 
     }
 

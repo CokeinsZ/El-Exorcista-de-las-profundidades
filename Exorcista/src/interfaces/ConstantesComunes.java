@@ -22,7 +22,6 @@ public interface ConstantesComunes {
     public static final int IMAGEN_PARED_ESTRUCTURAL = 10;
     public static final int IMAGEN_PUERTA = 11;
     public static final int IMAGEN_COFRE = 12;
-    public static final int IMAGEN_POTENCIADOR_ATAQUE = 13;
-    public static final int IMAGEN_POTENCIADOR_VIDA = 14;
+    public static final int IMAGEN_RAYO = 13;
 
 }

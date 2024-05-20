@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 
@@ -32,11 +33,14 @@ public class Angel extends Dibujo {
     private Potenciador[] potenciadores;
     private int almasLiberadas;
     
+    private ArrayList<Rayo> rayos;
+    private Image imagenRayo;
+    
     private Delimitable bordes;
     private Notificable notificador;
                 
-    public Angel(int x, int y, Delimitable bordes, Image[] imagenes, Notificable notificador) {
-        super(x, y, ANCHO, ALTO, imagenes[ConstantesComunes.IMAGEN_ANGEL]);
+    public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
+        super(x, y, ANCHO, ALTO, imagenAngel);
         
         this.vida = 100;
         this.energia = 100;
@@ -45,6 +49,9 @@ public class Angel extends Dibujo {
                                 
         this.bordes = bordes;
         this.notificador = notificador;
+        
+        this.imagenRayo = imagenRayo;
+        rayos = new ArrayList<>();
     }
         
     @Override
@@ -52,7 +59,14 @@ public class Angel extends Dibujo {
         
         //Dibuja la imagen
         g.drawImage(this.imagen, this.x, this.y, null);
-
+        
+        for (int i = 0; i < rayos.size(); i++) {
+            rayos.get(i).dibujar(g);
+            if (rayos.get(i).isSeLlego()) {
+                    rayos.remove(rayos.get(i));
+                    notificador.notificarCambios();
+            }
+        }
     }
 
     public boolean mover(int codigo) {
@@ -91,8 +105,9 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
-        Rayo rayo = new Rayo(x, y, null, notificador);
-        rayo.moverRayo(x, y);
+        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador);
+        rayos.add(nuevoRayo);
+        nuevoRayo.moverRayo(x, y);
     }
-        
+       
 }
