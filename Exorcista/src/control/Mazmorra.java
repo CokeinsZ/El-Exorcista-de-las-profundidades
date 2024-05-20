@@ -77,8 +77,7 @@ public class Mazmorra extends Dibujo
                 || codigo == KeyEvent.VK_RIGHT
                 || codigo == KeyEvent.VK_LEFT) {
 
-            if (angel.mover(codigo))
-                refrescador.refrescar();
+            niveles.get(numNivel-1).moverAngel(codigo);
         }
     }
 
@@ -98,7 +97,7 @@ public class Mazmorra extends Dibujo
     
     public final void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(fabricaNivel.crearNivel(3, angel, this));
+        niveles.add(fabricaNivel.crearNivel(numNivel, angel, this));
         
     }
 

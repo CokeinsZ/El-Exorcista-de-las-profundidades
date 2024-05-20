@@ -130,31 +130,33 @@ public class Nivel extends Dibujo
         Iterator<Alma> iteradorAlmas = almas.iterator();
         Iterator<Cofre> iteradorCofres = cofres.iterator();
         
-        boolean resultado = true;
         while (iteradorParedes.hasNext()) {
             //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
             
             if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
-                resultado = false;
+                return false;
             
             if (demonio.intersects(iteradorParedes.next()))
-                resultado = false;
+                return false;
             
             if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
-                resultado = false;
+                return false;
             }
             
             if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
-                resultado = false;
+                return false;
             }
             
             if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
-                resultado = false;
+                return false;
             }
+            
+            if (demonio.intersects(angel))
+                return false;
         }
         
         // Si no hay colisión con ninguna de los demonios existentes, retorna verdadero
-        return resultado;      
+        return true;      
     }
     
     // aqui creo un demonio en una posicion valida
@@ -178,7 +180,30 @@ public class Nivel extends Dibujo
         demonios.add(demonio);
     } 
 
+    public void moverAngel(int codigo){
 
+        //posiciones anteriores al movimiento. es decir la posicion del angel antes de moverse 
+        int xAnterior = (int) angel.getX();
+        int yAnterior =  (int) angel.getY();
+        
+        //Tengo que guardar la posicion del angel en tal caso que tenga de deshacer un movimienot
+        boolean movimientoAngel = angel.mover(codigo); // Si se mueve me retorna true de lo contrario false 
+        if(movimientoAngel == true){  
+         // Verificar colisión con los demonios
+            for (int i = 0; i < demonios.size(); i++) {
+
+                if (angel.intersects(demonios.get(i))) {
+                    // Si hay colisión, revertir el movimiento
+                    angel.revertirMovimiento(xAnterior, yAnterior);
+ 
+                     break;
+                    
+                }
+            }
+           notificador.notificarCambios();
+        }
+    }
+    
     @Override
     public void dibujar(Graphics2D g) {               
         for (Pared pared: paredes) {
