@@ -52,22 +52,22 @@ public class Angel extends Dibujo {
 
     public boolean mover(int codigo) {
         
-        if (codigo == KeyEvent.VK_UP && y > 0){
+        if (codigo == KeyEvent.VK_UP && y > bordes.getYMin(x)){
             y -= VELOCIDAD;
             return true;
         }
         
-        if (codigo == KeyEvent.VK_DOWN && y < bordes.getAlto()- ALTO) {
+        if (codigo == KeyEvent.VK_DOWN && y < bordes.getYMax(x)) {
             y += VELOCIDAD;
             return true;
         }
             
-        if (codigo == KeyEvent.VK_RIGHT && x < bordes.getAncho()- ALTO) {
+        if (codigo == KeyEvent.VK_RIGHT && x < bordes.getXMax(y)) {
             x += VELOCIDAD;
             return true;
         }
             
-        if (codigo == KeyEvent.VK_LEFT && x > 0) {
+        if (codigo == KeyEvent.VK_LEFT && x > bordes.getXMin(y)) {
             x -= VELOCIDAD;
             return true;
         }

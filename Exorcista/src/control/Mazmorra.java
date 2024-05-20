@@ -133,5 +133,27 @@ public class Mazmorra extends Dibujo
         imagenes[12] = ImageIO.read(new File("imagenes\\cofres\\cofre2.png"));
 
     }
+
+    @Override
+    public int getXMin(int y) {
+        return 0;
+    }
+
+    @Override
+    public int getXMax(int y) {
+        return width;
+    }
+
+    @Override
+    public int getYMin(int x) {
+        return 0;
+    }
+
+    @Override
+    public int getYMax(int x) {
+        return height;
+    }
+
+    
     
 }
