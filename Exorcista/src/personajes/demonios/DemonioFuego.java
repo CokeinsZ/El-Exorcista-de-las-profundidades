@@ -21,8 +21,8 @@ import static personajes.demonios.DemonioElectrico.ANCHO;
  * @author Alejandro
  */
 public class DemonioFuego extends Demonio{
-    public static final int ANCHO = 80;
-    public static final int ALTO = 80; 
+    public static final int ANCHO = 130;
+    public static final int ALTO = 130; 
     
     private Image imagenFuego;
     
