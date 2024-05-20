@@ -11,4 +11,16 @@ package interfaces;
 public interface Delimitable {
     public int getAncho();
     public int getAlto();
+    
+    public int getXMin(int y);
+    public int getXMax(int y);
+    
+    public int getYMin(int x);
+    public int getYMax(int x);
+
+    public void setXMax(int i);
+    public void setXMin(int i);
+
+    public void setYMax(int i);
+    public void setYMin(int i);
 }

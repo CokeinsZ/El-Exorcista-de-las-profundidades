@@ -4,17 +4,27 @@
  */
 package nivel;
 
+import control.HiloCreacionDemonios;
+import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.applet.AudioClip;
-import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
+import nivel.elementos.cofre.Cofre;
+import nivel.elementos.pared.Pared;
+import nivel.elementos.pared.Puerta;
+import nivel.elementos.trampa.Trampa;
+import personajes.Alma;
 import personajes.Angel;
 import personajes.demonios.Demonio;
+import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 
 /**
@@ -31,214 +41,325 @@ public class Nivel extends Dibujo
     
     private Angel angel;
     
+    private ArrayList<Cofre> cofres;
+    private ArrayList<Alma> almas;
+    private ArrayList<Trampa> trampas;    
+    private ArrayList<Pared> paredes;
+    private Puerta puerta;
     private ArrayList<Demonio> demonios;
     
     private Notificable notificador;
+    
+    private Image[] imagenes;
+    
+    private HiloMovimientoDemonios hiloDemonios;
+    private HiloCreacionDemonios hiloCreacionDemonios;
+    
+    private ArrayList<Integer> pilaDemonios;
 
-    public Nivel(FabricaDemonios fabrica, int numNivel, Angel angel, Notificable notificador) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
-        super(0, 0, 800, 600);
+        super(0, 0, ancho, alto, null);
         
-        this.fabrica = fabrica;
+        this.imagenes = imagenes;
+        this.fabrica = new FabricaDemonios(imagenes);
         
         this.numNivel = numNivel;
         
         this.angel = angel;
         angel.setBordes(this);
+        this.cofres = cofres;
+        this.almas = almas;
+        this.trampas = trampas;
+        this.paredes = paredes;
+        this.puerta = puerta;
         
         demonios = new ArrayList<>();
-        this.fabrica = fabrica;
         
         this.notificador = notificador;
         
-        crearDemonios();
+        pilaDemonios = new ArrayList<>();
+        cargarPilaDemoniosPorCrear();
+        hiloCreacionDemonios = new HiloCreacionDemonios(this);
+        hiloCreacionDemonios.start();
+        
+        
+        hiloDemonios = new HiloMovimientoDemonios(demonios);
+        hiloDemonios.start();
         
     }
     
-    public void crearDemonios() throws IOException {
-        if (numNivel == 1) {
-            int numDemonios = 10;
-            
-            /*
-            for (int i = 0; i < numDemonios; i++) {
-                agregarDemonio(Demonio.TIPO_HIELO);
-            }
-            */
-            
-           agregarcantidadDemonios(Demonio.TIPO_HIELO,numDemonios);
+    private void cargarPilaDemoniosPorCrear() {
+        Random r = new Random();
+        int numDemoniosHielo = 0;
+        int numDemoniosFuego = 0;
+        int numDemoniosSelvatico = 0;
+        int numDemoniosElectrico = 0;
         
+        if (numNivel == 1) {
+            numDemoniosHielo = 10;
+                    
         } else if (numNivel == 2) {
-            int numDemoniosHielo = 5;
-            int numDemoniosSelvatico = 10;
-            
-            
-            /*
-            for (int i = 0; i < numDemoniosHielo; i++) {
-                agregarDemonio(Demonio.TIPO_HIELO);
-            }
-            
-            for (int i = 0; i < numDemoniosSelvatico; i++) {
-                agregarDemonio(Demonio.TIPO_SELVATICO);
-            }
-            
-            */
-            
-            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
-            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelvatico);
-
+            numDemoniosHielo = 5;
+            numDemoniosSelvatico = 10;
         
         } else if (numNivel == 3) {
-            int numDemoniosHielo = 1;
-            int numDemoniosSelavatico = 1;
-            int numDemoniosFuego = 1;
-            int numDemoniosElectrico = 1;
+            numDemoniosHielo = 10;
+            numDemoniosSelvatico = 7;
+            numDemoniosFuego = 6;
+            numDemoniosElectrico = 8;
+        
+        } else if (numNivel > 3) {            
+            numDemoniosHielo = r.nextInt(15);
+            numDemoniosSelvatico = r.nextInt(15);
+            numDemoniosFuego = r.nextInt(15);
+            numDemoniosElectrico = r.nextInt(15);
             
-            
-            /*
-            for (int i = 0; i < numDemoniosHielo; i++) {
-                agregarDemonio(Demonio.TIPO_HIELO);
-            }
-            
-            for (int i = 0; i < numDemoniosSelavatico; i++) {
-                agregarDemonio(Demonio.TIPO_SELVATICO);
-            }
-            
-            for (int i = 0; i < numDemoniosFuego; i++) {
-                agregarDemonio(Demonio.TIPO_FUEGO);
-            }
-            
-            for (int i = 0; i < numDemoniosElectrico; i++) {
-                agregarDemonio(Demonio.TIPO_ELECTRICO);
-            }
+        }
+        
+        while(numDemoniosElectrico > 0 || numDemoniosFuego > 0 || numDemoniosHielo > 0 || numDemoniosSelvatico > 0) {
+            int tipo = r.nextInt(2, 6);
+                switch (tipo) {
+                    case Demonio.TIPO_HIELO:
+                        pilaDemonios.add(tipo);
+                        numDemoniosHielo--;
+                        break;
 
-            */
-            
-            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
-            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
-            agregarcantidadDemonios(Demonio.TIPO_FUEGO, numDemoniosFuego);
-            agregarcantidadDemonios(Demonio.TIPO_ELECTRICO,numDemoniosElectrico);
-        
-        } else if (numNivel > 3) {
-            Random r = new Random();
-            
-            int numDemoniosHielo = r.nextInt(15);
-            int numDemoniosSelavatico = r.nextInt(15);
-            int numDemoniosFuego = r.nextInt(15);
-            int numDemoniosElectrico = r.nextInt(15);
-            
-            /*
-            
-            for (int i = 0; i < numDemoniosHielo; i++) {
-                agregarDemonio(Demonio.TIPO_HIELO);
+                    case Demonio.TIPO_FUEGO:
+                        pilaDemonios.add(tipo);
+                        numDemoniosFuego--;
+                        break;
+
+                    case Demonio.TIPO_SELVATICO:
+                        pilaDemonios.add(tipo);
+                        numDemoniosSelvatico--;
+                        break;
+
+                    case Demonio.TIPO_ELECTRICO:
+                        pilaDemonios.add(tipo);
+                        numDemoniosElectrico--;
+                        break;
+
+                    default:
+                        break;
             }
-            
-            for (int i = 0; i < numDemoniosSelavatico; i++) {
-                agregarDemonio(Demonio.TIPO_SELVATICO);
-            }
-            
-            for (int i = 0; i < numDemoniosFuego; i++) {
-                agregarDemonio(Demonio.TIPO_FUEGO);
-            }
-            
-            for (int i = 0; i < numDemoniosElectrico; i++) {
-                agregarDemonio(Demonio.TIPO_ELECTRICO);
-            }
-            */
-            
-            agregarcantidadDemonios(Demonio.TIPO_HIELO, numDemoniosHielo);
-            agregarcantidadDemonios(Demonio.TIPO_SELVATICO, numDemoniosSelavatico);
-            agregarcantidadDemonios(Demonio.TIPO_FUEGO, numDemoniosFuego);
-            agregarcantidadDemonios(Demonio.TIPO_ELECTRICO,numDemoniosElectrico);
-            
-            
-            
             
         }
     }
     
-    public void agregarDemonio(int tipo) throws IOException {
-        demonios.add(fabrica.crearDemonio(tipo, this, angel, notificador));
+    public boolean crearDemonios() {
+        int tipo = pilaDemonios.remove(pilaDemonios.size() -1);
+        agregarDemonios(tipo);
+        
+        //Retorna true si aun hay demonios en la pila
+        return !pilaDemonios.isEmpty();
     }
     
-    
-    public void agregarcantidadDemonios(int tipodemonio,int cantidadDemonios) throws IOException{
-        
-        for (int i = 0; i < cantidadDemonios; i++) {
-            
-            verificarDemonio(tipodemonio);
-            
-            
-        }
-        
-        
-   
+    public void agregarDemonios(int tipodemonio) {
+        verificarPosicionDemonio(tipodemonio);
     }
-    
     
     //esto verifica que no se colisionen entre si  
-    public boolean validarColisionDemonioconDemonio(Demonio Demonio){
-                   
+    public boolean validarColision(Demonio demonio) {
+        Iterator<Pared> iteradorParedes = paredes.iterator();
+        Iterator<Demonio> iteradorDemonios = demonios.iterator();
+        Iterator<Trampa> iteradorTrampas = trampas.iterator();
+        Iterator<Alma> iteradorAlmas = almas.iterator();
+        Iterator<Cofre> iteradorCofres = cofres.iterator();
         
-            for (Demonio otrodemonio : demonios) {          
-                // Verificar la colisión entre las dos pulgas usando el método de colisión de cuadrados
-                if (Demonio.intersects(otrodemonio) || Demonio.intersects(angel)) {
-                    // Hay colisión entre las pulgas, retorna falso
-                    return false;
-                }
+        while (iteradorParedes.hasNext()) {
+            //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
+            
+            if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
+                return false;
+            
+            if (demonio.intersects(iteradorParedes.next()))
+                return false;
+            
+            if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
+                return false;
             }
-            // No hay colisión con ninguna de las pulgas existentes, retorna verdadero
-            return true;
+            
+            if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
+                return false;
+            }
+            
+            if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
+                return false;
+            }
+            
+            if (demonio.intersects(angel))
+                return false;
+        }
         
-        
+        // Si no hay colisión con ninguna de los demonios existentes, retorna verdadero
+        return true;      
     }
     
     // aqui creo un demonio en una posicion valida
-    
-    public void verificarDemonio (int tipoDemonio) throws IOException{
-        
-      
+    public void verificarPosicionDemonio (int tipoDemonio) {
         Demonio demonionuevo = null;
-        boolean control = false;
-        int iterador = 0;
+        boolean noColisiona = false;
         
-       
-        while(control == false){
-            
+        while(noColisiona == false){
           demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador);
           
           //se llama el metodo para verificar la colision de demonios con demonio y si esto 
           //nos retorna falso lo que debemos de hacer es volver a verificar que no se esten colisionando
-          control = validarColisionDemonioconDemonio(demonionuevo); 
-                               
-          
+          noColisiona = validarColision(demonionuevo); 
                    
         }
         
-        agregarDemonio(demonionuevo);
-
-       
-          
+        agregarDemonio(demonionuevo);         
     }
-    
- 
-    
     
     public void agregarDemonio(Demonio demonio) {
         demonios.add(demonio);
-        
     } 
 
+    public void moverAngel(int codigo){
 
-    @Override
-    public void dibujar(Graphics2D g) {
-        g.setColor(Color.red);
-        g.drawRect(x, y, width, height);
+        //posiciones anteriores al movimiento. es decir la posicion del angel antes de moverse 
+        int xAnterior = (int) angel.getX();
+        int yAnterior =  (int) angel.getY();
         
-        angel.dibujar(g);
+        //Tengo que guardar la posicion del angel en tal caso que tenga de deshacer un movimienot
+        boolean movimientoAngel = angel.mover(codigo); // Si se mueve me retorna true de lo contrario false 
+        if(movimientoAngel == true){  
+         // Verificar colisión con los demonios
+            for (int i = 0; i < demonios.size(); i++) {
+
+                if (angel.intersects(demonios.get(i))) {
+                    // Si hay colisión, revertir el movimiento
+                    angel.revertirMovimiento(xAnterior, yAnterior);
+ 
+                     break;
+                    
+                }
+            }
+           notificador.notificarCambios();
+        }
+    }
+    
+    @Override
+    public void dibujar(Graphics2D g) {               
+        for (Pared pared: paredes) {
+            pared.dibujar(g);
+        }
+        
+        puerta.dibujar(g);
+        
+        for (Cofre cofre: cofres) {
+            cofre.dibujar(g);
+        }
+        
+        for (Alma alma: almas) {
+            alma.dibujar(g);
+        }
+        
+        for (Trampa trampa: trampas) {
+            trampa.dibujar(g);
+        }
         
         for (Demonio demonio: demonios) {
             demonio.dibujar(g);
         }
+        
+        angel.dibujar(g);
     }
-}
 
+    @Override
+    public int getXMin(int y) {
+        int xMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredY = (int) pared.getY();
+            if(paredY < y + Pared.ALTO && paredY > y - Pared.ALTO && pared.getX() < xMin)
+                xMin = (int) pared.getX();
+                
+        }
+        
+        return xMin + Pared.ANCHO;
+    }
+
+    @Override
+    public int getXMax(int y) {
+        int xMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredY = (int) pared.getY();
+            if(paredY < y + Pared.ALTO && paredY > y - Pared.ALTO && pared.getX() > xMax)
+                xMax = (int) pared.getX();
+                
+        }
+        
+        return xMax - Pared.ANCHO;
+    }
+
+    @Override
+    public int getYMin(int x) {
+        int yMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO && pared.getY() < yMin)
+                yMin = (int) pared.getY();
+                
+        }
+        
+        return yMin + Pared.ALTO; 
+    }
+
+    @Override
+    public int getYMax(int x) {
+        int yMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO && pared.getY() > yMax)
+                yMax = (int) pared.getY();
+                
+        }
+        
+        return yMax - Pared.ALTO;
+    }
+
+    @Override
+    public void setXMax(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setXMin(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setYMax(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setYMin(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void lanzarRayo(Graphics g, int x, int y) {
+        
+        angel.lanzarRayos(g, x, y);
+        for (int i = 0; i < demonios.size(); i++) {
+            Demonio demonio = demonios.get(i);
+            demonio.intersects(x, y, Rayo.ANCHO, Rayo.ALTO);
+            if (demonio.recibirImapcto(Angel.DAÑO))
+                eliminarDemonio(demonio);
+        }
+    }
+
+    private void eliminarDemonio(Demonio demonio) {
+        demonios.remove(demonio);
+    }
+
+    
+
+    
+}

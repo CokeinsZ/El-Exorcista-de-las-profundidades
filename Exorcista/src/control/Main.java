@@ -7,6 +7,7 @@ package control;
 import gui.inicio.MenuInicio;
 import gui.ventanaPrincipal.VentanaPrincipal;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Main {
