@@ -8,7 +8,6 @@ import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.applet.AudioClip;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
@@ -49,9 +48,9 @@ public class Nivel extends Dibujo
     
     private Image[] imagenes;
 
-    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
-        super(0, 0, 1280, 720, null);
+        super(0, 0, ancho, alto, null);
         
         this.imagenes = imagenes;
         this.fabrica = new FabricaDemonios(imagenes);
@@ -236,4 +235,64 @@ public class Nivel extends Dibujo
         
         angel.dibujar(g);
     }
+
+    @Override
+    public int getXMin(int y) {
+        int xMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredY = (int) pared.getY();
+            if(paredY < y + Pared.ALTO && paredY > y - Pared.ALTO && pared.getX() < xMin)
+                xMin = (int) pared.getX();
+                
+        }
+        
+        return xMin + Pared.ANCHO;
+    }
+
+    @Override
+    public int getXMax(int y) {
+        int xMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredY = (int) pared.getY();
+            if(paredY < y + Pared.ALTO && paredY > y - Pared.ALTO && pared.getX() > xMax)
+                xMax = (int) pared.getX();
+                
+        }
+        
+        return xMax - Pared.ANCHO;
+    }
+
+    @Override
+    public int getYMin(int x) {
+        int yMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO && pared.getY() < yMin)
+                yMin = (int) pared.getY();
+                
+        }
+        
+        return yMin + Pared.ALTO; 
+    }
+
+    @Override
+    public int getYMax(int x) {
+        int yMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO && pared.getY() > yMax)
+                yMax = (int) pared.getY();
+                
+        }
+        
+        return yMax - Pared.ALTO;
+    }
+
+    
+
+    
 }

@@ -6,7 +6,6 @@ package herramientas;
 
 import interfaces.ConstantesComunes;
 import interfaces.Notificable;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,8 +82,40 @@ public class FabricaNivel {
             x = 0;
         }
         
-        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, imagenes);
+        int ancho = calcularAnchoNivel(paredes);
+        int alto = calcularAltoNivel(paredes);
+        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, imagenes, ancho, alto);
    
+    }
+    
+    public int calcularAnchoNivel(ArrayList<Pared> paredes) {
+        int xMin = 1280;
+        int xMax = 0;
+        
+        for (Pared pared: paredes) {
+            if (pared.getX() < xMin)
+                xMin = (int) pared.getX();
+            
+            if (pared.getX() > xMax)
+                xMax = (int) pared.getX();
+        }
+        
+        return xMax - xMin;
+    }
+    
+    public int calcularAltoNivel(ArrayList<Pared> paredes) {
+        int yMin = 720;
+        int yMax = 0;
+        
+        for (Pared pared: paredes) {
+            if (pared.getY() < yMin)
+                yMin = (int) pared.getY();
+            
+            if (pared.getY() > yMax)
+                yMax = (int) pared.getY();
+        }
+        
+        return yMax - yMin;
     }
 
     private Pared crearPared(int x, int y) throws IOException {
