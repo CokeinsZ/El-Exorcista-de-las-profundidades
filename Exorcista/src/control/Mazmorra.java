@@ -4,21 +4,24 @@
  */
 package control;
 
-import herramientas.FabricaDemonios;
+import herramientas.FabricaNivel;
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import nivel.Nivel;
 
 import personajes.Angel;
-import static personajes.Angel.ALTO;
-import static personajes.Angel.ANCHO;
 import sprite.Dibujo;
 
 /**
@@ -26,10 +29,14 @@ import sprite.Dibujo;
  * @author Alejandro
  */
 public class Mazmorra extends Dibujo
-                      implements Notificable{
+                      implements Notificable {
 
+    private Image[] imagenes;
+    
     private int puntajeTotal;
     private int numNivel;
+    
+    private FabricaNivel fabricaNivel;
 
     private Angel angel;
     private ArrayList<Nivel> niveles;
@@ -39,7 +46,9 @@ public class Mazmorra extends Dibujo
     private Refrescable refrescador;
     
     public Mazmorra(int width, int height, Refrescable refrescador) throws IOException {
-        super(0,0,width,height);
+        super(0,0,width,height, null);
+        
+        cargarTodasImagenes();
         
         this.puntajeTotal = 0;
         this.numNivel = 0;
@@ -47,10 +56,12 @@ public class Mazmorra extends Dibujo
         this.color = Color.BLACK;
         
         setAngel();
+        
         niveles = new ArrayList<>();
+        fabricaNivel = new FabricaNivel(imagenes);
  
         this.refrescador = refrescador;
-        agregarNivel();
+        agregarNivel();     //Crea el primer nivel
     }
     
     private void setAngel()  throws IOException {
@@ -58,25 +69,22 @@ public class Mazmorra extends Dibujo
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;
         
-        this.angel = new Angel(xCentro, yCentro, null);
+        this.angel = new Angel(xCentro, yCentro, null, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
     }
 
     public void manejarTecla(int codigo) {
         if (codigo == KeyEvent.VK_UP
                 || codigo == KeyEvent.VK_DOWN
                 || codigo == KeyEvent.VK_RIGHT
-                || codigo == KeyEvent.VK_LEFT) {
+                || codigo == KeyEvent.VK_LEFT ) {
 
-            if (angel.mover(codigo))
-                refrescador.refrescar();
+            niveles.get(numNivel-1).moverAngel(codigo);
         }
     }
- public void manejarClick(MouseEvent evt) {
-    
 
-    
-
-   
+    public void manejarClick(MouseEvent evt, Graphics g) {
+        if (evt.getButton() == MouseEvent.BUTTON1)
+            niveles.get(numNivel-1).lanzarRayo(g, evt.getX(), evt.getY());
         
     }
 
@@ -89,9 +97,9 @@ public class Mazmorra extends Dibujo
 
     }
     
-    public void agregarNivel() throws IOException {
+    public final void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(new Nivel(new FabricaDemonios(), 1, angel, this));
+        niveles.add(fabricaNivel.crearNivel(numNivel, angel, this));
         
     }
 
@@ -100,6 +108,34 @@ public class Mazmorra extends Dibujo
         refrescador.refrescar();
     }
 
+    public void cargarTodasImagenes() throws IOException {
+        imagenes = new Image[20];
+        
+        imagenes[0] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioElectrico2.png"));
+        imagenes[1] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
+        
+        imagenes[2] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\fire2.png"));
+        
+        imagenes[3] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioHielo2.png"));
+        imagenes[4] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioSelvatico2.png"));
+        
+        imagenes[5] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\roca2.png"));
+        
+        
+        imagenes[6] = ImageIO.read(new File("imagenes\\personajes\\angel\\angel2.png"));
+        imagenes[7] = ImageIO.read(new File("imagenes\\personajes\\almas\\alma2.png"));
+        
+        imagenes[8] = ImageIO.read(new File("imagenes\\trampas\\mina2.png"));
+        
+        imagenes[9] = ImageIO.read(new File("imagenes\\paredes\\ParedEspinas2.png"));
+        imagenes[10] = ImageIO.read(new File("imagenes\\paredes\\ParedEstructural2.png"));
+        imagenes[11] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\puerta2.png"));
+        
+        imagenes[12] = ImageIO.read(new File("imagenes\\cofres\\cofre2.png"));
+        
+        imagenes[13] = ImageIO.read(new File("imagenes\\personajes\\angel\\rayo2.png"));
+
+    }
     
     
 }

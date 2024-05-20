@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
@@ -18,31 +19,28 @@ import personajes.Angel;
  * @author Alejandro
  */
 public class DemonioSelvatico extends Demonio{
-    public static final int ANCHO = 100;
-    public static final int ALTO = 100; 
+    public static final int ANCHO = 80;
+    public static final int ALTO = 80; 
     
     private Image imagenRoca;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador) throws IOException {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador);
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
         
-        cargarImagenes();
+        vida = 7;
+        daño = 2;
+        velocidad = 0;
+        
+        this.imagenRoca = imagenRoca;
     }
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.drawImage(this.imagen, this.x, this.y, width, height, null);
-    }
-    
-    private void cargarImagenes() throws IOException {
-        imagen = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioSelvatico2.png"));
-        
-        imagenRoca = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\roca2.png"));
+        g.drawImage(this.imagen, this.x, this.y, null);
     }
 
     @Override
     public void seguirAngel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -51,13 +49,7 @@ public class DemonioSelvatico extends Demonio{
     }
 
     @Override
-    public void mover() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mover() {   
     }
 
-    @Override
-    public void recibirImapcto(int daño) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

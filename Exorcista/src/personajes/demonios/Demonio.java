@@ -6,6 +6,7 @@ package personajes.demonios;
 
 import interfaces.Delimitable;
 import interfaces.Notificable;
+import java.awt.Image;
 import personajes.Angel;
 import sprite.Dibujo;
 
@@ -29,8 +30,8 @@ public abstract class Demonio extends Dibujo {
     
     protected Delimitable bordes;
     
-    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador) {
-        super(x, y, width, height);
+    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
+        super(x, y, width, height, imagen);
         this.bordes = bordes;
         this.enemigo = enemigo;
         
@@ -40,6 +41,11 @@ public abstract class Demonio extends Dibujo {
     public abstract void seguirAngel();
     public abstract boolean atacar();
     public abstract void mover();
-    public abstract void recibirImapcto(int daño);
+    
+    public boolean recibirImapcto(int daño) {
+        vida -= daño;
+        
+        return vida <= 0;
+    }
     
 }
