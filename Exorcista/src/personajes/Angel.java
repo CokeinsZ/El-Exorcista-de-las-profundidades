@@ -1,11 +1,15 @@
 
 package personajes;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 import interfaces.Delimitable;
 import potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import poder.angel.Rayo;
 import sprite.Dibujo;
 
 
@@ -68,17 +72,41 @@ public class Angel extends Dibujo {
                        
         return false;
     }
+
+public Rayo crearRayo() {
+    // Crear un nuevo objeto Rayo
+    Rayo rayo = new Rayo(this.x + ANCHO / 2, this.y);
+
+    // Cargar la imagen del rayo
+    try {
+        cargarImagen("imagenes\\Rayo\\RayoAngel.jpg");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    return rayo;
+}
+
+
+
     
     public void setBordes(Delimitable bordes) {
         this.bordes = bordes;
     }
     
     public void lanzarRayos(Graphics2D contextoGrafico) {
-    // Implementar la lógica para lanzar rayos al presionar la tecla de espacio (KeyEvent.VK_SPACE)
-    // Por ejemplo, aquí suponemos que al presionar la tecla de espacio, se crea y dibuja un rayo en la posición del Angel
-    
-    // Verificar si se ha presionado la tecla de espacio
-    
-    }
-        
+    addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            if (e.getButton() == MouseEvent.BUTTON1) { // Verifica si se ha hecho clic con el botón izquierdo del ratón
+                Rayo rayo = crearRayo();
+                rayo.setDireccionY((e.getY() < y) ? -1 : 1); // Establecer la dirección del rayo según la posición del clic
+                // Crear un nuevo hilo para el rayo y comenzar su movimiento
+                Thread rayoThread = new Thread(rayo);
+                rayoThread.start();
+            }
+        }
+    });
+  }
 }

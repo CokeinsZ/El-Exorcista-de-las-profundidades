@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import nivel.Nivel;
 
 import personajes.Angel;
+import static personajes.Angel.ALTO;
+import static personajes.Angel.ANCHO;
 import sprite.Dibujo;
 
 /**
@@ -69,9 +71,12 @@ public class Mazmorra extends Dibujo
                 refrescador.refrescar();
         }
     }
+ public void manejarClick(MouseEvent evt) {
+    
 
-    public void manejarClick(MouseEvent evt) {
-        //TO-DO
+    
+
+   
         
     }
 
@@ -86,7 +91,7 @@ public class Mazmorra extends Dibujo
     
     public void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(new Nivel(new FabricaDemonios(), 3, angel, this));
+        niveles.add(new Nivel(new FabricaDemonios(), 1, angel, this));
         
     }
 
