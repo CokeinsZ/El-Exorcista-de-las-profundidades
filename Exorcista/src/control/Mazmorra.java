@@ -29,8 +29,7 @@ import sprite.Dibujo;
  * @author Alejandro
  */
 public class Mazmorra extends Dibujo
-                      implements Notificable,
-                                 Delimitable {
+                      implements Notificable {
 
     private Image[] imagenes;
     
@@ -70,7 +69,7 @@ public class Mazmorra extends Dibujo
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;
         
-        this.angel = new Angel(xCentro, yCentro, this, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
+        this.angel = new Angel(xCentro, yCentro, null, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
     }
 
     public void manejarTecla(int codigo) {
@@ -85,7 +84,7 @@ public class Mazmorra extends Dibujo
 
     public void manejarClick(MouseEvent evt, Graphics g) {
         if (evt.getButton() == MouseEvent.BUTTON1)
-            angel.lanzarRayos(g, evt.getX(), evt.getY());
+            niveles.get(numNivel-1).lanzarRayo(g, evt.getX(), evt.getY());
         
     }
 
@@ -137,27 +136,6 @@ public class Mazmorra extends Dibujo
         imagenes[13] = ImageIO.read(new File("imagenes\\personajes\\angel\\rayo2.png"));
 
     }
-
-    @Override
-    public int getXMin(int y) {
-        return 0;
-    }
-
-    @Override
-    public int getXMax(int y) {
-        return width;
-    }
-
-    @Override
-    public int getYMin(int x) {
-        return 0;
-    }
-
-    @Override
-    public int getYMax(int x) {
-        return height;
-    }
-
     
     
 }

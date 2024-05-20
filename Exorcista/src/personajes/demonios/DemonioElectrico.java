@@ -9,7 +9,6 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
 import personajes.Angel;
 
 /**
@@ -23,7 +22,9 @@ public class DemonioElectrico extends Demonio {
     public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
         
-        velocidad = 20;
+        vida = 4;
+        daño = 3;
+        velocidad = 10;
         
     }
         
@@ -65,9 +66,5 @@ public class DemonioElectrico extends Demonio {
         seguirAngel();
     }
 
-    @Override
-    public void recibirImapcto(int daño) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

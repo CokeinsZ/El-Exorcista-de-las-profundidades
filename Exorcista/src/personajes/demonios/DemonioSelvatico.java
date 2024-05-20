@@ -27,6 +27,10 @@ public class DemonioSelvatico extends Demonio{
     public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
         
+        vida = 7;
+        daño = 2;
+        velocidad = 0;
+        
         this.imagenRoca = imagenRoca;
     }
 
@@ -46,11 +50,6 @@ public class DemonioSelvatico extends Demonio{
 
     @Override
     public void mover() {   
-    }
-
-    @Override
-    public void recibirImapcto(int daño) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

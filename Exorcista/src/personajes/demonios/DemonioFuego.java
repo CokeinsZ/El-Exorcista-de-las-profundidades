@@ -29,6 +29,10 @@ public class DemonioFuego extends Demonio{
     public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
         
+        vida = 5;
+        daño = 2;
+        velocidad = 0;
+        
         this.imagenFuego = imagenFuego;
     }
 
@@ -50,11 +54,6 @@ public class DemonioFuego extends Demonio{
     @Override
     public void mover() {
         return;
-    }
-
-    @Override
-    public void recibirImapcto(int daño) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

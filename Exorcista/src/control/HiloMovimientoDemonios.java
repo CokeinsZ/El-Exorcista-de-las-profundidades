@@ -24,7 +24,7 @@ public class HiloMovimientoDemonios extends Thread implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(300);
             } catch (InterruptedException ex) {
                 Logger.getLogger(HiloMovimientoDemonios.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -17,4 +17,10 @@ public interface Delimitable {
     
     public int getYMin(int x);
     public int getYMax(int x);
+
+    public void setXMax(int i);
+    public void setXMin(int i);
+
+    public void setYMax(int i);
+    public void setYMin(int i);
 }

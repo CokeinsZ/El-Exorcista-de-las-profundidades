@@ -27,6 +27,7 @@ public class Angel extends Dibujo {
     public final static int ALTO = 95;
     
     public final int VELOCIDAD = 10;
+    public static final int DAÑO = 1;
     
     private float vida;
     private float energia;

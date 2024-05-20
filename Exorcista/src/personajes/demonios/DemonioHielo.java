@@ -20,11 +20,13 @@ import personajes.Angel;
 public class DemonioHielo extends Demonio{
     public static final int ANCHO = 80;
     public static final int ALTO = 80; 
-    
-    private final int VELOCIDAD = 30;
-    
+        
     public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+        
+        vida = 1;
+        daño = 1;
+        velocidad = 30;
         
     }
 
@@ -42,6 +44,7 @@ public class DemonioHielo extends Demonio{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*
     @Override
     public void mover() {
         Random random = new Random();
@@ -77,12 +80,38 @@ public class DemonioHielo extends Demonio{
         }
         
         notificador.notificarCambios();
-
     }
-
+    */
+    
     @Override
-    public void recibirImapcto(int daño) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mover() {
+        if (x >= bordes.getXMax(y) && y < bordes.getYMax(x)) {
+            // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior
+            y += velocidad;
+            
+        } else if (y >= bordes.getYMax(x) && x > bordes.getXMin(y)) {
+            // Mover hacia la izquierda si estamos en el borde inferior y no hemos llegado al borde izquierdo
+            x -= velocidad;
+            
+        } else if (x <= bordes.getXMin(y) && y > bordes.getYMin(x)) {
+            // Mover hacia arriba si estamos en el borde izquierdo y no hemos llegado al borde superior
+            y -= velocidad;
+            
+        } else {
+            // Mover hacia la derecha si estamos en el borde superior o si no estamos en ningún borde
+            x += velocidad;
+        }
+
+        /*
+        // Reducir los bordes después de cada vuelta
+        bordes.setXMax(bordes.getXMax(y) - VELOCIDAD);
+        bordes.setXMin(bordes.getXMin(y) + VELOCIDAD);
+        bordes.setYMax(bordes.getYMax(x) - VELOCIDAD);
+        bordes.setYMin(bordes.getYMin(x) + VELOCIDAD);
+        */
+
+        notificador.notificarCambios();
     }
+
     
 }
