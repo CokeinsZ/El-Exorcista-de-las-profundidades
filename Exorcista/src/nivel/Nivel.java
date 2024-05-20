@@ -349,9 +349,9 @@ public class Nivel extends Dibujo
         angel.lanzarRayos(g, x, y);
         for (int i = 0; i < demonios.size(); i++) {
             Demonio demonio = demonios.get(i);
-            demonio.intersects(x, y, Rayo.ANCHO, Rayo.ALTO);
-            if (demonio.recibirImapcto(Angel.DAÑO))
-                eliminarDemonio(demonio);
+            if (demonio.intersects(x, y, Rayo.ANCHO, Rayo.ALTO))
+                if (demonio.recibirImapcto(Angel.DAÑO))
+                    eliminarDemonio(demonio);
         }
     }
 
