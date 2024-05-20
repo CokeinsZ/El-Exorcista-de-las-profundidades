@@ -8,6 +8,8 @@ import interfaces.Notificable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import static personajes.demonios.DemonioElectrico.ALTO;
+import static personajes.demonios.DemonioElectrico.ANCHO;
 import sprite.Dibujo;
 
 /**
@@ -33,18 +35,38 @@ public class Rayo extends Dibujo {
         
     }
     
-    public void seguirPunto(int x, int y) {
+    public void moverRayo(int x, int y) {
         hiloMovimiento = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (!seLlego) {
-                    //Logica movimiento
+                    seguirPunto(x, y);
                 }
             }
         });        
         
         hiloMovimiento.start();
         
+    }
+    
+    
+     public void seguirPunto(int x, int y ) {        
+   
+        if (this.x < x) { 
+            this.x += velocidad; // Mover hacia la derecha
+        } else if (this.x > x && this.x > 0) {
+            this.x -= velocidad; // Mover hacia la izquierda
+        }
+
+        if (this.y < y) {
+            this.y += velocidad; // Mover hacia abajo
+        } else if (this.y > y) {
+            this.y -= velocidad; // Mover hacia arriba
+        }
+        
+        seLlego = true;
+     
+        notificador.notificarCambios();
     }
 
     @Override

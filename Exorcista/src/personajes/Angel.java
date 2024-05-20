@@ -92,7 +92,7 @@ public class Angel extends Dibujo {
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
         Rayo rayo = new Rayo(x, y, null, notificador);
-        rayo.seguirPunto(x, y);
+        rayo.moverRayo(x, y);
     }
         
 }
