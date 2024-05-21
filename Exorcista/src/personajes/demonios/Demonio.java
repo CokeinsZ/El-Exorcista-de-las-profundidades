@@ -15,11 +15,11 @@ import sprite.Dibujo;
  * @author Alejandro
  */
 public abstract class Demonio extends Dibujo {
-    public static final int TIPO_SUPERIOR = 1;
-    public static final int TIPO_FUEGO = 2;
-    public static final int TIPO_ELECTRICO = 3;
-    public static final int TIPO_SELVATICO = 4;
-    public static final int TIPO_HIELO = 5;
+    public static final int TIPO_SUPERIOR = 0;
+    public static final int TIPO_HIELO = 1;
+    public static final int TIPO_SELVATICO = 2;
+    public static final int TIPO_FUEGO = 3;
+    public static final int TIPO_ELECTRICO = 4;
 
     protected int vida;
     protected int daño;

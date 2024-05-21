@@ -95,6 +95,9 @@ public class Nivel extends Dibujo
     
     private void cargarPilaDemoniosPorCrear() {
         Random r = new Random();
+        
+        int limSup = 0;
+        
         int numDemoniosHielo = 0;
         int numDemoniosFuego = 0;
         int numDemoniosSelvatico = 0;
@@ -102,27 +105,31 @@ public class Nivel extends Dibujo
         
         if (numNivel == 1) {
             numDemoniosHielo = 10;
+            limSup = 2;
                     
         } else if (numNivel == 2) {
             numDemoniosHielo = 5;
             numDemoniosSelvatico = 10;
+            limSup = 3;
         
         } else if (numNivel == 3) {
             numDemoniosHielo = 10;
             numDemoniosSelvatico = 7;
             numDemoniosFuego = 6;
             numDemoniosElectrico = 8;
+            limSup = 5;
         
         } else if (numNivel > 3) {            
             numDemoniosHielo = r.nextInt(15);
             numDemoniosSelvatico = r.nextInt(15);
             numDemoniosFuego = r.nextInt(15);
             numDemoniosElectrico = r.nextInt(15);
+            limSup = 5;
             
         }
         
         while(numDemoniosElectrico > 0 || numDemoniosFuego > 0 || numDemoniosHielo > 0 || numDemoniosSelvatico > 0) {
-            int tipo = r.nextInt(2, 6);
+            int tipo = r.nextInt(1, limSup);
                 switch (tipo) {
                     case Demonio.TIPO_HIELO:
                         pilaDemonios.add(tipo);
