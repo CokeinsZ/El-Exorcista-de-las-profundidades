@@ -98,12 +98,6 @@ public class Nivel extends Dibujo
         
         if (numNivel == 1) {
             numDemoniosHielo = 10;
-            
-            //pruebas BORRAR BORRAR BORRAR
-            numDemoniosHielo = r.nextInt(15);
-            numDemoniosSelvatico = r.nextInt(15);
-            numDemoniosFuego = r.nextInt(15);
-            numDemoniosElectrico = r.nextInt(15);
                     
         } else if (numNivel == 2) {
             numDemoniosHielo = 5;
