@@ -6,7 +6,6 @@ package control;
 
 import herramientas.FabricaNivel;
 import interfaces.ConstantesComunes;
-import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;

@@ -34,6 +34,7 @@ public class Main {
         
         if (menu.getControl() == MenuInicio.EVENTO_INICIAR_JUEGO) {
             ventana.setVisible(true);
+            System.out.println("Suerte aventurero");
         }
 
     }
