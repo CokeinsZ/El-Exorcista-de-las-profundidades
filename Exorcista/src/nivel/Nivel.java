@@ -9,10 +9,12 @@ import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.Delimitable;
 import interfaces.Notificable;
+import interfaces.Verificable;
 import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +34,8 @@ import sprite.Dibujo;
  * @author Alejandro
  */
 public class Nivel extends Dibujo 
-                   implements Delimitable {
+                   implements Delimitable,
+                              Verificable {
     
     private FabricaDemonios fabrica;
     
@@ -68,6 +71,7 @@ public class Nivel extends Dibujo
         
         this.angel = angel;
         angel.setBordes(this);
+        angel.setVerificable(this);
         this.cofres = cofres;
         this.almas = almas;
         this.trampas = trampas;
@@ -352,6 +356,31 @@ public class Nivel extends Dibujo
 
     private void eliminarDemonio(Demonio demonio) {
         demonios.remove(demonio);
+    }
+
+    @Override
+    public boolean verificarColision(Rectangle rectangulo) {
+        
+        for (int i = 0; i<demonios.size(); i++){
+            if(demonios.get(i).intersects(rectangulo)){
+                if (demonios.get(i).recibirImapcto(Angel.DAÑO)){
+                    eliminarDemonio(demonios.get(i));
+                    notificador.notificarCambios();
+                }
+                
+                return true;     
+            }            
+        }
+        
+        
+        for (int i = 0; i<paredes.size(); i++){
+            if(paredes.get(i).intersects(rectangulo)){
+                return true;     
+            }            
+        }
+      
+             return false;
+        
     }
 
     

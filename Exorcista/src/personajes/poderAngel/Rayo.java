@@ -5,6 +5,7 @@
 package personajes.poderAngel;
 
 import interfaces.Notificable;
+import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.logging.Level;
@@ -29,11 +30,14 @@ public class Rayo extends Dibujo implements Runnable {
     private int objetivoX;
     private int objetivoY;
     
-    public Rayo(int x, int y, Image imagen, Notificable notificador) {
+    private  Verificable verificador;
+    
+    public Rayo(int x, int y, Image imagen, Notificable notificador,Verificable verificador) {
         super(x, y, ANCHO, ALTO, imagen);
         seLlego = false;
         
         this.notificador = notificador;
+        this.verificador = verificador;
         
     }
 
@@ -86,6 +90,12 @@ public class Rayo extends Dibujo implements Runnable {
             }
 
             seguirPunto(objetivoX, objetivoY);
+            boolean control = verificador.verificarColision(this);
+            if(control){
+                
+                seLlego = true;
+                
+            }
 
         }
     }

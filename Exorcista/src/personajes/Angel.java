@@ -7,6 +7,7 @@ package personajes;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
+import interfaces.Verificable;
 import java.awt.Graphics;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
@@ -39,6 +40,7 @@ public class Angel extends Dibujo {
     
     private Delimitable bordes;
     private Notificable notificador;
+    private Verificable verificador;
                 
     public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
@@ -53,6 +55,7 @@ public class Angel extends Dibujo {
         
         this.imagenRayo = imagenRayo;
         rayos = new ArrayList<>();
+        
     }
         
     @Override
@@ -106,9 +109,15 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
-        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador);
+        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);
         rayos.add(nuevoRayo);
         nuevoRayo.moverRayo(x, y);
+    }
+    
+    public void setVerificable(Verificable verificador){
+        
+        this.verificador = verificador;
+        
     }
        
 }
