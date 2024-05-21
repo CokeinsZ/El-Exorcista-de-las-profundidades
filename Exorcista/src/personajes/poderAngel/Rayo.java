@@ -5,7 +5,6 @@
 package personajes.poderAngel;
 
 import interfaces.Notificable;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.logging.Level;
@@ -16,7 +15,7 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public class Rayo extends Dibujo {
+public class Rayo extends Dibujo implements Runnable {
 
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
@@ -26,6 +25,9 @@ public class Rayo extends Dibujo {
     
     private Thread hiloMovimiento;
     private volatile boolean seLlego;
+    
+    private int objetivoX;
+    private int objetivoY;
     
     public Rayo(int x, int y, Image imagen, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagen);
@@ -40,22 +42,10 @@ public class Rayo extends Dibujo {
     }
     
     public void moverRayo(int x, int y) {
-        hiloMovimiento = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!seLlego) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                    seguirPunto(x, y);
-                    
-                }
-            }
-        });        
+        this.objetivoX = x;
+        this.objetivoY = y;
         
+        hiloMovimiento = new Thread(this);       
         hiloMovimiento.start();
         
     }
@@ -84,6 +74,20 @@ public class Rayo extends Dibujo {
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, x, y, null);
+    }
+
+    @Override
+    public void run() {
+        while (!seLlego) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            seguirPunto(objetivoX, objetivoY);
+
+        }
     }
     
 }

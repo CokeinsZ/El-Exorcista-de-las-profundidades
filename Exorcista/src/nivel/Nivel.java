@@ -98,6 +98,12 @@ public class Nivel extends Dibujo
         
         if (numNivel == 1) {
             numDemoniosHielo = 10;
+            
+            //pruebas BORRAR BORRAR BORRAR
+            numDemoniosHielo = r.nextInt(15);
+            numDemoniosSelvatico = r.nextInt(15);
+            numDemoniosFuego = r.nextInt(15);
+            numDemoniosElectrico = r.nextInt(15);
                     
         } else if (numNivel == 2) {
             numDemoniosHielo = 5;
@@ -173,7 +179,7 @@ public class Nivel extends Dibujo
             if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
                 return false;
             
-            if (demonio.intersects(iteradorParedes.next()))
+            if (demonio.intersects(iteradorParedes.next()) || demonio.getX() < getXMin((int) demonio.getY()) || demonio.getX() > getXMax((int) demonio.getY()) || demonio.getY() < getYMin((int) demonio.getX()) || demonio.getY() > getYMax((int) demonio.getX()))
                 return false;
             
             if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
