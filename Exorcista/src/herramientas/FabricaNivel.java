@@ -7,7 +7,6 @@ package herramientas;
 import interfaces.ConstantesComunes;
 import interfaces.Notificable;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,9 +29,9 @@ public class FabricaNivel {
     private LectorArchivos lector;
     private Random random;
     
-    private BufferedImage[] imagenes;
+    private Image[] imagenes;
 
-    public FabricaNivel(BufferedImage[] imagenes) {
+    public FabricaNivel(Image[] imagenes) {
         lector = new LectorArchivos();
         random = new Random();
         

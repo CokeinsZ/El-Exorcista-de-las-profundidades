@@ -9,7 +9,6 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -27,7 +26,7 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, BufferedImage imagenDemonio, BufferedImage imagenFuego) {
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
         
         vida = 5;

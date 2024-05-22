@@ -7,7 +7,6 @@ package sprite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -18,9 +17,9 @@ import javax.imageio.ImageIO;
  */
 public abstract class Dibujo extends Rectangle {
         
-    protected BufferedImage imagen;
+    protected Image imagen;
 
-    public Dibujo(int x, int y, int ancho, int alto, BufferedImage imagen) {
+    public Dibujo(int x, int y, int ancho, int alto, Image imagen) {
         super(x, y, ancho, alto);      
         
         this.imagen = imagen;

@@ -9,7 +9,6 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import personajes.Angel;
 
 /**
@@ -20,7 +19,7 @@ public class DemonioElectrico extends Demonio {
     public static final int ANCHO = 113;
     public static final int ALTO = 130; 
         
-    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, BufferedImage imagen) {
+    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
         
         vida = 4;

@@ -7,7 +7,6 @@ package nivel;
 import control.HiloCreacionDemonios;
 import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
-import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
@@ -16,13 +15,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import nivel.elementos.cofre.Cofre;
-import nivel.elementos.llave.Llave;
 import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.Puerta;
 import nivel.elementos.trampa.Trampa;
@@ -52,20 +49,18 @@ public class Nivel extends Dibujo
     private ArrayList<Trampa> trampas;    
     private ArrayList<Pared> paredes;
     private Puerta puerta;
-    private Llave llaveFinNivel;
-    private Llave llaveCofre;
     private ArrayList<Demonio> demonios;
     
     private Notificable notificador;
     
-    private BufferedImage[] imagenes;
+    private Image[] imagenes;
     
     private HiloMovimientoDemonios hiloDemonios;
     private HiloCreacionDemonios hiloCreacionDemonios;
     
     private ArrayList<Integer> pilaDemonios;
 
-    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, BufferedImage[] imagenes, int ancho, int alto) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
         super(0, 0, ancho, alto, null);
         
@@ -87,13 +82,11 @@ public class Nivel extends Dibujo
         
         this.notificador = notificador;
         
-        //llaveFinNivel = new Llave(640, 360, imagenes[ConstantesComunes.IMAGEN_LLAVE]);
-        //llaveCofre = new Llave(640, 360, imagenes[ConstantesComunes.IMAGEN_LLAVE]);
-        
         pilaDemonios = new ArrayList<>();
         cargarPilaDemoniosPorCrear();
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
+        
         
         hiloDemonios = new HiloMovimientoDemonios(demonios);
         hiloDemonios.start();
@@ -283,9 +276,6 @@ public class Nivel extends Dibujo
             demonio.dibujar(g);
         }
         
-        if (llaveFinNivel != null)
-            llaveFinNivel.dibujar(g);
-        
         angel.dibujar(g);
     }
 
@@ -373,13 +363,6 @@ public class Nivel extends Dibujo
 
     private void eliminarDemonio(Demonio demonio) {
         demonios.remove(demonio);
-        
-        if (demonios.isEmpty() && !hiloCreacionDemonios.isAlive())
-            crearLlaveFinNivel();
-    }
-    
-    private void crearLlaveFinNivel() {
-        llaveFinNivel = new Llave(640, 360, imagenes[ConstantesComunes.IMAGEN_LLAVE]);
     }
 
     @Override

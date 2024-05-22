@@ -6,7 +6,6 @@ package nivel.elementos.cofre.potenciadores;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 /**
  *
@@ -14,7 +13,7 @@ import java.awt.image.BufferedImage;
  */
 public class PotenciadorAtaque extends Potenciador {
 
-    public PotenciadorAtaque(int x, int y, BufferedImage imagen) {
+    public PotenciadorAtaque(int x, int y, Image imagen) {
         super(x, y, imagen);
     }
 

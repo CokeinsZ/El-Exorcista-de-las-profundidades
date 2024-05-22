@@ -7,7 +7,6 @@ package nivel.elementos.pared;
 import nivel.elementos.pared.Pared;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 /**
  *
@@ -15,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 public class ParedEstructural extends Pared {
 
-    public ParedEstructural(int x, int y, BufferedImage imagen) {
+    public ParedEstructural(int x, int y, Image imagen) {
         super(x, y, imagen);
         
     }

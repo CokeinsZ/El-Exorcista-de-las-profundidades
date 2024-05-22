@@ -8,7 +8,6 @@ import interfaces.Notificable;
 import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sprite.Dibujo;
@@ -33,7 +32,7 @@ public class Rayo extends Dibujo implements Runnable {
     
     private  Verificable verificador;
     
-    public Rayo(int x, int y, BufferedImage imagen, Notificable notificador,Verificable verificador) {
+    public Rayo(int x, int y, Image imagen, Notificable notificador,Verificable verificador) {
         super(x, y, ANCHO, ALTO, imagen);
         seLlego = false;
         

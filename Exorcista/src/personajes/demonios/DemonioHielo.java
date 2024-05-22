@@ -9,7 +9,6 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 import personajes.Angel;
@@ -22,7 +21,7 @@ public class DemonioHielo extends Demonio{
     public static final int ANCHO = 80;
     public static final int ALTO = 80; 
         
-    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, BufferedImage imagen) {
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
         
         vida = 1;
