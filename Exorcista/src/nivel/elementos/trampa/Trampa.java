@@ -5,6 +5,7 @@
 package nivel.elementos.trampa;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import sprite.Dibujo;
 
 /**
@@ -17,7 +18,7 @@ public abstract class Trampa extends Dibujo {
     
     public static final int TIPO_MINA = 1;
     
-    public Trampa(int x, int y, Image imagen) {
+    public Trampa(int x, int y, BufferedImage imagen) {
         super(x, y, ANCHO, ALTO, imagen);
     }
     

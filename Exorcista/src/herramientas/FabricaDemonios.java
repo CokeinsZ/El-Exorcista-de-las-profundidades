@@ -8,6 +8,7 @@ import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 import personajes.Angel;
@@ -19,9 +20,9 @@ import personajes.demonios.*;
  */
 public class FabricaDemonios {
     
-    private Image[] imagenes;
+    private BufferedImage[] imagenes;
 
-    public FabricaDemonios(Image[] imagenes) {
+    public FabricaDemonios(BufferedImage[] imagenes) {
         this.imagenes = imagenes;
     }
     

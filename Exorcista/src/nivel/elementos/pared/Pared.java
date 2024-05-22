@@ -5,6 +5,7 @@
 package nivel.elementos.pared;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import sprite.Dibujo;
 
 /**
@@ -19,7 +20,7 @@ public abstract class Pared extends Dibujo{
     public static final int ANCHO = 100;
     public static final int ALTO = 100;
 
-    public Pared(int x, int y, Image imagen) {
+    public Pared(int x, int y, BufferedImage imagen) {
         super(x, y, ANCHO, ALTO, imagen);
     }    
 }

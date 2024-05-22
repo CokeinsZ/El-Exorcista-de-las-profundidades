@@ -7,6 +7,7 @@ package personajes;
 import interfaces.ConstantesComunes;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import sprite.Dibujo;
 
@@ -18,7 +19,7 @@ public class Alma extends Dibujo {
     public static final int ANCHO = 80;
     public static final int ALTO = 80;
     
-    public Alma(int posX, int posY, Image imagen) {
+    public Alma(int posX, int posY, BufferedImage imagen) {
         super(posX, posY, ANCHO, ALTO, imagen);
     }
 

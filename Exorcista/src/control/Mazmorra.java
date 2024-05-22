@@ -11,9 +11,9 @@ import interfaces.Refrescable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import sprite.Dibujo;
 public class Mazmorra extends Dibujo
                       implements Notificable {
 
-    private Image[] imagenes;
+    private BufferedImage[] imagenes;
     
     private int puntajeTotal;
     private int numNivel;
@@ -108,7 +108,7 @@ public class Mazmorra extends Dibujo
     }
 
     public void cargarTodasImagenes() throws IOException {
-        imagenes = new Image[20];
+        imagenes = new BufferedImage[20];
         
         imagenes[0] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioElectrico2.png"));
         imagenes[1] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
@@ -133,6 +133,8 @@ public class Mazmorra extends Dibujo
         imagenes[12] = ImageIO.read(new File("imagenes\\cofres\\cofre2.png"));
         
         imagenes[13] = ImageIO.read(new File("imagenes\\personajes\\angel\\rayo2.png"));
+        
+        imagenes[14] = ImageIO.read(new File("imagenes\\Paredes\\Puertas\\llave2.png"));
 
     }
     

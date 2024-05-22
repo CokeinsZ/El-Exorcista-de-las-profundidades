@@ -6,6 +6,7 @@ package nivel.elementos.cofre.potenciadores;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.awt.Image;
  */
 public class PotenciadorVida extends Potenciador {
 
-    public PotenciadorVida(int x, int y, Image imagen) {
+    public PotenciadorVida(int x, int y, BufferedImage imagen) {
         super(x, y, imagen);
     }
 

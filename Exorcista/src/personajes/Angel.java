@@ -13,6 +13,7 @@ import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import personajes.poderAngel.Rayo;
@@ -36,13 +37,13 @@ public class Angel extends Dibujo {
     private int almasLiberadas;
     
     private ArrayList<Rayo> rayos;
-    private Image imagenRayo;
+    private BufferedImage imagenRayo;
     
     private Delimitable bordes;
     private Notificable notificador;
     private Verificable verificador;
                 
-    public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
+    public Angel(int x, int y, Delimitable bordes, BufferedImage imagenAngel, BufferedImage imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
         
         this.vida = 100;
@@ -106,7 +107,7 @@ public class Angel extends Dibujo {
     
     public void setBordes(Delimitable bordes) {
         this.bordes = bordes;
-    }
+   }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
         Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);

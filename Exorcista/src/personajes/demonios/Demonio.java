@@ -7,6 +7,7 @@ package personajes.demonios;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import personajes.Angel;
 import sprite.Dibujo;
 
@@ -30,7 +31,7 @@ public abstract class Demonio extends Dibujo {
     
     protected Delimitable bordes;
     
-    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
+    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador, BufferedImage imagen) {
         super(x, y, width, height, imagen);
         this.bordes = bordes;
         this.enemigo = enemigo;
