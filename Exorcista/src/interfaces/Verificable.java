@@ -11,6 +11,6 @@ import java.awt.Rectangle;
  * @author Alejandro
  */
 public interface Verificable {
-    public boolean verificarColision(Rectangle rectangulo);
+    public boolean verificarColision(personajes.poderAngel.Rayo rayo);
 
 }

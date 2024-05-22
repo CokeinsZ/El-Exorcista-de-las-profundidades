@@ -18,15 +18,15 @@ import personajes.Angel;
  * @author Alejandro
  */
 public class DemonioHielo extends Demonio{
-    public static final int ANCHO = 80;
-    public static final int ALTO = 80; 
+    public static final int ANCHO = 90;
+    public static final int ALTO = 100; 
         
     public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
         
         vida = 1;
         daño = 1;
-        velocidad = 30;
+        velocidad = 5;
         
     }
 

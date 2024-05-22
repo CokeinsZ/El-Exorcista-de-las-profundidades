@@ -41,6 +41,9 @@ public class Angel extends Dibujo {
     private Delimitable bordes;
     private Notificable notificador;
     private Verificable verificador;
+    
+    private boolean tieneLlveFinNivel;
+    private boolean tieneLlaveCofre;
                 
     public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
@@ -115,7 +118,6 @@ public class Angel extends Dibujo {
     }
     
     public void setVerificable(Verificable verificador){
-        
         this.verificador = verificador;
         
     }

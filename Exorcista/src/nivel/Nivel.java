@@ -14,7 +14,6 @@ import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -363,13 +362,16 @@ public class Nivel extends Dibujo
 
     private void eliminarDemonio(Demonio demonio) {
         demonios.remove(demonio);
+        
+        if(demonios.isEmpty() && !hiloCreacionDemonios.isAlive())
+            reproducirEventoFinDeNivel();
     }
 
     @Override
-    public boolean verificarColision(Rectangle rectangulo) {
+    public boolean verificarColision(Rayo rayo) {
         
         for (int i = 0; i<demonios.size(); i++){
-            if(demonios.get(i).intersects(rectangulo)){
+            if(demonios.get(i).intersects(rayo)){
                 if (demonios.get(i).recibirImapcto(Angel.DAÑO)){
                     eliminarDemonio(demonios.get(i));
                     notificador.notificarCambios();
@@ -379,14 +381,21 @@ public class Nivel extends Dibujo
             }            
         }
         
-        
         for (int i = 0; i<paredes.size(); i++){
-            if(paredes.get(i).intersects(rectangulo)){
+            if(paredes.get(i).intersects(rayo)){
                 return true;     
             }            
         }
       
              return false;
+    }
+
+    private void reproducirEventoFinDeNivel() {
+        //TO-DO
+        /*
+        Crear Llave fin de nivel
+        Cambiar el booleano tieneLaLLave
+        */
         
     }
 
