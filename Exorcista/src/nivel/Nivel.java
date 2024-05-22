@@ -7,6 +7,7 @@ package nivel;
 import control.HiloCreacionDemonios;
 import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
+import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import nivel.elementos.cofre.Cofre;
+import nivel.elementos.pared.Llave;
 import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.Puerta;
 import nivel.elementos.trampa.Trampa;
@@ -58,6 +60,8 @@ public class Nivel extends Dibujo
     private HiloCreacionDemonios hiloCreacionDemonios;
     
     private ArrayList<Integer> pilaDemonios;
+    
+    private Llave llaveFinNivel;
 
     public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
         //TO-DO recibir el ancho y el alto y las posiciones del nivel por el constructor
@@ -103,7 +107,7 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 10;
+            numDemoniosHielo = 1;
             limSup = 2;
                     
         } else if (numNivel == 2) {
@@ -276,6 +280,10 @@ public class Nivel extends Dibujo
         }
         
         angel.dibujar(g);
+        
+        if (llaveFinNivel != null) {
+            llaveFinNivel.dibujar(g);
+        }
     }
 
     @Override
@@ -361,10 +369,10 @@ public class Nivel extends Dibujo
     }
 
     private void eliminarDemonio(Demonio demonio) {
-        demonios.remove(demonio);
+        if(demonios.size() == 1 && !hiloCreacionDemonios.isAlive())
+            reproducirEventoFinDeNivel((int) demonio.getX(), (int) demonio.getY());
         
-        if(demonios.isEmpty() && !hiloCreacionDemonios.isAlive())
-            reproducirEventoFinDeNivel();
+        demonios.remove(demonio);        
     }
 
     @Override
@@ -390,12 +398,12 @@ public class Nivel extends Dibujo
              return false;
     }
 
-    private void reproducirEventoFinDeNivel() {
+    private void reproducirEventoFinDeNivel(int x, int y) {
         //TO-DO
-        /*
-        Crear Llave fin de nivel
-        Cambiar el booleano tieneLaLLave
-        */
+        
+        llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE]);
+        //Cambiar el booleano tieneLaLLave
+        
         
     }
 
