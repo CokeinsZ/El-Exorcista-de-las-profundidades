@@ -17,6 +17,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import nivel.Nivel;
 
@@ -76,7 +78,7 @@ public class Mazmorra extends Dibujo
                 || codigo == KeyEvent.VK_DOWN
                 || codigo == KeyEvent.VK_RIGHT
                 || codigo == KeyEvent.VK_LEFT ) {
-
+            
             niveles.get(numNivel-1).moverAngel(codigo);
         }
     }
@@ -136,6 +138,15 @@ public class Mazmorra extends Dibujo
         
         imagenes[14] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\llave2.png"));
         
+    }
+
+    @Override
+    public void notificarFinNivel() {
+        try {
+            agregarNivel();
+        } catch (IOException ex) {
+            ex.getStackTrace();
+        }
     }
     
     

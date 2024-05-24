@@ -121,5 +121,6 @@ public class Angel extends Dibujo {
         this.verificador = verificador;
         
     }
+
        
 }

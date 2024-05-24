@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nivel.elementos.cofre.Cofre;
 import nivel.elementos.pared.Llave;
 import nivel.elementos.pared.Pared;
@@ -41,7 +43,6 @@ public class Nivel extends Dibujo
     private FabricaDemonios fabrica;
     
     private int numNivel;
-    private AudioClip soundTrack;
     
     private Angel angel;
     
@@ -232,26 +233,29 @@ public class Nivel extends Dibujo
     } 
 
     public void moverAngel(int codigo){
-
+        //Tengo que guardar la posicion del angel en tal caso que tenga de deshacer un movimiento
         //posiciones anteriores al movimiento. es decir la posicion del angel antes de moverse 
         int xAnterior = (int) angel.getX();
         int yAnterior =  (int) angel.getY();
         
-        //Tengo que guardar la posicion del angel en tal caso que tenga de deshacer un movimienot
         boolean movimientoAngel = angel.mover(codigo); // Si se mueve me retorna true de lo contrario false 
         if(movimientoAngel == true){  
          // Verificar colisión con los demonios
             for (int i = 0; i < demonios.size(); i++) {
-
                 if (angel.intersects(demonios.get(i))) {
                     // Si hay colisión, revertir el movimiento
                     angel.revertirMovimiento(xAnterior, yAnterior);
  
                      break;
-                    
                 }
             }
            notificador.notificarCambios();
+        }
+        
+        if (llaveFinNivel != null && angel.intersects(llaveFinNivel)) {
+            llaveFinNivel = null;
+        
+            notificador.notificarFinNivel();
         }
     }
     
@@ -261,7 +265,8 @@ public class Nivel extends Dibujo
             pared.dibujar(g);
         }
         
-        puerta.dibujar(g);
+        if (puerta != null)
+            puerta.dibujar(g);
         
         for (Cofre cofre: cofres) {
             cofre.dibujar(g);
@@ -381,6 +386,8 @@ public class Nivel extends Dibujo
         for (int i = 0; i<demonios.size(); i++){
             if(demonios.get(i).intersects(rayo)){
                 if (demonios.get(i).recibirImapcto(Angel.DAÑO)){
+                    System.out.println(demonios.size());
+                    System.out.println(i);
                     eliminarDemonio(demonios.get(i));
                     notificador.notificarCambios();
                 }
@@ -398,12 +405,8 @@ public class Nivel extends Dibujo
              return false;
     }
 
-    private void reproducirEventoFinDeNivel(int x, int y) {
-        //TO-DO
-        
-        llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE]);
-        //Cambiar el booleano tieneLaLLave
-        
+    private void reproducirEventoFinDeNivel(int x, int y) {        
+        llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE]);        
         
     }
 
