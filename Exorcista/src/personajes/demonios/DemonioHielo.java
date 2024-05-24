@@ -85,15 +85,20 @@ public class DemonioHielo extends Demonio{
     
     @Override
     public void mover() {
-        if (x >= bordes.getXMax(y) && y < bordes.getYMax(x)) {
+        System.out.println("XMax  " + bordes.getXMax(y));
+        System.out.println("xMin  " + bordes.getXMin(y));
+        System.out.println("YMax  " + bordes.getYMax(x));
+        System.out.println("YMIn  " + bordes.getXMin(y));
+ 
+        if (x >= bordes.getXMax(y) - ANCHO && y <= bordes.getYMax(x) - ALTO) {
             // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior
             y += velocidad;
             
-        } else if (y >= bordes.getYMax(x) && x > bordes.getXMin(y)) {
+        } else if (y >= bordes.getYMax(x) - ALTO && x >= bordes.getXMin(y)) {
             // Mover hacia la izquierda si estamos en el borde inferior y no hemos llegado al borde izquierdo
             x -= velocidad;
             
-        } else if (x <= bordes.getXMin(y) && y > bordes.getYMin(x)) {
+        } else if (x <= bordes.getXMin(y) && y >= bordes.getYMin(x)) {
             // Mover hacia arriba si estamos en el borde izquierdo y no hemos llegado al borde superior
             y -= velocidad;
             
@@ -101,6 +106,8 @@ public class DemonioHielo extends Demonio{
             // Mover hacia la derecha si estamos en el borde superior o si no estamos en ningún borde
             x += velocidad;
         }
+        
+        
 
         /*
         // Reducir los bordes después de cada vuelta

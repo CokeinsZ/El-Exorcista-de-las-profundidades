@@ -5,6 +5,11 @@
 package nivel.elementos.pared;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import sprite.Dibujo;
 
 /**
@@ -21,5 +26,15 @@ public abstract class Pared extends Dibujo{
 
     public Pared(int x, int y, Image imagen) {
         super(x, y, ANCHO, ALTO, imagen);
-    }    
+    }
+
+    public void pintarNegro() {
+        try {
+            imagen = ImageIO.read(new File("imagenes\\OIP.jpeg"));
+        } catch (IOException ex) {
+            Logger.getLogger(Pared.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No cargó la imagen negra");
+        }
+    }
+
 }

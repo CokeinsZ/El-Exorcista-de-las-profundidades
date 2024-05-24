@@ -111,7 +111,7 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 2;
+            numDemoniosHielo = 1;
             limSup = 2;
                     
         } else if (numNivel == 2) {
@@ -300,26 +300,31 @@ public class Nivel extends Dibujo
         
         for(Pared pared: paredes) {
             int paredY = (int) pared.getY();
-            if(paredY < y + Pared.ALTO && paredY > y - Pared.ALTO && pared.getX() < xMin)
-                xMin = (int) pared.getX();
-                
+            if(y >= paredY && y <= paredY + Pared.ALTO && pared.getX() < xMin) 
+                xMin = (int) pared.getX();            
+            
         }
         
         return xMin + Pared.ANCHO;
     }
 
-    @Override
     public int getXMax(int y) {
         int xMax = Integer.MIN_VALUE;
-        
-        for(Pared pared: paredes) {
+
+        for (Pared pared : paredes) {
             int paredY = (int) pared.getY();
-            if(paredY < y + Pared.ALTO && paredY > y - Pared.ALTO && pared.getX() > xMax)
-                xMax = (int) pared.getX();
-                
+            if (paredY < y + Pared.ALTO && paredY > y - Pared.ALTO) {
+                int paredX = (int) pared.getX();
+                xMax = Math.max(xMax, paredX); // Actualizar xMax si se encuentra una pared más a la derecha
+            }
         }
-        
-        return xMax - Pared.ANCHO;
+
+        // Si no se encontraron paredes válidas, devolver el valor mínimo posible
+        if (xMax == Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+
+        return xMax;
     }
 
     @Override
@@ -328,7 +333,7 @@ public class Nivel extends Dibujo
         
         for(Pared pared: paredes) {
             int paredX = (int) pared.getX();
-            if(paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO && pared.getY() < yMin)
+            if(x >= paredX && x <= paredX + Pared.ANCHO && pared.getY() < yMin)
                 yMin = (int) pared.getY();
                 
         }
@@ -342,36 +347,15 @@ public class Nivel extends Dibujo
         
         for(Pared pared: paredes) {
             int paredX = (int) pared.getX();
-            if(paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO && pared.getY() > yMax)
+            if(x >= paredX && x <= paredX + Pared.ANCHO && pared.getY() > yMax)
                 yMax = (int) pared.getY();
                 
         }
         
-        return yMax - Pared.ALTO;
-    }
-
-    @Override
-    public void setXMax(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setXMin(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setYMax(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setYMin(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return yMax;
     }
 
     public void lanzarRayo(Graphics g, int x, int y) {
-        
         angel.lanzarRayos(g, x, y);
 
     }
@@ -383,34 +367,30 @@ public class Nivel extends Dibujo
         demonios.remove(demonio);        
     }
 
-
-
-public boolean verificarColision(Rayo rayo) {
-    synchronized (demonios) { // sincroniza el acceso a la lista de demonios
-        Iterator<Demonio> demonioIterator = demonios.iterator();
-        while (demonioIterator.hasNext()) {
-            Demonio demonio = demonioIterator.next();
-            if (demonio.intersects(rayo)) {
-                if (demonio.recibirImapcto(Angel.DAÑO)) {
-                    System.out.println(demonios.size());
-                    eliminarDemonio(demonio);
-                    notificador.notificarCambios();
+    public boolean verificarColision(Rayo rayo) {
+        synchronized (demonios) { // sincroniza el acceso a la lista de demonios
+            Iterator<Demonio> demonioIterator = demonios.iterator();
+            while (demonioIterator.hasNext()) {
+                Demonio demonio = demonioIterator.next();
+                if (demonio.intersects(rayo)) {
+                    if (demonio.recibirImapcto(Angel.DAÑO)) {
+                        System.out.println(demonios.size());
+                        eliminarDemonio(demonio);
+                        notificador.notificarCambios();
+                    }
+                    return true;
                 }
+            }
+        }
+
+        for (int i = 0; i < paredes.size(); i++) {
+            if (paredes.get(i).intersects(rayo)) {
                 return true;
             }
         }
+
+        return false;
     }
-
-    for (int i = 0; i < paredes.size(); i++) {
-        if (paredes.get(i).intersects(rayo)) {
-            return true;
-        }
-    }
-    
-
-    return false;
-}
-
 
     private void reproducirEventoFinDeNivel(int x, int y) {        
         llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE]);        
