@@ -31,6 +31,9 @@ import personajes.Angel;
 import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
+    
+  import java.util.Iterator;
+
 
 /**
  *
@@ -380,30 +383,34 @@ public class Nivel extends Dibujo
         demonios.remove(demonio);        
     }
 
-    @Override
-    public boolean verificarColision(Rayo rayo) {
-        
-        for (int i = 0; i<demonios.size(); i++){
-            if(demonios.get(i).intersects(rayo)){
-                if (demonios.get(i).recibirImapcto(Angel.DAÑO)){
+
+
+public boolean verificarColision(Rayo rayo) {
+    synchronized (demonios) { // sincroniza el acceso a la lista de demonios
+        Iterator<Demonio> demonioIterator = demonios.iterator();
+        while (demonioIterator.hasNext()) {
+            Demonio demonio = demonioIterator.next();
+            if (demonio.intersects(rayo)) {
+                if (demonio.recibirImapcto(Angel.DAÑO)) {
                     System.out.println(demonios.size());
-                    System.out.println(i);
-                    eliminarDemonio(demonios.get(i));
+                    eliminarDemonio(demonio);
                     notificador.notificarCambios();
                 }
-                
-                return true;     
-            }            
+                return true;
+            }
         }
-        
-        for (int i = 0; i<paredes.size(); i++){
-            if(paredes.get(i).intersects(rayo)){
-                return true;     
-            }            
-        }
-      
-             return false;
     }
+
+    for (int i = 0; i < paredes.size(); i++) {
+        if (paredes.get(i).intersects(rayo)) {
+            return true;
+        }
+    }
+    
+
+    return false;
+}
+
 
     private void reproducirEventoFinDeNivel(int x, int y) {        
         llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE]);        
