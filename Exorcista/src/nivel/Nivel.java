@@ -108,7 +108,7 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 1;
+            numDemoniosHielo = 2;
             limSup = 2;
                     
         } else if (numNivel == 2) {
