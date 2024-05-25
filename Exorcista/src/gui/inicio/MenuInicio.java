@@ -33,13 +33,12 @@ public class MenuInicio extends javax.swing.JDialog {
      */
     public MenuInicio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
-        
         setImagenes();
+        initComponents();
         
     }
 
-   public void setImagenes() {
+   private void setImagenes() {
         try {
             this.imagenFondo = ImageIO.read(new File("imagenes\\menuInicio\\inicio.jpg"));
             this.imagenLogo = ImageIO.read(new File("imagenes\\icono\\logo.png"));
@@ -48,19 +47,19 @@ public class MenuInicio extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error con la imagen", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    @Override
-    public void paint(Graphics g) {
-        g.drawImage(imagenFondo, 0, 0, null);
-    }
-   
    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         bInicar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

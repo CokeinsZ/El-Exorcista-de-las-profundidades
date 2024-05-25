@@ -39,8 +39,8 @@ public class FabricaNivel {
     }
     
     public Nivel crearNivel(int numNivel, Angel angel, Notificable notificador) throws IOException {
-        lector.setBufferedReader("archivos\\niveles\\Plantilla Niveles.txt");
-        //lector.setBufferedReader("archivos\\niveles\\nivel" + numNivel + ".txt");
+        lector.setBufferedReader("archivos\\niveles\\nivel" + numNivel + ".txt");
+        
         ArrayList<Cofre> cofres = new ArrayList<>();
         ArrayList<Alma> almas = new ArrayList<>();
         ArrayList<Trampa> trampas = new ArrayList<>();
@@ -156,7 +156,7 @@ public class FabricaNivel {
     }
 
     private Puerta crearPuerta(int x, int y) throws IOException {
-        return new Puerta(x, y, imagenes[ConstantesComunes.IMAGEN_PUERTA]);
+        return new Puerta(x, y, imagenes[ConstantesComunes.IMAGEN_PUERTA], imagenes[ConstantesComunes.IMAGEN_PUERTA]);
     }
     
     
