@@ -307,27 +307,60 @@ public class Nivel extends Dibujo
         return xMin + Pared.ANCHO;
     }
 
-    public int getXMax(int y) {
-        int xMax = Integer.MIN_VALUE;
+    @Override
+   public int getXMax(int y) {
+      int xMax = Integer.MIN_VALUE;
+      boolean foundValidPared = false;
+
+      for (Pared pared : paredes) {
+          int paredY = (int) pared.getY();
+          if (Math.abs(paredY - y) < Pared.ALTO) { // Usar comparación con margen de error si es necesario
+              int paredX = (int) pared.getX();
+              xMax = Math.max(xMax, paredX);
+              foundValidPared = true;
+          }
+      }
+
+      if (!foundValidPared) {
+          // Si no se encontró ninguna pared válida, devolver un valor especial
+          return Integer.MAX_VALUE; // Puedes ajustar este valor según tu lógica de juego
+      }
+
+      if (xMax <= 0) {
+          // Si el valor de xMax es inválido, manejarlo adecuadamente
+          return Integer.MAX_VALUE; // Ajustar según tu lógica de juego
+      }
+
+      return xMax - Pared.ANCHO;
+    }
+
+    @Override
+    public int getYMax(int x) {
+        int yMax = Integer.MIN_VALUE;
         boolean foundValidPared = false;
 
         for (Pared pared : paredes) {
-            int paredY = (int) pared.getY();
-            if (paredY < y + Pared.ALTO && paredY > y - Pared.ALTO) {
-                int paredX = (int) pared.getX();
-                xMax = Math.max(xMax, paredX);
-                foundValidPared = true; // Hemos encontrado al menos una pared válida
+            int paredX = (int) pared.getX();
+            if (Math.abs(paredX - x) < Pared.ANCHO) { // Usar comparación con margen de error si es necesario
+                int paredY = (int) pared.getY();
+                yMax = Math.max(yMax, paredY);
+                foundValidPared = true;
             }
         }
 
-        if (!foundValidPared || xMax <= 0) {
-            // No se encontró ninguna pared válida en el rango, o xMax es menor o igual a cero
-            // Devolvemos un valor especial para indicar que no hay un límite válido
-            return Integer.MIN_VALUE;
+        if (!foundValidPared) {
+            // Si no se encontró ninguna pared válida, devolver un valor especial
+            return Integer.MAX_VALUE; // Puedes ajustar este valor según tu lógica de juego
         }
 
-        return xMax;
+        if (yMax <= 0) {
+            // Si el valor de yMax es inválido, manejarlo adecuadamente
+            return Integer.MAX_VALUE; // Ajustar según tu lógica de juego
+        }
+
+        return yMax - Pared.ALTO;
     }
+
 
     @Override
     public int getYMin(int x) {
@@ -343,19 +376,7 @@ public class Nivel extends Dibujo
         return yMin + Pared.ALTO; 
     }
 
-    @Override
-    public int getYMax(int x) {
-        int yMax = Integer.MIN_VALUE;
-        
-        for(Pared pared: paredes) {
-            int paredX = (int) pared.getX();
-            if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() > yMax)
-                yMax = (int) pared.getY();
-                
-        }
-        
-        return yMax;
-    }
+   
 
     public void lanzarRayo(Graphics g, int x, int y) {
         angel.lanzarRayos(g, x, y);
