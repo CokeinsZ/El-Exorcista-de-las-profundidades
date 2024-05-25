@@ -366,7 +366,8 @@ public class Nivel extends Dibujo
         if(demonios.size() == 1 && !hiloCreacionDemonios.isAlive())
             reproducirEventoFinDeNivel((int) demonio.getX(), (int) demonio.getY());
         
-        demonios.remove(demonio);        
+        demonios.remove(demonio);       
+        notificador.notificarCambios();
     }
 
     public boolean verificarColision(Rayo rayo) {
@@ -378,7 +379,6 @@ public class Nivel extends Dibujo
                     if (demonio.recibirImapcto(Angel.DAÑO)) {
                         System.out.println(demonios.size());
                         eliminarDemonio(demonio);
-                        notificador.notificarCambios();
                     }
                     return true;
                 }
@@ -403,7 +403,8 @@ public class Nivel extends Dibujo
         synchronized (demonios) {
             for (int i = 0; i < demonios.size(); i++) {
                 if(angel.atacar().intersects(demonios.get(i)))
-                    demonios.get(i).recibirImapcto(Angel.DAÑO);
+                   if(demonios.get(i).recibirImapcto(Angel.DAÑO))
+                       eliminarDemonio(demonios.get(i));
             }
         }        
     }

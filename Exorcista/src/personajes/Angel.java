@@ -101,7 +101,8 @@ public class Angel extends Dibujo {
             x -= VELOCIDAD;
             return true;
         }
-                       
+         
+        areaAtaque.setLocation(x-10, y-10);
         return false;
     }
     
