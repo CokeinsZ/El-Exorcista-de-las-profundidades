@@ -33,7 +33,8 @@ public class Angel extends Dibujo {
     public static final int DAÑO = 1;
     
     private float vida;
-    private float energia;
+    private int energia;
+    private int energiaMaxima;
     private Potenciador[] potenciadores;
     private int almasLiberadas;
     
@@ -53,7 +54,7 @@ public class Angel extends Dibujo {
         super(x, y, ANCHO, ALTO, imagenAngel);
         
         this.vida = 100;
-        this.energia = 100;
+        this.energia = 10;
         this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
         this.almasLiberadas = 0;
                                 
@@ -126,6 +127,7 @@ public class Angel extends Dibujo {
         Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);
         rayos.add(nuevoRayo);
         nuevoRayo.moverRayo(x, y);
+        energia--;
     }
     
     public void setVerificable(Verificable verificador){
@@ -144,7 +146,22 @@ public class Angel extends Dibujo {
     public void agregarSeguidores(int numAlmas) {
         almasLiberadas += numAlmas;
         
-        if (almasLiberadas % 3 == 0)
-            energia++;
+        energia += almasLiberadas % 3;
+    }
+
+    public float getVida() {
+        return vida;
+    }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public int getAlmas() {
+        return almasLiberadas;
+    }
+
+    public Potenciador[] getPotenciadores() {
+        return potenciadores;
     }
 }

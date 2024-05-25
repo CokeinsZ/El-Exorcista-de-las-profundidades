@@ -257,6 +257,8 @@ public class Nivel extends Dibujo
         if (llaveFinNivel != null && angel.intersects(llaveFinNivel)) {
             llaveFinNivel = null;
         
+            angel.agregarSeguidores(almas.size());
+            
             notificador.notificarFinNivel();
         }
     }
@@ -314,7 +316,7 @@ public class Nivel extends Dibujo
 
         for (Pared pared : paredes) {
             int paredY = (int) pared.getY();
-            if (paredY < y + Pared.ALTO && paredY > y - Pared.ALTO) {
+            if (paredY < y && paredY >= y - Pared.ALTO) {
                 int paredX = (int) pared.getX();
                 xMax = Math.max(xMax, paredX);
                 foundValidPared = true; // Hemos encontrado al menos una pared válida
@@ -350,7 +352,7 @@ public class Nivel extends Dibujo
         
         for(Pared pared: paredes) {
             int paredX = (int) pared.getX();
-            if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() > yMax)
+            if(x > paredX && x <= paredX + Pared.ANCHO && pared.getY() > yMax)
                 yMax = (int) pared.getY();
                 
         }
@@ -409,5 +411,13 @@ public class Nivel extends Dibujo
                        eliminarDemonio(demonios.get(i));
             }
         }        
+    }
+
+    public int getNumNivel() {
+        return numNivel;
+    }
+
+    public int getDemoniosRestantes() {
+        return pilaDemonios.size() + demonios.size();
     }
 }

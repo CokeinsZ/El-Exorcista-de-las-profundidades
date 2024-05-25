@@ -21,6 +21,7 @@ public abstract class Potenciador extends Dibujo {
     public Potenciador(int x, int y, Image imagen) {
         super(x, y, ANCHO, ALTO, imagen);
     }
+
     
     
 }

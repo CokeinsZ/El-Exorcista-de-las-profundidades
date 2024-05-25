@@ -48,7 +48,7 @@ public class FabricaNivel {
     public Nivel crearNivel(int numNivel, Angel angel, Notificable notificador) throws IOException {
         int numArchivo = hallarNumArchivo(numNivel);
         
-        lector.setBufferedReader("archivos\\niveles\\nivel" + 3 + ".txt");
+        lector.setBufferedReader("archivos\\niveles\\nivel" + numArchivo + ".txt");
         
         ArrayList<Cofre> cofres = new ArrayList<>();
         ArrayList<Alma> almas = new ArrayList<>();
