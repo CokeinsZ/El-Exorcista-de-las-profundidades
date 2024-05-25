@@ -33,7 +33,8 @@ public class Angel extends Dibujo {
     public static final int DAÑO = 1;
     
     private float vida;
-    private float energia;
+    private int energia;
+    private int energiaMaxima;
     private Potenciador[] potenciadores;
     private int almasLiberadas;
     
@@ -53,9 +54,12 @@ public class Angel extends Dibujo {
         super(x, y, ANCHO, ALTO, imagenAngel);
         
         this.vida = 100;
-        this.energia = 100;
-        this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
+        
+        this.energia = 10;
+        this.energiaMaxima = 10;
         this.almasLiberadas = 0;
+        
+        this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
                                 
         this.bordes = bordes;
         this.notificador = notificador;
@@ -120,14 +124,17 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
+        if(energia <= 0)
+            return;
+        
         Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);
         rayos.add(nuevoRayo);
         nuevoRayo.moverRayo(x, y);
+        energia--;
     }
     
     public void setVerificable(Verificable verificador){
         this.verificador = verificador;
-        
     }
 
     public Rectangle atacar() {
@@ -138,5 +145,30 @@ public class Angel extends Dibujo {
         
         return areaAtaque;
     }
+    
+    public void agregarSeguidores(int numAlmas) {
+        almasLiberadas += numAlmas;
+        
+        energiaMaxima += almasLiberadas % 3;
+    }
 
+    public float getVida() {
+        return vida;
+    }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public int getAlmas() {
+        return almasLiberadas;
+    }
+
+    public Potenciador[] getPotenciadores() {
+        return potenciadores;
+    }
+    
+    public void recargarEnergia() {
+        energia = energiaMaxima;
+    }
 }

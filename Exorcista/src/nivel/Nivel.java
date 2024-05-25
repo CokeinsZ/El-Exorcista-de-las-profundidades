@@ -5,6 +5,7 @@
 package nivel;
 
 import control.HiloCreacionDemonios;
+import control.HiloFuncionesEspeciales;
 import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.ConstantesComunes;
@@ -63,6 +64,7 @@ public class Nivel extends Dibujo
     
     private HiloMovimientoDemonios hiloDemonios;
     private HiloCreacionDemonios hiloCreacionDemonios;
+    private HiloFuncionesEspeciales hiloEspecial;
     
     private ArrayList<Integer> pilaDemonios;
     
@@ -97,6 +99,9 @@ public class Nivel extends Dibujo
         hiloDemonios = new HiloMovimientoDemonios(demonios);
         hiloDemonios.start();
         
+        hiloEspecial = new HiloFuncionesEspeciales(angel);
+        hiloEspecial.start();
+        
     }
     
     private void cargarPilaDemoniosPorCrear() {
@@ -110,26 +115,26 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 50;
+            numDemoniosHielo = 1;
             limSupTipoDemonios = 2;
                     
         } else if (numNivel == 2) {
-            numDemoniosHielo = 5;
-            numDemoniosSelvatico = 10;
+            numDemoniosHielo = 1;
+            numDemoniosSelvatico = 1;
             limSupTipoDemonios = 3;
         
         } else if (numNivel == 3) {
-            numDemoniosHielo = 10;
-            numDemoniosSelvatico = 7;
-            numDemoniosFuego = 6;
-            numDemoniosElectrico = 8;
+            numDemoniosHielo = 1;
+            numDemoniosSelvatico = 1;
+            numDemoniosFuego = 1;
+            numDemoniosElectrico = 1;
             limSupTipoDemonios = 5;
         
         } else if (numNivel > 3) {            
-            numDemoniosHielo = r.nextInt(15);
-            numDemoniosSelvatico = r.nextInt(15);
-            numDemoniosFuego = r.nextInt(15);
-            numDemoniosElectrico = r.nextInt(15);
+            numDemoniosHielo = r.nextInt(1,2);
+            numDemoniosSelvatico = r.nextInt(1,2);
+            numDemoniosFuego = r.nextInt(1,2);
+            numDemoniosElectrico = r.nextInt(1,2);
             limSupTipoDemonios = 5;
             
         }
@@ -257,6 +262,8 @@ public class Nivel extends Dibujo
         if (llaveFinNivel != null && angel.intersects(llaveFinNivel)) {
             llaveFinNivel = null;
         
+            angel.agregarSeguidores(almas.size());
+            
             notificador.notificarFinNivel();
         }
     }
@@ -301,66 +308,39 @@ public class Nivel extends Dibujo
             int paredY = (int) pared.getY();
             if(y >= paredY && y < paredY + Pared.ALTO && pared.getX() < xMin) 
                 xMin = (int) pared.getX();            
-            
+            else if (y >= puerta.getY() && y < puerta.getY() + Puerta.ALTO && puerta.getX() < xMin)
+                xMin = (int) puerta.getX();  
         }
         
         return xMin + Pared.ANCHO;
     }
 
     @Override
-   public int getXMax(int y) {
-      int xMax = Integer.MIN_VALUE;
-      boolean foundValidPared = false;
-
-      for (Pared pared : paredes) {
-          int paredY = (int) pared.getY();
-          if (Math.abs(paredY - y) < Pared.ALTO) { // Usar comparación con margen de error si es necesario
-              int paredX = (int) pared.getX();
-              xMax = Math.max(xMax, paredX);
-              foundValidPared = true;
-          }
-      }
-
-      if (!foundValidPared) {
-          // Si no se encontró ninguna pared válida, devolver un valor especial
-          return Integer.MAX_VALUE; // Puedes ajustar este valor según tu lógica de juego
-      }
-
-      if (xMax <= 0) {
-          // Si el valor de xMax es inválido, manejarlo adecuadamente
-          return Integer.MAX_VALUE; // Ajustar según tu lógica de juego
-      }
-
-      return xMax - Pared.ANCHO;
-    }
-
-    @Override
-    public int getYMax(int x) {
-        int yMax = Integer.MIN_VALUE;
+    public int getXMax(int y) {
+        int xMax = Integer.MIN_VALUE;
         boolean foundValidPared = false;
 
         for (Pared pared : paredes) {
-            int paredX = (int) pared.getX();
-            if (Math.abs(paredX - x) < Pared.ANCHO) { // Usar comparación con margen de error si es necesario
-                int paredY = (int) pared.getY();
-                yMax = Math.max(yMax, paredY);
-                foundValidPared = true;
+            int paredY = (int) pared.getY();
+            if (paredY < y && paredY >= y - Pared.ALTO) {
+                int paredX = (int) pared.getX();
+                xMax = Math.max(xMax, paredX);
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
+                
+            } else if (puerta.getY() < y && puerta.getY() >= y - Puerta.ALTO) {
+                xMax = (int) Math.max(xMax, puerta.getX());
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
             }
         }
 
-        if (!foundValidPared) {
-            // Si no se encontró ninguna pared válida, devolver un valor especial
-            return Integer.MAX_VALUE; // Puedes ajustar este valor según tu lógica de juego
+        if (!foundValidPared || xMax <= 0) {
+            // No se encontró ninguna pared válida en el rango, o xMax es menor o igual a cero
+            // Devolvemos un valor especial para indicar que no hay un límite válido
+            return Integer.MIN_VALUE;
         }
 
-        if (yMax <= 0) {
-            // Si el valor de yMax es inválido, manejarlo adecuadamente
-            return Integer.MAX_VALUE; // Ajustar según tu lógica de juego
-        }
-
-        return yMax - Pared.ALTO;
+        return xMax;
     }
-
 
     @Override
     public int getYMin(int x) {
@@ -371,12 +351,29 @@ public class Nivel extends Dibujo
             if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() < yMin)
                 yMin = (int) pared.getY();
                 
+            else if(x >= puerta.getX() && x < puerta.getX() + Puerta.ANCHO && puerta.getY() < yMin)
+                yMin = (int) puerta.getY();
         }
         
         return yMin + Pared.ALTO; 
     }
 
-   
+    @Override
+    public int getYMax(int x) {
+        int yMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(x > paredX && x <= paredX + Pared.ANCHO && pared.getY() > yMax)
+                yMax = (int) pared.getY();
+            
+            else if(x > puerta.getX() && x <= puerta.getX() + Puerta.ANCHO && puerta.getY() > yMax)
+                yMax = (int) puerta.getY();
+                
+        }
+        
+        return yMax;
+    }
 
     public void lanzarRayo(Graphics g, int x, int y) {
         angel.lanzarRayos(g, x, y);
@@ -391,6 +388,7 @@ public class Nivel extends Dibujo
         notificador.notificarCambios();
     }
 
+    @Override
     public boolean verificarColision(Rayo rayo) {
         synchronized (demonios) { // sincroniza el acceso a la lista de demonios
             Iterator<Demonio> demonioIterator = demonios.iterator();
@@ -428,5 +426,13 @@ public class Nivel extends Dibujo
                        eliminarDemonio(demonios.get(i));
             }
         }        
+    }
+
+    public int getNumNivel() {
+        return numNivel;
+    }
+
+    public int getDemoniosRestantes() {
+        return pilaDemonios.size() + demonios.size();
     }
 }

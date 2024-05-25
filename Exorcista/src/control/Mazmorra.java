@@ -152,6 +152,14 @@ public class Mazmorra extends Dibujo
             ex.getStackTrace();
         }
     }
+
+    public Angel getAngel() {
+        return angel;
+    }
+
+    public Nivel getNivelActual() {
+        return niveles.get(numNivel-1);
+    }
     
     
 }
