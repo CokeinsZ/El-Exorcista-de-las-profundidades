@@ -110,7 +110,7 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 50;
+            numDemoniosHielo = 10;
             limSupTipoDemonios = 2;
                     
         } else if (numNivel == 2) {
@@ -307,6 +307,7 @@ public class Nivel extends Dibujo
         return xMin + Pared.ANCHO;
     }
 
+    @Override
     public int getXMax(int y) {
         int xMax = Integer.MIN_VALUE;
         boolean foundValidPared = false;
@@ -370,6 +371,7 @@ public class Nivel extends Dibujo
         notificador.notificarCambios();
     }
 
+    @Override
     public boolean verificarColision(Rayo rayo) {
         synchronized (demonios) { // sincroniza el acceso a la lista de demonios
             Iterator<Demonio> demonioIterator = demonios.iterator();

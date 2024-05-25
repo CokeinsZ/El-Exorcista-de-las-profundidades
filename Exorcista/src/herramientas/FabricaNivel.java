@@ -46,10 +46,9 @@ public class FabricaNivel {
     }
     
     public Nivel crearNivel(int numNivel, Angel angel, Notificable notificador) throws IOException {
-        numNivel = 5;
         int numArchivo = hallarNumArchivo(numNivel);
         
-        lector.setBufferedReader("archivos\\niveles\\nivel" + numArchivo + ".txt");
+        lector.setBufferedReader("archivos\\niveles\\nivel" + 3 + ".txt");
         
         ArrayList<Cofre> cofres = new ArrayList<>();
         ArrayList<Alma> almas = new ArrayList<>();
@@ -57,9 +56,9 @@ public class FabricaNivel {
         ArrayList<Pared> paredes = new ArrayList<>();
         Puerta puerta = null;
         
-        String linea;
+        String linea = lector.leerLinea();  //Agoto la primera linea vacia
         int x = 0;
-        int y = 0;
+        int y = 100;
         while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {                        
             for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
                 switch (linea.charAt(posCaracter)) {

@@ -120,6 +120,9 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
+        if(energia <= 0)
+            return;
+        
         Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);
         rayos.add(nuevoRayo);
         nuevoRayo.moverRayo(x, y);
@@ -127,7 +130,6 @@ public class Angel extends Dibujo {
     
     public void setVerificable(Verificable verificador){
         this.verificador = verificador;
-        
     }
 
     public Rectangle atacar() {
@@ -138,5 +140,11 @@ public class Angel extends Dibujo {
         
         return areaAtaque;
     }
-
+    
+    public void agregarSeguidores(int numAlmas) {
+        almasLiberadas += numAlmas;
+        
+        if (almasLiberadas % 3 == 0)
+            energia++;
+    }
 }

@@ -92,7 +92,6 @@ public class Rayo extends Dibujo implements Runnable {
             seguirPunto(objetivoX, objetivoY);
             boolean control = verificador.verificarColision(this);
             if(control){
-                
                 seLlego = true;
                 
             }
