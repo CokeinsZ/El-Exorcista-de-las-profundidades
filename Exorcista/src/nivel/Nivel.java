@@ -303,7 +303,8 @@ public class Nivel extends Dibujo
             int paredY = (int) pared.getY();
             if(y >= paredY && y < paredY + Pared.ALTO && pared.getX() < xMin) 
                 xMin = (int) pared.getX();            
-            
+            else if (y >= puerta.getY() && y < puerta.getY() + Puerta.ALTO && puerta.getX() < xMin)
+                xMin = (int) puerta.getX();  
         }
         
         return xMin + Pared.ANCHO;
@@ -319,6 +320,10 @@ public class Nivel extends Dibujo
             if (paredY < y && paredY >= y - Pared.ALTO) {
                 int paredX = (int) pared.getX();
                 xMax = Math.max(xMax, paredX);
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
+                
+            } else if (puerta.getY() < y && puerta.getY() >= y - Puerta.ALTO) {
+                xMax = (int) Math.max(xMax, puerta.getX());
                 foundValidPared = true; // Hemos encontrado al menos una pared válida
             }
         }
@@ -341,6 +346,8 @@ public class Nivel extends Dibujo
             if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() < yMin)
                 yMin = (int) pared.getY();
                 
+            else if(x >= puerta.getX() && x < puerta.getX() + Puerta.ANCHO && puerta.getY() < yMin)
+                yMin = (int) puerta.getY();
         }
         
         return yMin + Pared.ALTO; 
@@ -354,6 +361,9 @@ public class Nivel extends Dibujo
             int paredX = (int) pared.getX();
             if(x > paredX && x <= paredX + Pared.ANCHO && pared.getY() > yMax)
                 yMax = (int) pared.getY();
+            
+            else if(x > puerta.getX() && x <= puerta.getX() + Puerta.ANCHO && puerta.getY() > yMax)
+                yMax = (int) puerta.getY();
                 
         }
         
