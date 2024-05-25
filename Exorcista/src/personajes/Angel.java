@@ -7,6 +7,7 @@ package personajes;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
+import interfaces.Verificable;
 import java.awt.Graphics;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
@@ -39,6 +40,10 @@ public class Angel extends Dibujo {
     
     private Delimitable bordes;
     private Notificable notificador;
+    private Verificable verificador;
+    
+    private boolean tieneLlveFinNivel;
+    private boolean tieneLlaveCofre;
                 
     public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
@@ -53,6 +58,7 @@ public class Angel extends Dibujo {
         
         this.imagenRayo = imagenRayo;
         rayos = new ArrayList<>();
+        
     }
         
     @Override
@@ -72,22 +78,22 @@ public class Angel extends Dibujo {
 
     public boolean mover(int codigo) {
         
-        if (codigo == KeyEvent.VK_UP && y > bordes.getYMin(x)){
+        if (codigo == KeyEvent.VK_UP && y >= bordes.getYMin(x)){
             y -= VELOCIDAD;
             return true;
         }
         
-        if (codigo == KeyEvent.VK_DOWN && y < bordes.getYMax(x)) {
+        if (codigo == KeyEvent.VK_DOWN && y <= bordes.getYMax(x)) {
             y += VELOCIDAD;
             return true;
         }
             
-        if (codigo == KeyEvent.VK_RIGHT && x < bordes.getXMax(y)) {
+        if (codigo == KeyEvent.VK_RIGHT && x <= bordes.getXMax(y)) {
             x += VELOCIDAD;
             return true;
         }
             
-        if (codigo == KeyEvent.VK_LEFT && x > bordes.getXMin(y)) {
+        if (codigo == KeyEvent.VK_LEFT && x >= bordes.getXMin(y)) {
             x -= VELOCIDAD;
             return true;
         }
@@ -106,9 +112,15 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
-        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador);
+        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);
         rayos.add(nuevoRayo);
         nuevoRayo.moverRayo(x, y);
     }
+    
+    public void setVerificable(Verificable verificador){
+        this.verificador = verificador;
+        
+    }
+
        
 }

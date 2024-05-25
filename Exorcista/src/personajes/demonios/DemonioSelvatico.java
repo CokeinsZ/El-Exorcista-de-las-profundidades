@@ -22,8 +22,8 @@ import personajes.demonios.poder.Roca;
  * @author Alejandro
  */
 public class DemonioSelvatico extends Demonio{
-    public static final int ANCHO = 80;
-    public static final int ALTO = 80; 
+    public static final int ANCHO = 92;
+    public static final int ALTO = 98; 
     
     private Image imagenRoca;
     private ArrayList<Roca> rocas;

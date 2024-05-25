@@ -10,4 +10,5 @@ package interfaces;
  */
 public interface Notificable {
     public void notificarCambios();
+    public void notificarFinNivel();
 }

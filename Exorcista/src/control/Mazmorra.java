@@ -6,7 +6,6 @@ package control;
 
 import herramientas.FabricaNivel;
 import interfaces.ConstantesComunes;
-import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
@@ -18,6 +17,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import nivel.Nivel;
 
@@ -77,7 +78,7 @@ public class Mazmorra extends Dibujo
                 || codigo == KeyEvent.VK_DOWN
                 || codigo == KeyEvent.VK_RIGHT
                 || codigo == KeyEvent.VK_LEFT ) {
-
+            
             niveles.get(numNivel-1).moverAngel(codigo);
         }
     }
@@ -134,7 +135,18 @@ public class Mazmorra extends Dibujo
         imagenes[12] = ImageIO.read(new File("imagenes\\cofres\\cofre2.png"));
         
         imagenes[13] = ImageIO.read(new File("imagenes\\personajes\\angel\\rayo2.png"));
+        
+        imagenes[14] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\llave2.png"));
+        
+    }
 
+    @Override
+    public void notificarFinNivel() {
+        try {
+            agregarNivel();
+        } catch (IOException ex) {
+            ex.getStackTrace();
+        }
     }
     
     

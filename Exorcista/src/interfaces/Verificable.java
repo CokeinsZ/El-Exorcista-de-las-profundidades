@@ -4,18 +4,13 @@
  */
 package interfaces;
 
+import java.awt.Rectangle;
+
 /**
  *
  * @author Alejandro
  */
-public interface Delimitable {
-    public int getAncho();
-    public int getAlto();
-    
-    public int getXMin(int y);
-    public int getXMax(int y);
-    
-    public int getYMin(int x);
-    public int getYMax(int x);
+public interface Verificable {
+    public boolean verificarColision(personajes.poderAngel.Rayo rayo);
 
 }

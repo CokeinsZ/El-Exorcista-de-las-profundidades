@@ -16,8 +16,8 @@ import personajes.Angel;
  * @author Alejandro
  */
 public class DemonioElectrico extends Demonio {
-    public static final int ANCHO = 113;
-    public static final int ALTO = 130; 
+    public static final int ANCHO = 84;
+    public static final int ALTO = 124; 
         
     public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
