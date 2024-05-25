@@ -293,45 +293,46 @@ public class Nivel extends Dibujo
         }
     }
 
+@Override
+public int getXMax(int y) {
+    int xMax = Integer.MIN_VALUE;
+    boolean foundValidPared = false;
+
+    for (Pared pared : paredes) {
+        int paredY = (int) pared.getY();
+        if (paredY < y + Pared.ALTO && paredY > y - Pared.ALTO) {
+            int paredX = (int) pared.getX();
+            xMax = Math.max(xMax, paredX);
+            foundValidPared = true;
+        }
+    }
+
+    if (!foundValidPared || xMax <= 0) {
+        return paredes.stream().mapToInt(p -> (int) p.getX()).max().orElse(Integer.MAX_VALUE);
+    }
+
+    return xMax - Pared.ANCHO;
+}
+
     @Override
     public int getXMin(int y) {
         int xMin = Integer.MAX_VALUE;
-        
-        for(Pared pared: paredes) {
+        boolean foundValidPared = false;
+
+        for (Pared pared : paredes) {
             int paredY = (int) pared.getY();
-            if(y >= paredY && y < paredY + Pared.ALTO && pared.getX() < xMin) 
-                xMin = (int) pared.getX();            
-            
+            if (paredY < y + Pared.ALTO && paredY > y - Pared.ALTO) {
+                int paredX = (int) pared.getX();
+                xMin = Math.min(xMin, paredX);
+                foundValidPared = true;
+            }
         }
-        
+
+        if (!foundValidPared || xMin >= Integer.MAX_VALUE) {
+            return paredes.stream().mapToInt(p -> (int) p.getX()).min().orElse(Integer.MIN_VALUE);
+        }
+
         return xMin + Pared.ANCHO;
-    }
-
-    @Override
-   public int getXMax(int y) {
-      int xMax = Integer.MIN_VALUE;
-      boolean foundValidPared = false;
-
-      for (Pared pared : paredes) {
-          int paredY = (int) pared.getY();
-          if (Math.abs(paredY - y) < Pared.ALTO) { // Usar comparación con margen de error si es necesario
-              int paredX = (int) pared.getX();
-              xMax = Math.max(xMax, paredX);
-              foundValidPared = true;
-          }
-      }
-
-      if (!foundValidPared) {
-          // Si no se encontró ninguna pared válida, devolver un valor especial
-          return Integer.MAX_VALUE; // Puedes ajustar este valor según tu lógica de juego
-      }
-
-      if (xMax <= 0) {
-          // Si el valor de xMax es inválido, manejarlo adecuadamente
-          return Integer.MAX_VALUE; // Ajustar según tu lógica de juego
-      }
-
-      return xMax - Pared.ANCHO;
     }
 
     @Override
@@ -341,42 +342,41 @@ public class Nivel extends Dibujo
 
         for (Pared pared : paredes) {
             int paredX = (int) pared.getX();
-            if (Math.abs(paredX - x) < Pared.ANCHO) { // Usar comparación con margen de error si es necesario
+            if (paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO) {
                 int paredY = (int) pared.getY();
                 yMax = Math.max(yMax, paredY);
                 foundValidPared = true;
             }
         }
 
-        if (!foundValidPared) {
-            // Si no se encontró ninguna pared válida, devolver un valor especial
-            return Integer.MAX_VALUE; // Puedes ajustar este valor según tu lógica de juego
-        }
-
-        if (yMax <= 0) {
-            // Si el valor de yMax es inválido, manejarlo adecuadamente
-            return Integer.MAX_VALUE; // Ajustar según tu lógica de juego
+        if (!foundValidPared || yMax <= 0) {
+            return paredes.stream().mapToInt(p -> (int) p.getY()).max().orElse(Integer.MAX_VALUE);
         }
 
         return yMax - Pared.ALTO;
     }
 
-
     @Override
     public int getYMin(int x) {
         int yMin = Integer.MAX_VALUE;
-        
-        for(Pared pared: paredes) {
+        boolean foundValidPared = false;
+
+        for (Pared pared : paredes) {
             int paredX = (int) pared.getX();
-            if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() < yMin)
-                yMin = (int) pared.getY();
-                
+            if (paredX > x - Pared.ANCHO && paredX < x + Pared.ANCHO) {
+                int paredY = (int) pared.getY();
+                yMin = Math.min(yMin, paredY);
+                foundValidPared = true;
+            }
         }
-        
-        return yMin + Pared.ALTO; 
+
+        if (!foundValidPared || yMin >= Integer.MAX_VALUE) {
+            return paredes.stream().mapToInt(p -> (int) p.getY()).min().orElse(Integer.MIN_VALUE);
+        }
+
+        return yMin + Pared.ALTO;
     }
 
-   
 
     public void lanzarRayo(Graphics g, int x, int y) {
         angel.lanzarRayos(g, x, y);
