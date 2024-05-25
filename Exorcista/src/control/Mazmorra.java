@@ -65,7 +65,7 @@ public class Mazmorra extends Dibujo
         agregarNivel();     //Crea el primer nivel
     }
     
-    private void setAngel()  throws IOException {
+    private void setAngel() {
         //int xCentro = (width /2) - (Angel.ANCHO/2); esto luego se factoriza y queda
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;

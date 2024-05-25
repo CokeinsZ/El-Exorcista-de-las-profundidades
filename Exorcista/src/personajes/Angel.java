@@ -16,6 +16,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import nivel.elementos.pared.Pared;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 
@@ -81,28 +82,31 @@ public class Angel extends Dibujo {
     }
 
     public boolean mover(int codigo) {
+        boolean seMovio = false;
         
         if (codigo == KeyEvent.VK_UP && y >= bordes.getYMin(x)){
             y -= VELOCIDAD;
-            return true;
+            seMovio = true;
         }
         
-        if (codigo == KeyEvent.VK_DOWN && y <= bordes.getYMax(x)) {
+        if (codigo == KeyEvent.VK_DOWN && y <= bordes.getYMax(x) - Pared.ALTO) {
             y += VELOCIDAD;
-            return true;
+            seMovio = true;
         }
             
-        if (codigo == KeyEvent.VK_RIGHT && x <= bordes.getXMax(y)) {
+        if (codigo == KeyEvent.VK_RIGHT && x <= bordes.getXMax(y) - Pared.ANCHO) {
             x += VELOCIDAD;
-            return true;
+            seMovio = true;
         }
             
         if (codigo == KeyEvent.VK_LEFT && x >= bordes.getXMin(y)) {
             x -= VELOCIDAD;
-            return true;
+            seMovio = true;
         }
-                       
-        return false;
+        
+        areaAtaque.setLocation(x-10, y-10);
+       
+        return seMovio;
     }
     
     public void revertirMovimiento(int xAnterior, int yAnterior) {
