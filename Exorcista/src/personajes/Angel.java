@@ -54,9 +54,12 @@ public class Angel extends Dibujo {
         super(x, y, ANCHO, ALTO, imagenAngel);
         
         this.vida = 100;
+        
         this.energia = 10;
-        this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
+        this.energiaMaxima = 10;
         this.almasLiberadas = 0;
+        
+        this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
                                 
         this.bordes = bordes;
         this.notificador = notificador;
@@ -146,7 +149,7 @@ public class Angel extends Dibujo {
     public void agregarSeguidores(int numAlmas) {
         almasLiberadas += numAlmas;
         
-        energia += almasLiberadas % 3;
+        energiaMaxima += almasLiberadas % 3;
     }
 
     public float getVida() {
@@ -163,5 +166,9 @@ public class Angel extends Dibujo {
 
     public Potenciador[] getPotenciadores() {
         return potenciadores;
+    }
+    
+    public void recargarEnergia() {
+        energia = energiaMaxima;
     }
 }

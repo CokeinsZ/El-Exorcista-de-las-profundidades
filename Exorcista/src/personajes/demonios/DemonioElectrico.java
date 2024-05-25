@@ -24,7 +24,7 @@ public class DemonioElectrico extends Demonio {
         
         vida = 4;
         daño = 3;
-        velocidad = 10;
+        velocidad = 5;
         
     }
         

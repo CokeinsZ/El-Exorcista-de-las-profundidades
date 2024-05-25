@@ -5,6 +5,7 @@
 package nivel;
 
 import control.HiloCreacionDemonios;
+import control.HiloFuncionesEspeciales;
 import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.ConstantesComunes;
@@ -63,6 +64,7 @@ public class Nivel extends Dibujo
     
     private HiloMovimientoDemonios hiloDemonios;
     private HiloCreacionDemonios hiloCreacionDemonios;
+    private HiloFuncionesEspeciales hiloEspecial;
     
     private ArrayList<Integer> pilaDemonios;
     
@@ -97,6 +99,9 @@ public class Nivel extends Dibujo
         hiloDemonios = new HiloMovimientoDemonios(demonios);
         hiloDemonios.start();
         
+        hiloEspecial = new HiloFuncionesEspeciales(angel);
+        hiloEspecial.start();
+        
     }
     
     private void cargarPilaDemoniosPorCrear() {
@@ -110,26 +115,26 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 10;
+            numDemoniosHielo = 1;
             limSupTipoDemonios = 2;
                     
         } else if (numNivel == 2) {
-            numDemoniosHielo = 5;
-            numDemoniosSelvatico = 10;
+            numDemoniosHielo = 1;
+            numDemoniosSelvatico = 1;
             limSupTipoDemonios = 3;
         
         } else if (numNivel == 3) {
-            numDemoniosHielo = 10;
-            numDemoniosSelvatico = 7;
-            numDemoniosFuego = 6;
-            numDemoniosElectrico = 8;
+            numDemoniosHielo = 1;
+            numDemoniosSelvatico = 1;
+            numDemoniosFuego = 1;
+            numDemoniosElectrico = 1;
             limSupTipoDemonios = 5;
         
         } else if (numNivel > 3) {            
-            numDemoniosHielo = r.nextInt(15);
-            numDemoniosSelvatico = r.nextInt(15);
-            numDemoniosFuego = r.nextInt(15);
-            numDemoniosElectrico = r.nextInt(15);
+            numDemoniosHielo = r.nextInt(1,2);
+            numDemoniosSelvatico = r.nextInt(1,2);
+            numDemoniosFuego = r.nextInt(1,2);
+            numDemoniosElectrico = r.nextInt(1,2);
             limSupTipoDemonios = 5;
             
         }
