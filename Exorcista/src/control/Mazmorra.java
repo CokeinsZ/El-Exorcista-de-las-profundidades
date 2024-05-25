@@ -80,6 +80,10 @@ public class Mazmorra extends Dibujo
                 || codigo == KeyEvent.VK_LEFT ) {
             
             niveles.get(numNivel-1).moverAngel(codigo);
+        
+        } else if (codigo == KeyEvent.VK_F) {
+            niveles.get(numNivel-1).angelAtacar();
+            
         }
     }
 

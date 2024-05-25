@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class Angel extends Dibujo {
     
     private boolean tieneLlveFinNivel;
     private boolean tieneLlaveCofre;
+    
+    private Rectangle areaAtaque;
                 
     public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
@@ -59,6 +62,7 @@ public class Angel extends Dibujo {
         this.imagenRayo = imagenRayo;
         rayos = new ArrayList<>();
         
+        this.areaAtaque = new Rectangle(x-10, y-10, width+10, height+10);
     }
         
     @Override
@@ -122,5 +126,13 @@ public class Angel extends Dibujo {
         
     }
 
-       
+    public Rectangle atacar() {
+        //TO-DO
+        /*
+        Posible animación de ataque con el bastón
+        */
+        
+        return areaAtaque;
+    }
+
 }
