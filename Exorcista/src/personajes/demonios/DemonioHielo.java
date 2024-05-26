@@ -90,10 +90,10 @@ public class DemonioHielo extends Demonio{
     
     @Override
     public void mover() {
-        System.out.println("XMax  " + bordes.getXMax(y));
-        System.out.println("xMin  " + bordes.getXMin(y));
-        System.out.println("YMax  " + bordes.getYMax(x));
-        System.out.println("YMIn  " + bordes.getXMin(y));
+        //System.out.println("XMax  " + bordes.getXMax(y));
+        //System.out.println("xMin  " + bordes.getXMin(y));
+        //System.out.println("YMax  " + bordes.getYMax(x));
+        //System.out.println("YMIn  " + bordes.getXMin(y));
  
         if (x >= bordes.getXMax(y) - ANCHO && y <= bordes.getYMax(x) - ALTO) {
             // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior

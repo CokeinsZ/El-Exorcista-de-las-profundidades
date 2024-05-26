@@ -272,31 +272,37 @@ public class Nivel extends Dibujo
     
     @Override
     public void dibujar(Graphics2D g) {               
-        for (Pared pared: paredes) {
+        for (int i = 0; i < paredes.size(); i++) {
+            Pared pared = paredes.get(i);
             pared.dibujar(g);
         }
-        
-        if (puerta != null)
+
+        if (puerta != null) {
             puerta.dibujar(g);
-        
-        for (Cofre cofre: cofres) {
+        }
+
+        for (int i = 0; i < cofres.size(); i++) {
+            Cofre cofre = cofres.get(i);
             cofre.dibujar(g);
         }
-        
-        for (Alma alma: almas) {
+
+        for (int i = 0; i < almas.size(); i++) {
+            Alma alma = almas.get(i);
             alma.dibujar(g);
         }
-        
-        for (Trampa trampa: trampas) {
+
+        for (int i = 0; i < trampas.size(); i++) {
+            Trampa trampa = trampas.get(i);
             trampa.dibujar(g);
         }
-        
-        for (Demonio demonio: demonios) {
+
+        for (int i = 0; i < demonios.size(); i++) {
+            Demonio demonio = demonios.get(i);
             demonio.dibujar(g);
         }
-        
+
         angel.dibujar(g);
-        
+
         if (llaveFinNivel != null) {
             llaveFinNivel.dibujar(g);
         }

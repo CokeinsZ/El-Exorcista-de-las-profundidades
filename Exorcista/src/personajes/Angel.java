@@ -87,10 +87,6 @@ public class Angel extends Dibujo {
         
         for (int i = 0; i < rayos.size(); i++) {
             rayos.get(i).dibujar(g);
-            if (rayos.get(i).isSeLlego()) {
-                    rayos.remove(rayos.get(i));
-                    notificador.notificarCambios();
-            }
         }
     }
 
