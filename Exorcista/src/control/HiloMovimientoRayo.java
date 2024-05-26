@@ -21,34 +21,26 @@ public class HiloMovimientoRayo extends Thread implements Runnable {
         this.rayos = rayos;
     }
 
-
-     
-     @Override
+    @Override
     public void run() {
-        
         synchronized (rayos) {
-        
             while (true) {
-                   
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
                 }
             
-            
-              for (int i = 0 ; i<rayos.size(); i++) {
-                Rayo nuevoRayo = null;
-                nuevoRayo = rayos.get(i);
-                boolean control = nuevoRayo.seguirPunto();
-                if(control)
-                    rayos.remove(nuevoRayo);
+                for (int i = 0 ; i<rayos.size(); i++) {
+                    Rayo nuevoRayo = rayos.get(i);
+                    
+                    boolean control = nuevoRayo.seguirPunto();
+                    if(control)
+                        rayos.remove(nuevoRayo);
                 
                }
-   
             }
         }
-        
     }
     
  }

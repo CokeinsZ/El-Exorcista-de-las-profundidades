@@ -73,15 +73,11 @@ public class Angel extends Dibujo {
         this.areaAtaque = new Rectangle(x-10, y-10, width+10, height+10);
         
         hilorayo = new HiloMovimientoRayo(rayos);
-         hilorayo.start();
-       
-        
-        
+        hilorayo.start();       
     }
         
     @Override
     public void dibujar (Graphics2D g) {
-        
         //Dibuja la imagen
         g.drawImage(this.imagen, this.x, this.y, null);
         
@@ -117,8 +113,6 @@ public class Angel extends Dibujo {
        
         return seMovio;
     }
-    
-    
     
     public void revertirMovimiento(int xAnterior, int yAnterior) {
         // Revertir la posición del ángel a las coordenadas anteriores

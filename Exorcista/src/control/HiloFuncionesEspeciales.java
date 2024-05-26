@@ -32,23 +32,27 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
     @Override
     public void run() {
         long initialTime = System.currentTimeMillis();
-        
+        long lastExecutionTime = 0;
+
         while (true) {
-            if ((System.currentTimeMillis() - initialTime) % 2000 == 0) {
+            long currentTime = System.currentTimeMillis() - initialTime;
+            
+            if (currentTime - lastExecutionTime >= 5000) {
+                lastExecutionTime = currentTime;
                 synchronized (demonios) {
                     for (int i = 0; i < demonios.size(); i++) {
                         Demonio demonio = demonios.get(i);
-                        
-                        if(demonio instanceof DemonioHielo)
+
+                        if(demonio instanceof DemonioHielo) {
                             ((DemonioHielo) demonio).ponerTrampa();
-                        
+                            break;
+                        }
+
                     }
                 }
             }
-            
-            
-            
-            if ((System.currentTimeMillis() - initialTime)% 10000 == 0)
+
+            if (currentTime % 10000 == 0)
                 angel.recargarEnergia();
         }
     }

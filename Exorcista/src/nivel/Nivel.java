@@ -444,5 +444,6 @@ public class Nivel extends Dibujo
         synchronized (trampas) {
             this.trampas.add(trampaNueva);
         }
+        
     }
 }
