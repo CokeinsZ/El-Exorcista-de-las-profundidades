@@ -16,7 +16,7 @@ import sprite.Dibujo;
  *
  * @author Alejandro
  */
-public class Rayo extends Dibujo implements Runnable {
+public class Rayo extends Dibujo{
 
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
@@ -49,30 +49,41 @@ public class Rayo extends Dibujo implements Runnable {
         this.objetivoX = x;
         this.objetivoY = y;
         
-        hiloMovimiento = new Thread(this);       
-        hiloMovimiento.start();
+       // hiloMovimiento = new Thread(this);       
+       // hiloMovimiento.start();
         
+    }
+
+    public void setObjetivoX(int objetivoX) {
+        this.objetivoX = objetivoX;
+    }
+
+    public void setObjetivoY(int objetivoY) {
+        this.objetivoY = objetivoY;
     }
     
     
-     public void seguirPunto(int x, int y ) {        
+  
+    public boolean seguirPunto() {        
    
-        if (this.x < x) { 
+        if (this.x < objetivoX) { 
             this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > x) {
+        } else if (this.x > objetivoX) {
             this.x -= velocidad; // Mover hacia la izquierda
         }
 
-        if (this.y < y) {
+        if (this.y < objetivoY) {
             this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > y) {
+        } else if (this.y > objetivoY) {
             this.y -= velocidad; // Mover hacia arriba
         }
         
-        if (this.x == x && this.y == y)
+        if (this.x == objetivoX && this.y == objetivoY)
             seLlego = true;
      
         notificador.notificarCambios();
+       return verificador.verificarColision(this);
+        
     }
 
     @Override
@@ -80,6 +91,9 @@ public class Rayo extends Dibujo implements Runnable {
         g.drawImage(imagen, x, y, null);
     }
 
+    
+    
+    /*
     @Override
     public void run() {
         while (!seLlego) {
@@ -99,4 +113,14 @@ public class Rayo extends Dibujo implements Runnable {
         }
     }
     
+
+    */
+
+    public int getObjetivoX() {
+        return objetivoX;
+    }
+
+    public int getObjetivoY() {
+        return objetivoY;
+    }
 }

@@ -4,6 +4,7 @@
  */
 package personajes;
 
+import control.HiloMovimientoRayo;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -49,6 +50,8 @@ public class Angel extends Dibujo {
     private boolean tieneLlaveCofre;
     
     private Rectangle areaAtaque;
+    
+    private HiloMovimientoRayo hilorayo;
                 
     public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
@@ -68,6 +71,12 @@ public class Angel extends Dibujo {
         rayos = new ArrayList<>();
         
         this.areaAtaque = new Rectangle(x-10, y-10, width+10, height+10);
+        
+        hilorayo = new HiloMovimientoRayo(rayos);
+         hilorayo.start();
+       
+        
+        
     }
         
     @Override
@@ -113,6 +122,8 @@ public class Angel extends Dibujo {
         return seMovio;
     }
     
+    
+    
     public void revertirMovimiento(int xAnterior, int yAnterior) {
         // Revertir la posición del ángel a las coordenadas anteriores
         this.x = xAnterior;
@@ -124,12 +135,17 @@ public class Angel extends Dibujo {
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
-        if(energia <= 0)
-            return;
+        if(energia <= 0){
+                return;
+        }
         
-        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador);
+        Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador); 
+        nuevoRayo.setObjetivoX(x);
+        nuevoRayo.setObjetivoY(y);
+            
         rayos.add(nuevoRayo);
-        nuevoRayo.moverRayo(x, y);
+        
+       //nuevoRayo.moverRayo(x, y);
         energia--;
     }
     
