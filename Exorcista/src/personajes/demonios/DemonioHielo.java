@@ -5,13 +5,11 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
-import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import nivel.elementos.trampa.Inmovilizadora;
-import nivel.elementos.trampa.Trampa;
 import personajes.Angel;
 
 /**
@@ -23,6 +21,8 @@ public class DemonioHielo extends Demonio{
     public static final int ALTO = 100; 
     
     private Image imagenTrampa;
+    
+    private int numMinas;
         
     public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador);
@@ -33,6 +33,7 @@ public class DemonioHielo extends Demonio{
         
         this.imagenTrampa = imagenTrampa;
         
+        numMinas = 0;
     }
 
     @Override
@@ -126,9 +127,15 @@ public class DemonioHielo extends Demonio{
     }
     
     public void ponerTrampa() {
+        if (numMinas >= 4)
+            return;
+        
         synchronized (this) {
             agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
+            numMinas++;
         }
+        
+        notificador.notificarCambios();
     }
 
     

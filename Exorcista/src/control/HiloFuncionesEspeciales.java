@@ -34,7 +34,7 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
         long initialTime = System.currentTimeMillis();
         
         while (true) {
-            if ((System.currentTimeMillis() - initialTime) % 5000 == 0) {
+            if ((System.currentTimeMillis() - initialTime) % 2000 == 0) {
                 synchronized (demonios) {
                     for (int i = 0; i < demonios.size(); i++) {
                         Demonio demonio = demonios.get(i);
