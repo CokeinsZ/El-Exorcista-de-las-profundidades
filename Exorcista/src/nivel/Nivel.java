@@ -446,6 +446,8 @@ public class Nivel extends Dibujo
 
     @Override
     public void agregarTrampa(Trampa trampaNueva) {
-        trampas.add(trampaNueva);
+        synchronized (trampas) {
+            this.trampas.add(trampaNueva);
+        }
     }
 }

@@ -126,7 +126,9 @@ public class DemonioHielo extends Demonio{
     }
     
     public void ponerTrampa() {
-        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
+        synchronized (this) {
+            agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
+        }
     }
 
     
