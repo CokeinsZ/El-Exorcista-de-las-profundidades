@@ -142,6 +142,8 @@ public class Mazmorra extends Dibujo
         
         imagenes[14] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\llave2.png"));
         
+        imagenes[15] = ImageIO.read(new File("imagenes\\trampas\\inmovilizadora2.png"));
+        
     }
 
     @Override

@@ -4,12 +4,12 @@
  */
 package interfaces;
 
+import nivel.elementos.trampa.Trampa;
+
 /**
  *
  * @author Alejandro
  */
-public interface Notificable {
-    public void notificarCambios();
-    public void notificarFinNivel();
-    
+public interface Agregable {
+    public void agregarTrampa(Trampa trampaNueva);
 }
