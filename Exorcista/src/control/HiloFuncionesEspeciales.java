@@ -24,8 +24,9 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
     private Angel angel;
     private ArrayList<Demonio> demonios;
 
-    public HiloFuncionesEspeciales(Angel angel) {
+    public HiloFuncionesEspeciales(Angel angel, ArrayList<Demonio> demonios) {
         this.angel = angel;
+        this.demonios = demonios;
     }
 
     @Override

@@ -101,7 +101,7 @@ public class Nivel extends Dibujo
         hiloDemonios = new HiloMovimientoDemonios(demonios);
         hiloDemonios.start();
         
-        hiloEspecial = new HiloFuncionesEspeciales(angel);
+        hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
         hiloEspecial.start();
         
     }
