@@ -5,6 +5,7 @@
 package interfaces;
 
 import nivel.elementos.trampa.Trampa;
+import personajes.poderAngel.Rayo;
 
 /**
  *
@@ -12,4 +13,5 @@ import nivel.elementos.trampa.Trampa;
  */
 public interface Agregable {
     public void agregarTrampa(Trampa trampaNueva);
+    public void agregarRayo(Rayo rayoNuevo);
 }

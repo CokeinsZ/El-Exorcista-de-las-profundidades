@@ -8,8 +8,6 @@ import interfaces.Notificable;
 import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import sprite.Dibujo;
 
 /**
@@ -82,7 +80,7 @@ public class Rayo extends Dibujo{
             seLlego = true;
      
         notificador.notificarCambios();
-       return verificador.verificarColision(this);
+        return verificador.verificarColision(this) || seLlego;
         
     }
 

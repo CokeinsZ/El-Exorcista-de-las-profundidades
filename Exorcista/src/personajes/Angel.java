@@ -5,7 +5,7 @@
 package personajes;
 
 import control.HiloMovimientoRayo;
-import interfaces.ConstantesComunes;
+import interfaces.Agregable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
@@ -15,7 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import nivel.elementos.pared.Pared;
 import personajes.poderAngel.Rayo;
@@ -39,12 +38,12 @@ public class Angel extends Dibujo {
     private Potenciador[] potenciadores;
     private int almasLiberadas;
     
-    private ArrayList<Rayo> rayos;
     private Image imagenRayo;
     
     private Delimitable bordes;
     private Notificable notificador;
     private Verificable verificador;
+    private Agregable agregador;
     
     private boolean tieneLlveFinNivel;
     private boolean tieneLlaveCofre;
@@ -53,9 +52,9 @@ public class Angel extends Dibujo {
     
     private HiloMovimientoRayo hilorayo;
                 
-    public Angel(int x, int y, Delimitable bordes, Image imagenAngel, Image imagenRayo, Notificable notificador) {
+    public Angel(int x, int y, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
-        
+                
         this.vida = 100;
         
         this.energia = 10;
@@ -64,30 +63,23 @@ public class Angel extends Dibujo {
         
         this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
                                 
-        this.bordes = bordes;
         this.notificador = notificador;
         
         this.imagenRayo = imagenRayo;
-        rayos = new ArrayList<>();
         
         this.areaAtaque = new Rectangle(x-10, y-10, width+10, height+10);
-        
+    }
+    
+    public void setHiloMovimientoRayos(ArrayList<Rayo> rayos) {
         hilorayo = new HiloMovimientoRayo(rayos);
-         hilorayo.start();
-       
-        
-        
+        hilorayo.start(); 
     }
         
     @Override
     public void dibujar (Graphics2D g) {
-        
         //Dibuja la imagen
         g.drawImage(this.imagen, this.x, this.y, null);
         
-        for (int i = 0; i < rayos.size(); i++) {
-            rayos.get(i).dibujar(g);
-        }
     }
 
     public boolean mover(int codigo) {
@@ -118,16 +110,16 @@ public class Angel extends Dibujo {
         return seMovio;
     }
     
-    
-    
     public void revertirMovimiento(int xAnterior, int yAnterior) {
         // Revertir la posición del ángel a las coordenadas anteriores
         this.x = xAnterior;
         this.y = yAnterior;
     }
     
-    public void setBordes(Delimitable bordes) {
+    public void setInterfacesNivel(Delimitable bordes, Verificable verificador, Agregable agregador) {
         this.bordes = bordes;
+        this.verificador = verificador;
+        this.agregador = agregador;
     }
     
     public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
@@ -139,7 +131,7 @@ public class Angel extends Dibujo {
         nuevoRayo.setObjetivoX(x);
         nuevoRayo.setObjetivoY(y);
             
-        rayos.add(nuevoRayo);
+        agregador.agregarRayo(nuevoRayo);
         
        //nuevoRayo.moverRayo(x, y);
         energia--;

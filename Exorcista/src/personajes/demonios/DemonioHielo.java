@@ -126,15 +126,13 @@ public class DemonioHielo extends Demonio{
         notificador.notificarCambios();
     }
     
-  private int trampasColocadas = 0;
-    private final int MAX_TRAMPAS = 4;
-    
     public void ponerTrampa() {
-        synchronized (this) {
-
-                agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
-            
-        }
+        if (numMinas >= 4)
+            return;
+        
+        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
+        numMinas += 1;
+        
         notificador.notificarCambios();
     }
 

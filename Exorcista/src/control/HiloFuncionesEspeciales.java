@@ -29,42 +29,33 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
         this.demonios = demonios;
     }
 
-   @Override
-public void run() {
-    long lastTrapPlacementTime = System.currentTimeMillis();
-    long lastEnergyReloadTime = System.currentTimeMillis();
+    @Override
+    public void run() {
+        long initialTime = System.currentTimeMillis();
+        long lastExecutionTime = 0;
 
-    while (true) {
-        long currentTime = System.currentTimeMillis();
+        while (true) {
+            long currentTime = System.currentTimeMillis() - initialTime;
+            
+            if (currentTime - lastExecutionTime >= 5000) {
+                lastExecutionTime = currentTime;
+                synchronized (demonios) {
+                    for (int i = 0; i < demonios.size(); i++) {
+                        Demonio demonio = demonios.get(i);
 
-        // Colocar trampas cada 5 segundos
-        if (currentTime - lastTrapPlacementTime >= 5000) {
-            synchronized (demonios) {
-                for (Demonio demonio : demonios) {
-                    if (demonio instanceof DemonioHielo) {
-                        ((DemonioHielo) demonio).ponerTrampa();
+                        if(demonio instanceof DemonioHielo) {
+                            ((DemonioHielo) demonio).ponerTrampa();
+                            break;
+                        }
+
                     }
                 }
             }
-            lastTrapPlacementTime = currentTime; // Actualizar el último tiempo de colocación de trampas
-        }
 
-        // Recargar energía del ángel cada 10 segundos
-        if (currentTime - lastEnergyReloadTime >= 10000) {
-            angel.recargarEnergia();
-            lastEnergyReloadTime = currentTime; // Actualizar el último tiempo de recarga de energía
+            if (currentTime % 10000 == 0)
+                angel.recargarEnergia();
         }
-
-        // Esperar un breve período de tiempo para evitar una verificación constante del tiempo
-        try {
-            Thread.sleep(100); // Esperar 100 milisegundos antes de volver a verificar el tiempo
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        
-        
     }
-}
     
     
 }

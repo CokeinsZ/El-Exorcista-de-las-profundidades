@@ -13,17 +13,12 @@ import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
-import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nivel.elementos.cofre.Cofre;
 import nivel.elementos.pared.Llave;
 import nivel.elementos.pared.Pared;
@@ -59,6 +54,7 @@ public class Nivel extends Dibujo
     private ArrayList<Pared> paredes;
     private Puerta puerta;
     private ArrayList<Demonio> demonios;
+    private ArrayList<Rayo> rayos;
     
     private Notificable notificador;
     
@@ -81,13 +77,13 @@ public class Nivel extends Dibujo
         this.numNivel = numNivel;
         
         this.angel = angel;
-        angel.setBordes(this);
-        angel.setVerificable(this);
+        angel.setInterfacesNivel(this, this, this);
         this.cofres = cofres;
         this.almas = almas;
         this.trampas = trampas;
         this.paredes = paredes;
         this.puerta = puerta;
+        this.rayos = new ArrayList<>();
         
         demonios = new ArrayList<>();
         
@@ -104,6 +100,7 @@ public class Nivel extends Dibujo
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
         hiloEspecial.start();
         
+        angel.setHiloMovimientoRayos(rayos);
     }
     
     private void cargarPilaDemoniosPorCrear() {
@@ -280,6 +277,12 @@ public class Nivel extends Dibujo
         if (puerta != null) {
             puerta.dibujar(g);
         }
+        
+        for (int i = 0; i < rayos.size(); i++) {
+            Rayo rayo = rayos.get(i);
+            rayo.dibujar(g);
+            
+        }
 
         for (int i = 0; i < cofres.size(); i++) {
             Cofre cofre = cofres.get(i);
@@ -404,7 +407,6 @@ public class Nivel extends Dibujo
                 Demonio demonio = demonioIterator.next();
                 if (demonio.intersects(rayo)) {
                     if (demonio.recibirImapcto(Angel.DAÑO)) {
-                        System.out.println(demonios.size());
                         eliminarDemonio(demonio);
                     }
                     return true;
@@ -446,6 +448,14 @@ public class Nivel extends Dibujo
 
     @Override
     public void agregarTrampa(Trampa trampaNueva) {
-        trampas.add(trampaNueva);
+        synchronized (trampas) {
+            this.trampas.add(trampaNueva);
+        }
+        
+    }
+
+    @Override
+    public void agregarRayo(Rayo rayoNuevo) {
+        rayos.add(rayoNuevo);
     }
 }
