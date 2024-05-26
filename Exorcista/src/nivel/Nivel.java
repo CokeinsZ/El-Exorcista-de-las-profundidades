@@ -382,7 +382,7 @@ public class Nivel extends Dibujo
 
     private void eliminarDemonio(Demonio demonio) {
         if(demonios.size() == 1 && !hiloCreacionDemonios.isAlive())
-            reproducirEventoFinDeNivel((int) demonio.getX(), (int) demonio.getY());
+            reproducirEventoFinDeNivel((int) puerta.getX()-50, (int) puerta.getY());
         
         demonios.remove(demonio);       
         notificador.notificarCambios();

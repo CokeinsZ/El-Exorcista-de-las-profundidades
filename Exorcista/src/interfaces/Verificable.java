@@ -5,12 +5,13 @@
 package interfaces;
 
 import java.awt.Rectangle;
+import personajes.poderAngel.Rayo;
 
 /**
  *
  * @author Alejandro
  */
 public interface Verificable {
-    public boolean verificarColision(personajes.poderAngel.Rayo rayo);
+    public boolean verificarColision(Rayo rayo);
 
 }
