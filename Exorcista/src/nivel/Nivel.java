@@ -252,8 +252,18 @@ public class Nivel extends Dibujo
                     // Si hay colisión, revertir el movimiento
                     angel.revertirMovimiento(xAnterior, yAnterior);
  
-                     break;
+                    break;
                 }
+            }
+            
+            //Verificar colisión con las trampas
+            for (int i = 0; i < trampas.size(); i++) {
+                Trampa trampa = trampas.get(i);
+                if (angel.intersects(trampa)) {
+                    trampa.accionar();
+                    trampas.remove(trampa);
+                }
+                    
             }
            notificador.notificarCambios();
         }

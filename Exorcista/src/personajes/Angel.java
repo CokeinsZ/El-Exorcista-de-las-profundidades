@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import nivel.elementos.pared.Pared;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -51,6 +53,8 @@ public class Angel extends Dibujo {
     private Rectangle areaAtaque;
     
     private HiloMovimientoRayo hilorayo;
+    
+    private boolean estaParalizado;
                 
     public Angel(int x, int y, Image imagenAngel, Image imagenRayo, Notificable notificador) {
         super(x, y, ANCHO, ALTO, imagenAngel);
@@ -68,6 +72,8 @@ public class Angel extends Dibujo {
         this.imagenRayo = imagenRayo;
         
         this.areaAtaque = new Rectangle(x-10, y-10, width+10, height+10);
+        
+        this.estaParalizado  = false;
     }
     
     public void setHiloMovimientoRayos(ArrayList<Rayo> rayos) {
@@ -82,7 +88,23 @@ public class Angel extends Dibujo {
         
     }
 
+    // Este es el método que se llama cuando el ángel intersecta la trampa
+    public void paralizar() {
+        estaParalizado = true;
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                estaParalizado = false;
+            }
+        }, 3000);
+    }
+    
     public boolean mover(int codigo) {
+        if (estaParalizado)
+            return false;
+        
         boolean seMovio = false;
         
         if (codigo == KeyEvent.VK_UP && y >= bordes.getYMin(x)){
@@ -108,6 +130,12 @@ public class Angel extends Dibujo {
         areaAtaque.setLocation(x-10, y-10);
        
         return seMovio;
+    }
+    
+    public boolean recibirImpacto(int daño) {
+        this.vida -= daño;
+        
+        return vida <= 0;
     }
     
     public void revertirMovimiento(int xAnterior, int yAnterior) {

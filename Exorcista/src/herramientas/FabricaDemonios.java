@@ -9,7 +9,6 @@ import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.Random;
 import personajes.Angel;
 import personajes.demonios.*;
@@ -57,7 +56,7 @@ public class FabricaDemonios {
             case Demonio.TIPO_HIELO:
                 x = r.nextInt(bordes.getAncho() - DemonioHielo.ANCHO);
                 y = r.nextInt(bordes.getAlto() - DemonioHielo.ALTO);
-                return new DemonioHielo(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_HIELO], imagenes[ConstantesComunes.IMAGEN_INMOVILIZADORA], agregador);
+                return new DemonioHielo(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_HIELO], imagenes[ConstantesComunes.IMAGEN_TRAMPA_INMOVILIZADORA], agregador);
 
         }
         

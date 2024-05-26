@@ -16,6 +16,8 @@ import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.ParedEspinas;
 import nivel.elementos.pared.ParedEstructural;
 import nivel.elementos.pared.Puerta;
+import nivel.elementos.trampa.Agujero;
+import nivel.elementos.trampa.Empuje;
 import nivel.elementos.trampa.Mina;
 import nivel.elementos.trampa.Trampa;
 import personajes.Alma;
@@ -71,7 +73,7 @@ public class FabricaNivel {
                         break;
                         
                     case '*':
-                        trampas.add(crearTrampa(x, y));
+                        trampas.add(crearTrampa(x, y, angel));
                         break;
                     
                     case '#':
@@ -150,15 +152,21 @@ public class FabricaNivel {
         return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], null, null);                
     }
 
-    private Trampa crearTrampa(int x, int y) throws IOException {
-        int tipo = 1;
+    private Trampa crearTrampa(int x, int y, Angel angel) {
+        int tipo;
         
-        //Random r = new Random();
-        //tipo = r.nextInt(1, 4);
-        
+        Random r = new Random();
+        tipo = r.nextInt(1, 4);
+                
         switch (tipo) {
             case Trampa.TIPO_MINA:
-                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_MINA]);
+                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_MINA], angel);
+                
+            case Trampa.TIPO_AGUJERO:
+                return new Agujero(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_AGUJERO], angel);
+                
+            case Trampa.TIPO_EMPUJE:
+                return new Empuje(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_EMPUJE], angel);
         }
         
         return null;
