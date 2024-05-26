@@ -132,10 +132,11 @@ public class Angel extends Dibujo {
         return seMovio;
     }
     
-    public boolean recibirImpacto(int daño) {
+    public void recibirImpacto(int daño) {
         this.vida -= daño;
         
-        return vida <= 0;
+        if (vida <= 0)
+            notificador.notificarFinJuego();
     }
     
     public void revertirMovimiento(int xAnterior, int yAnterior) {

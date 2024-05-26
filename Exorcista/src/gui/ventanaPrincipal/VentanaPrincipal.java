@@ -302,4 +302,12 @@ public class VentanaPrincipal extends javax.swing.JFrame
         lNumNivel.setText("" + mazmorra.getNivelActual().getNumNivel());
         lDemoniosRestantes.setText("" + mazmorra.getNivelActual().getDemoniosRestantes());
     }
+
+    @Override
+    public void finalizarJuego() {
+        //TO-DO
+        /*
+        Dialogo fin de juego, que muestre el total de almas liberadas y que pida el nombre para guaradar su puntaje en el archivo de texto: puntajes
+        */
+    }
 }
