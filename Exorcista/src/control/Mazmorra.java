@@ -17,8 +17,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import nivel.Nivel;
 
@@ -70,7 +68,7 @@ public class Mazmorra extends Dibujo
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;
         
-        this.angel = new Angel(xCentro, yCentro, null, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
+        this.angel = new Angel(xCentro, yCentro, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
     }
 
     public void manejarTecla(int codigo) {
