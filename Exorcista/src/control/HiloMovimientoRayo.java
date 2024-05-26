@@ -4,7 +4,6 @@
  */
 package control;
 
-import interfaces.Verificable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,11 +16,9 @@ import personajes.poderAngel.Rayo;
 public class HiloMovimientoRayo extends Thread implements Runnable {
     
     private ArrayList<Rayo> rayos;
-    boolean seLlego = false;
 
     public HiloMovimientoRayo(ArrayList<Rayo> rayos) {
         this.rayos = rayos;
-        this.seLlego = false;
     }
 
 
