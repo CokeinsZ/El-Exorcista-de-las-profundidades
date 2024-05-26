@@ -24,5 +24,6 @@ public interface ConstantesComunes {
     public static final int IMAGEN_COFRE = 12;
     public static final int IMAGEN_RAYO = 13;
     public static final int IMAGEN_LLAVE = 14;
+    public static final int IMAGEN_INMOVILIZADORA = 15;
 
 }

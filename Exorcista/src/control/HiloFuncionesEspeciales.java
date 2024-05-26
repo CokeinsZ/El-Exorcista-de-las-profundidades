@@ -4,9 +4,12 @@
  */
 package control;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import personajes.Angel;
+import personajes.demonios.Demonio;
+import personajes.demonios.DemonioHielo;
 
 /**
  *
@@ -19,6 +22,7 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
     */
     
     private Angel angel;
+    private ArrayList<Demonio> demonios;
 
     public HiloFuncionesEspeciales(Angel angel) {
         this.angel = angel;
@@ -26,14 +30,25 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
 
     @Override
     public void run() {
-        while (true) {            
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(HiloFuncionesEspeciales.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        long initialTime = System.currentTimeMillis();
+        
+        while (true) {
             
-            angel.recargarEnergia();
+            if ((System.currentTimeMillis() - initialTime) % 5000 == 0) {
+                synchronized (demonios) {
+                    for (int i = 0; i < demonios.size(); i++) {
+                        Demonio demonio = demonios.get(i);
+                        
+                        if(demonio instanceof DemonioHielo)
+                            ((DemonioHielo) demonio).ponerTrampa();
+                        
+                    }
+                }
+            }
+                
+            
+            if ((System.currentTimeMillis() - initialTime)% 10000 == 0)
+                angel.recargarEnergia();
         }
     }
     

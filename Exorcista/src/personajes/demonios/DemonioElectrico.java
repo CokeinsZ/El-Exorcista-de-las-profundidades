@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -19,8 +20,8 @@ public class DemonioElectrico extends Demonio {
     public static final int ANCHO = 84;
     public static final int ALTO = 124; 
         
-    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Agregable agregador) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador);
         
         vida = 4;
         daño = 3;

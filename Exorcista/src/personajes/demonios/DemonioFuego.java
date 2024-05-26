@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -26,8 +27,8 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego, Agregable agregador) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador);
         
         vida = 5;
         daño = 2;

@@ -4,13 +4,14 @@
  */
 package personajes.demonios;
 
+import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
-import java.util.Random;
+import nivel.elementos.trampa.Inmovilizadora;
+import nivel.elementos.trampa.Trampa;
 import personajes.Angel;
 
 /**
@@ -20,13 +21,17 @@ import personajes.Angel;
 public class DemonioHielo extends Demonio{
     public static final int ANCHO = 90;
     public static final int ALTO = 100; 
+    
+    private Image imagenTrampa;
         
-    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador);
         
         vida = 1;
         daño = 1;
         velocidad = 5;
+        
+        this.imagenTrampa = imagenTrampa;
         
     }
 
@@ -118,6 +123,10 @@ public class DemonioHielo extends Demonio{
         */
 
         notificador.notificarCambios();
+    }
+    
+    public void ponerTrampa() {
+        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
     }
 
     

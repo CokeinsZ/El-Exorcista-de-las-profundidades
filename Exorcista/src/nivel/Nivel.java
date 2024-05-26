@@ -8,6 +8,7 @@ import control.HiloCreacionDemonios;
 import control.HiloFuncionesEspeciales;
 import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
+import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -43,7 +44,8 @@ import sprite.Dibujo;
  */
 public class Nivel extends Dibujo 
                    implements Delimitable,
-                              Verificable {
+                              Verificable,
+                              Agregable {
     
     private FabricaDemonios fabrica;
     
@@ -224,7 +226,7 @@ public class Nivel extends Dibujo
         boolean noColisiona = false;
         
         while(noColisiona == false){
-          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador);
+          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador, this);
           
           //se llama el metodo para verificar la colision de demonios con demonio y si esto 
           //nos retorna falso lo que debemos de hacer es volver a verificar que no se esten colisionando
@@ -434,5 +436,10 @@ public class Nivel extends Dibujo
 
     public int getDemoniosRestantes() {
         return pilaDemonios.size() + demonios.size();
+    }
+
+    @Override
+    public void agregarTrampa(Trampa trampaNueva) {
+        trampas.add(trampaNueva);
     }
 }
