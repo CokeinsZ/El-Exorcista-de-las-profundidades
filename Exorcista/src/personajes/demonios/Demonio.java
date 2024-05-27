@@ -45,7 +45,7 @@ public abstract class Demonio extends Dibujo {
     }
         
     public abstract void seguirAngel();
-    public abstract boolean atacar();
+    public abstract void atacar();
     public abstract void mover();
     
     public boolean recibirImapcto(int daño) {

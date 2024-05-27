@@ -48,7 +48,7 @@ public class DemonioFuego extends Demonio{
     }
 
     @Override
-    public boolean atacar() {
+    public void atacar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
