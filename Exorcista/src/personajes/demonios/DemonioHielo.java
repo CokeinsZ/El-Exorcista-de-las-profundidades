@@ -9,6 +9,8 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.Timer;
+import java.util.TimerTask;
 import nivel.elementos.trampa.Inmovilizadora;
 import personajes.Angel;
 
@@ -47,57 +49,17 @@ public class DemonioHielo extends Demonio{
 
     @Override
     public void atacar() {
-        
-        enemigo.recibirImpacto(daño);
-        
-    }
-
-    /*
-    @Override
-    public void mover() {
-        Random random = new Random();
-        int direccion = random.nextInt(1, 5);
-        
-        switch (direccion) {
-            case 1:
-                if (y > bordes.getYMin(x)) {
-                    y -= VELOCIDAD;
-                }
-                break;
-
-            case 2:
-                if (y < bordes.getYMax(x)) {
-                    y += VELOCIDAD;
-                }
-                break;
-
-            case 3:
-                if (x < bordes.getXMax(y)) {
-                    x += VELOCIDAD;
-                }
-                break;
-
-            case 4:
-                if (x > bordes.getXMin(y)) {
-                    x -= VELOCIDAD;
-                }
-                break;
-
-            default:
-                break;
+        if (tieneEnfriamiento == true) {
+            return;
         }
         
-        notificador.notificarCambios();
+        enemigo.recibirImpacto(daño);
+        iniciarEnfriamiento();
     }
-    */
-    
+
     @Override
     public void mover() {
-        //System.out.println("XMax  " + bordes.getXMax(y));
-        //System.out.println("xMin  " + bordes.getXMin(y));
-        //System.out.println("YMax  " + bordes.getYMax(x));
-        //System.out.println("YMIn  " + bordes.getXMin(y));
- 
+
         if (x >= bordes.getXMax(y) - ANCHO && y <= bordes.getYMax(x) - ALTO) {
             // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior
             y += velocidad;
@@ -138,6 +100,18 @@ public class DemonioHielo extends Demonio{
         numMinas += 1;
         
         notificador.notificarCambios();
+    }
+
+    private void iniciarEnfriamiento() {
+        tieneEnfriamiento = true;
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                tieneEnfriamiento = false;
+            }
+        }, 3000);
     }
 
     

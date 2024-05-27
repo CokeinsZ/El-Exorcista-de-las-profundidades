@@ -28,6 +28,7 @@ public abstract class Demonio extends Dibujo {
     protected Angel enemigo;
     
     protected boolean tieneLlave;
+    protected boolean tieneEnfriamiento;
     
     protected Notificable notificador;
     protected Agregable agregador;    
@@ -42,6 +43,7 @@ public abstract class Demonio extends Dibujo {
         
         this.notificador = notificador;
         this.agregador = agregador;
+        tieneEnfriamiento = false;
     }
         
     public abstract void seguirAngel();
