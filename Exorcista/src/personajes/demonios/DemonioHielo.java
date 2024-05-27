@@ -130,7 +130,7 @@ public class DemonioHielo extends Demonio{
         if (numMinas >= 4)
             return;
         
-        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa));
+        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa, enemigo));
         numMinas += 1;
         
         notificador.notificarCambios();

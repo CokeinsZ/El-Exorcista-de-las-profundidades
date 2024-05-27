@@ -12,30 +12,26 @@ import personajes.Angel;
  *
  * @author Alejandro
  */
-public class Mina extends Trampa{
+public class Agujero extends Trampa {
     
-    public static final int ANCHO = 25;
-    public static final int ALTO = 34;    
+    public static final int ANCHO = 76;
+    public static final int ALTO = 60; 
 
-    public Mina(int x, int y, Image imagen, Angel angel) {
+    public Agujero(int x, int y, Image imagen, Angel angel) {
         super(x, y, ANCHO, ALTO, imagen, angel);
-        
+    }
+
+
+    @Override
+    public void accionar() {
+        angel.recibirImpacto(10);
+        angel.x = this.x-Angel.ANCHO;
+        angel.y = this.y-Angel.ALTO;
     }
 
     @Override
     public void dibujar(Graphics2D g) {
-        g.drawImage(imagen, this.x, this.y, null);
-    }
-
-    @Override
-    public void accionar() {
-        //TO-DO
-        /*
-        Animación de exploción
-        */
-        
-        angel.recibirImpacto(20);
+        g.drawImage(imagen, x, y, null);
     }
     
-
 }

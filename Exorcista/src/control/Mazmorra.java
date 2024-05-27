@@ -124,7 +124,6 @@ public class Mazmorra extends Dibujo
         
         imagenes[5] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\roca2.png"));
         
-        
         imagenes[6] = ImageIO.read(new File("imagenes\\personajes\\angel\\angel2.png"));
         imagenes[7] = ImageIO.read(new File("imagenes\\personajes\\almas\\alma2.png"));
         
@@ -141,6 +140,11 @@ public class Mazmorra extends Dibujo
         imagenes[14] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\llave2.png"));
         
         imagenes[15] = ImageIO.read(new File("imagenes\\trampas\\inmovilizadora2.png"));
+        imagenes[16] = ImageIO.read(new File("imagenes\\trampas\\agujero2.png"));
+        imagenes[17] = ImageIO.read(new File("imagenes\\trampas\\empuje3.png"));
+        
+        imagenes[18] = ImageIO.read(new File("imagenes\\potenciadores\\rayos2.png"));
+        imagenes[19] = ImageIO.read(new File("imagenes\\potenciadores\\vida2.png"));
         
     }
 
@@ -159,6 +163,11 @@ public class Mazmorra extends Dibujo
 
     public Nivel getNivelActual() {
         return niveles.get(numNivel-1);
+    }
+
+    @Override
+    public void notificarFinJuego() {
+        refrescador.finalizarJuego();
     }
     
     
