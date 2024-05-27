@@ -23,6 +23,7 @@ public class DemonioSelvatico extends Demonio{
     public static final int ANCHO = 92;
     public static final int ALTO = 98; 
     
+    private boolean seLlego;
     private Image imagenRoca;
     
     public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador) {
@@ -33,6 +34,7 @@ public class DemonioSelvatico extends Demonio{
         velocidad = 0;
         
         this.imagenRoca = imagenRoca;
+        this.seLlego = false;
     }
 
     @Override
@@ -40,8 +42,29 @@ public class DemonioSelvatico extends Demonio{
         g.drawImage(this.imagen, this.x, this.y, null);
     }
 
-    @Override
-    public void seguirAngel() {
+   public boolean seguirPunto() {        
+   
+        if (this.x < enemigo.getX()) { 
+            this.x += velocidad; // Mover hacia la derecha
+        } else if (this.x > enemigo.getX()) {
+            this.x -= velocidad; // Mover hacia la izquierda
+        }
+
+        if (this.y < enemigo.getY()) {
+            this.y += velocidad; // Mover hacia abajo
+        } else if (this.y > enemigo.getY()) {
+            this.y -= velocidad; // Mover hacia arriba
+        }
+        
+        if (this.x == enemigo.getX() && this.y == enemigo.getY()){
+            seLlego = true;
+            notificador.notificarCambios();
+            return true;
+            
+        }
+      
+        return false;
+        
     }
 
     @Override
@@ -51,6 +74,11 @@ public class DemonioSelvatico extends Demonio{
 
     @Override
     public void mover() {   
+    }
+
+    @Override
+    public void seguirAngel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
