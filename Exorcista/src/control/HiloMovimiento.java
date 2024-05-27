@@ -36,7 +36,7 @@ public class HiloMovimiento extends Thread implements Runnable {
             try {
                 Thread.sleep(30);
             } catch (InterruptedException ex) {
-                Logger.getLogger(HiloMovimiento.class.getName()).log(Level.SEVERE, null, ex);
+                ex.getStackTrace();
             }
 
             // Mover demonios
