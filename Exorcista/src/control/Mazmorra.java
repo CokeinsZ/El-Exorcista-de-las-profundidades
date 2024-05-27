@@ -39,9 +39,7 @@ public class Mazmorra extends Dibujo
 
     private Angel angel;
     private ArrayList<Nivel> niveles;
-    
-    private Color color;
-    
+        
     private Refrescable refrescador;
     
     public Mazmorra(int width, int height, Refrescable refrescador) throws IOException {
@@ -51,9 +49,7 @@ public class Mazmorra extends Dibujo
         
         this.puntajeTotal = 0;
         this.numNivel = 0;
-        
-        this.color = Color.BLACK;
-        
+                
         setAngel();
         
         niveles = new ArrayList<>();
@@ -153,6 +149,12 @@ public class Mazmorra extends Dibujo
     @Override
     public void notificarFinNivel() {
         try {
+            niveles.get(numNivel-1).detener();
+        } catch (java.lang.InterruptedException e) {
+            e.getStackTrace();
+        }
+        
+        try {
             agregarNivel();
         } catch (IOException ex) {
             ex.getStackTrace();
@@ -171,6 +173,20 @@ public class Mazmorra extends Dibujo
     public void notificarFinJuego() {
         refrescador.finalizarJuego();
     }
+
+    public void reiniciarJuego() throws IOException, InterruptedException {
+        // Detener todos los hilos de los niveles anteriores
+        for (Nivel nivel : niveles) {
+            nivel.detener();
+        }
+
+        setAngel();
+        numNivel = 0;
+
+        niveles = new ArrayList<>();
+        agregarNivel(); //Agrega el primer nivel
+    }
+
     
     
 }

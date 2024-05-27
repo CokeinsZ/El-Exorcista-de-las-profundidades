@@ -65,7 +65,6 @@ public class Nivel extends Dibujo
     
     private Image[] imagenes;
     
-    private HiloMovimientoDemonios hiloDemonios;
     private HiloCreacionDemonios hiloCreacionDemonios;
     private HiloFuncionesEspeciales hiloEspecial;
     
@@ -567,5 +566,10 @@ public class Nivel extends Dibujo
     @Override
     public void agregarRoca(Roca rocaNueva) {
         rocas.add(rocaNueva);
+    }
+
+    public void detener() throws java.lang.InterruptedException {
+        hiloMovimiento.detenerHilo();
+        hiloEspecial.detenerHilo();
     }
 }

@@ -25,10 +25,14 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
     
     private Angel angel;
     private ArrayList<Demonio> demonios;
+    
+    private boolean corriendo;
 
     public HiloFuncionesEspeciales(Angel angel, ArrayList<Demonio> demonios) {
         this.angel = angel;
         this.demonios = demonios;
+        
+        this.corriendo = true;
     }
 
     @Override
@@ -36,7 +40,7 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
         long initialTime = System.currentTimeMillis();
         long lastExecutionTime = 0;
 
-        while (true) {
+        while (corriendo) {
             long currentTime = System.currentTimeMillis() - initialTime;
             
             if (currentTime - lastExecutionTime >= 5000) {
@@ -62,11 +66,12 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
             if (currentTime % 10000 == 0)
                 angel.recargarEnergia();
             
-          
-        
-            
-            
         }
+    }
+    
+    public void detenerHilo() {
+        corriendo = false;
+        interrupt();
     }
     
     

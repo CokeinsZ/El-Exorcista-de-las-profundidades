@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -323,6 +325,20 @@ public class VentanaPrincipal extends javax.swing.JFrame
 
     @Override
     public void finalizarJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GameOver dialogo = new GameOver(this, true);
+        dialogo.setVisible(true);
+        
+        if(dialogo.getControl() == false) {
+            System.exit(0);
+        }
+        
+        try {
+            mazmorra.reiniciarJuego( );
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
