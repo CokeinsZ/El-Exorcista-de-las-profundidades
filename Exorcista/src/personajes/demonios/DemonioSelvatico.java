@@ -4,15 +4,13 @@
  */
 package personajes.demonios;
 
-import interfaces.ConstantesComunes;
+import interfaces.Agregable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import personajes.Angel;
+import personajes.poderDemonios.Roca;
 
 /**
  *
@@ -24,8 +22,8 @@ public class DemonioSelvatico extends Demonio{
     
     private Image imagenRoca;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 7;
         daño = 2;
@@ -38,18 +36,33 @@ public class DemonioSelvatico extends Demonio{
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y, null);
     }
+    
+    
+    public void crearRocas() {
+        
+        Roca nuevoRoca = new Roca(this.x, this.y, imagenRoca, notificador,enemigo);
+        nuevoRoca.setObjetivoX((int) enemigo.getX());
+        nuevoRoca.setObjetivoY((int) enemigo.getY());
 
-    @Override
-    public void seguirAngel() {
+        agregador.agregarRoca(nuevoRoca);
+
+        //nuevoRayo.moverRayo(x, y);
+    
     }
 
+
     @Override
-    public boolean atacar() {
+    public void atacar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mover() {   
+    }
+
+    @Override
+    public void seguirAngel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

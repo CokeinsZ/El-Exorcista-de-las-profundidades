@@ -7,7 +7,6 @@ package control;
 import gui.inicio.MenuInicio;
 import gui.ventanaPrincipal.VentanaPrincipal;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -15,8 +14,15 @@ public class Main {
     public static void main(String[] args) {
         VentanaPrincipal ventana = new VentanaPrincipal(1280, 720);
         
-        Mazmorra mazmorra = null;
+        MenuInicio menu = new MenuInicio(ventana, true);
+        menu.setSize(1080, 720);
+        menu.setLocationRelativeTo(null);
+        menu.setVisible(true);
         
+        if (menu.getControl() != MenuInicio.EVENTO_INICIAR_JUEGO)
+            System.exit(0);
+        
+        Mazmorra mazmorra = null;
         try {
             mazmorra = new Mazmorra(ventana.getWidth(), ventana.getHeight(), ventana);
             
@@ -27,15 +33,7 @@ public class Main {
         ventana.setMazmorra(mazmorra);
         ventana.setLocationRelativeTo(null);
         
-        MenuInicio menu = new MenuInicio(ventana, true);
-        menu.setSize(1080, 720);
-        menu.setLocationRelativeTo(null);
-        menu.setVisible(true);
-        
-        if (menu.getControl() == MenuInicio.EVENTO_INICIAR_JUEGO) {
-            ventana.setVisible(true);
-            System.out.println("Suerte aventurero");
-        }
+        ventana.setVisible(true);
 
     }
 }

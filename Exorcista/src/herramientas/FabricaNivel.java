@@ -16,6 +16,8 @@ import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.ParedEspinas;
 import nivel.elementos.pared.ParedEstructural;
 import nivel.elementos.pared.Puerta;
+import nivel.elementos.trampa.Agujero;
+import nivel.elementos.trampa.Empuje;
 import nivel.elementos.trampa.Mina;
 import nivel.elementos.trampa.Trampa;
 import personajes.Alma;
@@ -38,8 +40,17 @@ public class FabricaNivel {
         this.imagenes = imagenes;
     }
     
+    private int hallarNumArchivo(int numNivel) {
+        if(numNivel % 3 == 0)
+            return 3;
+        
+        return numNivel % 3;
+    }
+    
     public Nivel crearNivel(int numNivel, Angel angel, Notificable notificador) throws IOException {
-        lector.setBufferedReader("archivos\\niveles\\nivel" + numNivel + ".txt");
+        int numArchivo = hallarNumArchivo(numNivel);
+        
+        lector.setBufferedReader("archivos\\niveles\\nivel" + numArchivo + ".txt");
         
         ArrayList<Cofre> cofres = new ArrayList<>();
         ArrayList<Alma> almas = new ArrayList<>();
@@ -47,9 +58,9 @@ public class FabricaNivel {
         ArrayList<Pared> paredes = new ArrayList<>();
         Puerta puerta = null;
         
-        String linea;
+        String linea = lector.leerLinea();  //Agoto la primera linea vacia
         int x = 0;
-        int y = 0;
+        int y = 100;
         while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {                        
             for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
                 switch (linea.charAt(posCaracter)) {
@@ -62,7 +73,7 @@ public class FabricaNivel {
                         break;
                         
                     case '*':
-                        trampas.add(crearTrampa(x, y));
+                        trampas.add(crearTrampa(x, y, angel));
                         break;
                     
                     case '#':
@@ -85,6 +96,7 @@ public class FabricaNivel {
         
         int ancho = calcularAnchoNivel(paredes);
         int alto = calcularAltoNivel(paredes);
+        
         return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, imagenes, ancho, alto);
    
     }
@@ -138,18 +150,24 @@ public class FabricaNivel {
     }
 
     private Cofre crearCofre(int x, int y) throws IOException {
-        return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], null, null);                
+        return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], imagenes[ConstantesComunes.IMAGEN_POTENCIADOR_VIDA], imagenes[ConstantesComunes.IMAGEN_POTENCIADOR_RAYOS]);                
     }
 
-    private Trampa crearTrampa(int x, int y) throws IOException {
-        int tipo = 1;
+    private Trampa crearTrampa(int x, int y, Angel angel) {
+        int tipo;
         
-        //Random r = new Random();
-        //tipo = r.nextInt(1, 4);
-        
+        Random r = new Random();
+        tipo = r.nextInt(1, 4);
+                
         switch (tipo) {
             case Trampa.TIPO_MINA:
-                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_MINA]);
+                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_MINA], angel);
+                
+            case Trampa.TIPO_AGUJERO:
+                return new Agujero(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_AGUJERO], angel);
+                
+            case Trampa.TIPO_EMPUJE:
+                return new Empuje(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_EMPUJE], angel);
         }
         
         return null;

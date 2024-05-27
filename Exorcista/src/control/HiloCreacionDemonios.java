@@ -30,7 +30,7 @@ public class HiloCreacionDemonios extends Thread implements Runnable {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(HiloCreacionDemonios.class.getName()).log(Level.SEVERE, null, ex);
+                ex.getStackTrace();
             }
         }
     }

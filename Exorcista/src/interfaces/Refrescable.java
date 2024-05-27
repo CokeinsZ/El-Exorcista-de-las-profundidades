@@ -10,4 +10,6 @@ package interfaces;
  */
 public interface Refrescable {
     public void refrescar();
+
+    public void finalizarJuego();
 }

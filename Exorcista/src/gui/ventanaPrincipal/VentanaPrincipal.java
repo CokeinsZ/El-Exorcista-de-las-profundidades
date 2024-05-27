@@ -9,10 +9,12 @@ import interfaces.Refrescable;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import nivel.elementos.cofre.potenciadores.Potenciador;
 
 /**
  *
@@ -39,8 +41,19 @@ public class VentanaPrincipal extends javax.swing.JFrame
         buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
         
         initComponents();
+        ponerIconos();
     
     }
+    
+    private void ponerIconos() {
+    jLabel2.setIcon(new ImageIcon("imagenes/Iconos/Vidas.png"));
+    jLabel3.setIcon(new ImageIcon("imagenes/Iconos/Energía.png"));
+    jLabel6.setIcon(new ImageIcon("imagenes/Iconos/Almas Liberadas.png"));
+    jLabel7.setIcon(new ImageIcon("imagenes/Iconos/Potenciadores.png"));
+    jLabel10.setIcon(new ImageIcon("imagenes/Iconos/Número de niveles.png"));
+    jLabel11.setIcon(new ImageIcon("imagenes/Iconos/Demonios Restantes.png"));
+}
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,7 +74,21 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 contextoGrafico.drawImage(buffer, 0, 0, null);
             }
         };
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lVida = new javax.swing.JLabel();
+        lEnergia = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lAlmas = new javax.swing.JLabel();
+        lPotenciadores = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lNumNivel = new javax.swing.JLabel();
+        lDemoniosRestantes = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -88,27 +115,138 @@ public class VentanaPrincipal extends javax.swing.JFrame
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Hello world");
+        jLabel2.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 2, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Vida");
+
+        jLabel3.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Energia");
+
+        lVida.setBackground(new java.awt.Color(255, 0, 0));
+        lVida.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
+        lVida.setForeground(new java.awt.Color(255, 255, 255));
+        lVida.setText("100");
+
+        lEnergia.setBackground(new java.awt.Color(255, 0, 0));
+        lEnergia.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
+        lEnergia.setForeground(new java.awt.Color(255, 255, 255));
+        lEnergia.setText("10");
+
+        jLabel6.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Almas Liberadas");
+
+        jLabel7.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Potenciadores");
+
+        lAlmas.setBackground(new java.awt.Color(255, 0, 0));
+        lAlmas.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
+        lAlmas.setForeground(new java.awt.Color(255, 255, 255));
+        lAlmas.setText("0");
+
+        lPotenciadores.setBackground(new java.awt.Color(255, 0, 0));
+        lPotenciadores.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
+        lPotenciadores.setForeground(new java.awt.Color(255, 255, 255));
+        lPotenciadores.setText("0");
+
+        jLabel10.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel10.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("NumNivel");
+
+        jLabel11.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel11.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("DemoniosRestantes");
+
+        lNumNivel.setBackground(new java.awt.Color(255, 0, 0));
+        lNumNivel.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
+        lNumNivel.setForeground(new java.awt.Color(255, 255, 255));
+        lNumNivel.setText("1");
+
+        lDemoniosRestantes.setBackground(new java.awt.Color(255, 0, 0));
+        lDemoniosRestantes.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
+        lDemoniosRestantes.setForeground(new java.awt.Color(255, 255, 255));
+        lDemoniosRestantes.setText("10");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1155, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lVida)
+                    .addComponent(lEnergia))
+                .addGap(256, 256, 256)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lAlmas))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(58, 58, 58)
+                        .addComponent(lPotenciadores)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lNumNivel)
+                    .addComponent(lDemoniosRestantes))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(523, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(lAlmas))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(lPotenciadores)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(lVida))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(lNumNivel))))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lEnergia)
+                            .addComponent(jLabel11)
+                            .addComponent(lDemoniosRestantes))))
+                .addContainerGap(613, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,7 +256,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
         );
 
         pack();
@@ -142,11 +280,63 @@ public class VentanaPrincipal extends javax.swing.JFrame
 
     @Override
     public void refrescar() {
+        cargarInformacion();
+        
         repaint();
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lAlmas;
+    private javax.swing.JLabel lDemoniosRestantes;
+    private javax.swing.JLabel lEnergia;
+    private javax.swing.JLabel lNumNivel;
+    private javax.swing.JLabel lPotenciadores;
+    private javax.swing.JLabel lVida;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarInformacion() {
+        lVida.setText("" + mazmorra.getAngel().getVida());
+        lEnergia.setText("" + mazmorra.getAngel().getEnergia());
+        lAlmas.setText("" + mazmorra.getAngel().getAlmas());
+        
+        lPotenciadores.setText("");
+        for(Potenciador p: mazmorra.getAngel().getPotenciadores()){
+            if(p == null)
+                continue;
+            
+            lPotenciadores.setText(lPotenciadores.getText() + ", " + p.toString());
+        }
+        
+        lNumNivel.setText("" + mazmorra.getNivelActual().getNumNivel());
+        lDemoniosRestantes.setText("" + mazmorra.getNivelActual().getDemoniosRestantes());
+    }
+
+    @Override
+    public void finalizarJuego() {
+        GameOver dialogo = new GameOver(this, true);
+        dialogo.setVisible(true);
+        
+        if(dialogo.getControl() == false) {
+            System.exit(0);
+        }
+        
+        try {
+            mazmorra.reiniciarJuego( );
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

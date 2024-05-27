@@ -28,13 +28,5 @@ public abstract class Pared extends Dibujo{
         super(x, y, ANCHO, ALTO, imagen);
     }
 
-    public void pintarNegro() {
-        try {
-            imagen = ImageIO.read(new File("imagenes\\OIP.jpeg"));
-        } catch (IOException ex) {
-            Logger.getLogger(Pared.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No cargó la imagen negra");
-        }
-    }
 
 }

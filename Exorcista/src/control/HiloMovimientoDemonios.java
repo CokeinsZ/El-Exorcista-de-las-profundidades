@@ -29,9 +29,11 @@ public class HiloMovimientoDemonios extends Thread implements Runnable {
                 Logger.getLogger(HiloMovimientoDemonios.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            for (int i = 0; i < demonios.size(); i++) {
-                demonios.get(i).mover();
-                
+            synchronized (demonios) {
+                for (int i = 0; i < demonios.size(); i++) {
+                    demonios.get(i).mover();
+
+                }
             }
         }
     }

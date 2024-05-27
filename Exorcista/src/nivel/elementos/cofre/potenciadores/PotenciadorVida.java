@@ -21,5 +21,12 @@ public class PotenciadorVida extends Potenciador {
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, x, y, null);
     }
+
+    @Override
+    public String toString() {
+        return "Vida";
+    }
+    
+    
     
 }

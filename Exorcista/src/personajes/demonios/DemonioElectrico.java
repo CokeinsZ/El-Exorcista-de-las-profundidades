@@ -4,6 +4,7 @@
  */
 package personajes.demonios;
 
+import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -19,12 +20,12 @@ public class DemonioElectrico extends Demonio {
     public static final int ANCHO = 84;
     public static final int ALTO = 124; 
         
-    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 4;
         daño = 3;
-        velocidad = 10;
+        velocidad = 5;
         
     }
         
@@ -57,7 +58,7 @@ public class DemonioElectrico extends Demonio {
 
 
     @Override
-    public boolean atacar() {
+    public void atacar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

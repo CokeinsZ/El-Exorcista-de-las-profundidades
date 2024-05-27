@@ -8,20 +8,18 @@ import interfaces.Notificable;
 import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import sprite.Dibujo;
 
 /**
  *
  * @author Alejandro
  */
-public class Rayo extends Dibujo implements Runnable {
+public class Rayo extends Dibujo{
 
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
     
-    private int velocidad = 1;
+    private int velocidad = 7;
     private Notificable notificador;
     
     private Thread hiloMovimiento;
@@ -49,37 +47,85 @@ public class Rayo extends Dibujo implements Runnable {
         this.objetivoX = x;
         this.objetivoY = y;
         
-        hiloMovimiento = new Thread(this);       
-        hiloMovimiento.start();
+       // hiloMovimiento = new Thread(this);       
+       // hiloMovimiento.start();
         
+    }
+
+    public void setObjetivoX(int objetivoX) {
+        this.objetivoX = objetivoX;
+    }
+
+    public void setObjetivoY(int objetivoY) {
+        this.objetivoY = objetivoY;
     }
     
     
-     public void seguirPunto(int x, int y ) {        
+    /*
+    public boolean seguirPunto() {        
    
-        if (this.x < x) { 
+        if (this.x < objetivoX) { 
             this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > x) {
+        } else if (this.x > objetivoX) {
             this.x -= velocidad; // Mover hacia la izquierda
         }
 
-        if (this.y < y) {
+        if (this.y < objetivoY) {
             this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > y) {
+        } else if (this.y > objetivoY) {
             this.y -= velocidad; // Mover hacia arriba
         }
         
-        if (this.x == x && this.y == y)
+        if (this.x >= objetivoX-velocidad && this.x <= objetivoX+velocidad  && this.y >= objetivoY-velocidad && this.y <= objetivoY+velocidad )
             seLlego = true;
      
         notificador.notificarCambios();
+        return verificador.verificarColision(this) || seLlego;
+        
     }
+    
+    */
 
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, x, y, null);
     }
+    
 
+    public boolean seguirPunto() {
+        
+        boolean seLlego = false;
+
+        // Calcular la distancia en cada eje
+        double deltaX = objetivoX - this.x;
+        double deltaY = objetivoY - this.y;
+
+        // Calcular la distancia total
+        double distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Calcular las proporciones de movimiento
+        double proporcionX = deltaX / distancia;
+        double proporcionY = deltaY / distancia;
+
+        // Calcular los nuevos valores de x e y basados en la velocidad y las proporciones
+        if (distancia > velocidad) {
+            this.x += proporcionX * velocidad;
+            this.y += proporcionY * velocidad;
+        } else {
+            // Si estamos cerca del objetivo, mover directamente al objetivo
+            this.x = objetivoX;
+            this.y = objetivoY;
+            seLlego = true;
+        }
+
+        notificador.notificarCambios();
+        return verificador.verificarColision(this) || seLlego;
+    }
+
+
+    
+    
+    /*
     @Override
     public void run() {
         while (!seLlego) {
@@ -92,7 +138,6 @@ public class Rayo extends Dibujo implements Runnable {
             seguirPunto(objetivoX, objetivoY);
             boolean control = verificador.verificarColision(this);
             if(control){
-                
                 seLlego = true;
                 
             }
@@ -100,4 +145,14 @@ public class Rayo extends Dibujo implements Runnable {
         }
     }
     
+
+    */
+
+    public int getObjetivoX() {
+        return objetivoX;
+    }
+
+    public int getObjetivoY() {
+        return objetivoY;
+    }
 }

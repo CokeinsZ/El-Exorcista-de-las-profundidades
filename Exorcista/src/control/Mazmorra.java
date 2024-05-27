@@ -17,8 +17,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import nivel.Nivel;
 
@@ -41,9 +39,7 @@ public class Mazmorra extends Dibujo
 
     private Angel angel;
     private ArrayList<Nivel> niveles;
-    
-    private Color color;
-    
+        
     private Refrescable refrescador;
     
     public Mazmorra(int width, int height, Refrescable refrescador) throws IOException {
@@ -53,9 +49,7 @@ public class Mazmorra extends Dibujo
         
         this.puntajeTotal = 0;
         this.numNivel = 0;
-        
-        this.color = Color.BLACK;
-        
+                
         setAngel();
         
         niveles = new ArrayList<>();
@@ -65,12 +59,12 @@ public class Mazmorra extends Dibujo
         agregarNivel();     //Crea el primer nivel
     }
     
-    private void setAngel()  throws IOException {
+    private void setAngel() {
         //int xCentro = (width /2) - (Angel.ANCHO/2); esto luego se factoriza y queda
         int xCentro = (width - Angel.ANCHO) / 2;
         int yCentro = (height - Angel.ALTO) / 2;
         
-        this.angel = new Angel(xCentro, yCentro, null, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
+        this.angel = new Angel(xCentro, yCentro, imagenes[ConstantesComunes.IMAGEN_ANGEL], imagenes[ConstantesComunes.IMAGEN_RAYO], this);
     }
 
     public void manejarTecla(int codigo) {
@@ -80,6 +74,10 @@ public class Mazmorra extends Dibujo
                 || codigo == KeyEvent.VK_LEFT ) {
             
             niveles.get(numNivel-1).moverAngel(codigo);
+        
+        } else if (codigo == KeyEvent.VK_F) {
+            niveles.get(numNivel-1).angelAtacar();
+            
         }
     }
 
@@ -100,7 +98,9 @@ public class Mazmorra extends Dibujo
     
     public final void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(fabricaNivel.crearNivel(numNivel, angel, this));
+        Nivel nuevoNivel = fabricaNivel.crearNivel(numNivel, angel, this);
+        niveles.add(nuevoNivel);
+        
         
     }
 
@@ -110,7 +110,7 @@ public class Mazmorra extends Dibujo
     }
 
     public void cargarTodasImagenes() throws IOException {
-        imagenes = new Image[20];
+        imagenes = new Image[30];
         
         imagenes[0] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioElectrico2.png"));
         imagenes[1] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
@@ -121,7 +121,6 @@ public class Mazmorra extends Dibujo
         imagenes[4] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioSelvatico2.png"));
         
         imagenes[5] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\roca2.png"));
-        
         
         imagenes[6] = ImageIO.read(new File("imagenes\\personajes\\angel\\angel2.png"));
         imagenes[7] = ImageIO.read(new File("imagenes\\personajes\\almas\\alma2.png"));
@@ -138,16 +137,60 @@ public class Mazmorra extends Dibujo
         
         imagenes[14] = ImageIO.read(new File("imagenes\\paredes\\Puertas\\llave2.png"));
         
+        imagenes[15] = ImageIO.read(new File("imagenes\\trampas\\inmovilizadora2.png"));
+        imagenes[16] = ImageIO.read(new File("imagenes\\trampas\\agujero2.png"));
+        imagenes[17] = ImageIO.read(new File("imagenes\\trampas\\empuje3.png"));
+        
+        imagenes[18] = ImageIO.read(new File("imagenes\\potenciadores\\rayos2.png"));
+        imagenes[19] = ImageIO.read(new File("imagenes\\potenciadores\\vida2.png"));
+        
+        imagenes[20] = ImageIO.read(new File("imagenes\\cofres\\llaveCofre2.png"));
+        
     }
 
     @Override
     public void notificarFinNivel() {
-        try {
-            agregarNivel();
-        } catch (IOException ex) {
-            ex.getStackTrace();
+        synchronized (niveles) {
+            try {
+                niveles.get(numNivel-1).detener();
+            } catch (java.lang.InterruptedException e) {
+                e.getStackTrace();
+            }
+
+            try {
+                agregarNivel();
+            } catch (IOException ex) {
+                ex.getStackTrace();
+            }
         }
     }
+
+    public Angel getAngel() {
+        return angel;
+    }
+
+    public Nivel getNivelActual() {
+        return niveles.get(numNivel-1);
+    }
+
+    @Override
+    public void notificarFinJuego() {
+        refrescador.finalizarJuego();
+    }
+
+    public void reiniciarJuego() throws IOException, InterruptedException {
+        // Detener todos los hilos de los niveles anteriores
+        for (Nivel nivel : niveles) {
+            nivel.detener();
+        }
+
+        setAngel();
+        numNivel = 0;
+
+        niveles = new ArrayList<>();
+        agregarNivel(); //Agrega el primer nivel
+    }
+
     
     
 }

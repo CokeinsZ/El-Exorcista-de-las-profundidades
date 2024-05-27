@@ -4,13 +4,14 @@
  */
 package personajes.demonios;
 
-import interfaces.ConstantesComunes;
+import interfaces.Agregable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
-import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import nivel.elementos.trampa.Inmovilizadora;
 import personajes.Angel;
 
 /**
@@ -20,14 +21,21 @@ import personajes.Angel;
 public class DemonioHielo extends Demonio{
     public static final int ANCHO = 90;
     public static final int ALTO = 100; 
+    
+    private Image imagenTrampa;
+    
+    private int numMinas;
         
-    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador, boolean tieneLlave) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 1;
         daño = 1;
         velocidad = 5;
         
+        this.imagenTrampa = imagenTrampa;
+        
+        numMinas = 0;
     }
 
     @Override
@@ -40,56 +48,18 @@ public class DemonioHielo extends Demonio{
     }
 
     @Override
-    public boolean atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /*
-    @Override
-    public void mover() {
-        Random random = new Random();
-        int direccion = random.nextInt(1, 5);
-        
-        switch (direccion) {
-            case 1:
-                if (y > bordes.getYMin(x)) {
-                    y -= VELOCIDAD;
-                }
-                break;
-
-            case 2:
-                if (y < bordes.getYMax(x)) {
-                    y += VELOCIDAD;
-                }
-                break;
-
-            case 3:
-                if (x < bordes.getXMax(y)) {
-                    x += VELOCIDAD;
-                }
-                break;
-
-            case 4:
-                if (x > bordes.getXMin(y)) {
-                    x -= VELOCIDAD;
-                }
-                break;
-
-            default:
-                break;
+    public void atacar() {
+        if (tieneEnfriamiento == true) {
+            return;
         }
         
-        notificador.notificarCambios();
+        enemigo.recibirImpacto(daño);
+        iniciarEnfriamiento();
     }
-    */
-    
+
     @Override
     public void mover() {
-        System.out.println("XMax  " + bordes.getXMax(y));
-        System.out.println("xMin  " + bordes.getXMin(y));
-        System.out.println("YMax  " + bordes.getYMax(x));
-        System.out.println("YMIn  " + bordes.getXMin(y));
- 
+
         if (x >= bordes.getXMax(y) - ANCHO && y <= bordes.getYMax(x) - ALTO) {
             // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior
             y += velocidad;
@@ -107,8 +77,10 @@ public class DemonioHielo extends Demonio{
             x += velocidad;
         }
         
+        if(enemigo.intersects(this)){
+            atacar(); 
+        }
         
-
         /*
         // Reducir los bordes después de cada vuelta
         bordes.setXMax(bordes.getXMax(y) - VELOCIDAD);
@@ -118,6 +90,28 @@ public class DemonioHielo extends Demonio{
         */
 
         notificador.notificarCambios();
+    }
+    
+    public void ponerTrampa() {
+        if (numMinas >= 4)
+            return;
+        
+        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa, enemigo));
+        numMinas += 1;
+        
+        notificador.notificarCambios();
+    }
+
+    private void iniciarEnfriamiento() {
+        tieneEnfriamiento = true;
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                tieneEnfriamiento = false;
+            }
+        }, 3000);
     }
 
     
