@@ -96,6 +96,7 @@ public class FabricaNivel {
         
         int ancho = calcularAnchoNivel(paredes);
         int alto = calcularAltoNivel(paredes);
+        
         return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, imagenes, ancho, alto);
    
     }
