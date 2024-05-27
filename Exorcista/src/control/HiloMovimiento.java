@@ -36,7 +36,7 @@ public class HiloMovimiento extends Thread implements Runnable {
             try {
                 Thread.sleep(30);
             } catch (InterruptedException ex) {
-                ex.getStackTrace();
+                ex.printStackTrace();
             }
 
             // Mover demonios
