@@ -69,7 +69,7 @@ public class HiloMovimiento extends Thread implements Runnable {
         }
     }
          
-    public void detenerHilo() {
+    public void detenerHilo() throws java.lang.InterruptedException{
         corriendo = false;
         interrupt();
     }
