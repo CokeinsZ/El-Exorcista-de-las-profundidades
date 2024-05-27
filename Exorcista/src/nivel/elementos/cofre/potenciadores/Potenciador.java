@@ -15,8 +15,8 @@ public abstract class Potenciador extends Dibujo {
     public static final int TIPO_VIDA = 1;
     public static final int TIPO_ATAQUE = 2;
     
-    public static final int ANCHO = 50;
-    public static final int ALTO = 50;
+    public static final int ANCHO = 100;
+    public static final int ALTO = 100;
 
     public Potenciador(int x, int y, Image imagen) {
         super(x, y, ANCHO, ALTO, imagen);

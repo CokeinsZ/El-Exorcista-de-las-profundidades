@@ -47,8 +47,7 @@ public class Angel extends Dibujo {
     private Verificable verificador;
     private Agregable agregador;
     
-    private boolean tieneLlveFinNivel;
-    private boolean tieneLlaveCofre;
+    private ArrayList<Boolean> llavesCofres;
     
     private Rectangle areaAtaque;
     
@@ -204,4 +203,25 @@ public class Angel extends Dibujo {
     public void recargarEnergia() {
         energia = energiaMaxima;
     }
+    
+    public void tomarLlaveCofre() {
+        llavesCofres.add(true);
+    }
+    
+    public void abrirCofre() {
+        llavesCofres.remove(llavesCofres.size() - 1);
+    }
+    
+    public void tomarPotenciador(Potenciador potenciador) {
+        if (potenciadores.length >= 3)
+            return;
+        
+        potenciadores[potenciadores.length - 1] = potenciador;
+    }
+
+    public boolean tieneLlaves() {
+        return llavesCofres.size() > 0;
+    }
+    
+    
 }

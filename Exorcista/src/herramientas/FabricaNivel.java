@@ -149,7 +149,7 @@ public class FabricaNivel {
     }
 
     private Cofre crearCofre(int x, int y) throws IOException {
-        return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], null, null);                
+        return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], imagenes[ConstantesComunes.IMAGEN_POTENCIADOR_VIDA], imagenes[ConstantesComunes.IMAGEN_POTENCIADOR_RAYOS]);                
     }
 
     private Trampa crearTrampa(int x, int y, Angel angel) {

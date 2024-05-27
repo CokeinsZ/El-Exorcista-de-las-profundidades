@@ -31,6 +31,7 @@ import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
     
   import java.util.Iterator;
+import nivel.elementos.cofre.potenciadores.Potenciador;
 
 
 /**
@@ -49,6 +50,7 @@ public class Nivel extends Dibujo
     private Angel angel;
     
     private ArrayList<Cofre> cofres;
+    private ArrayList<Potenciador> potenciadores;
     private ArrayList<Alma> almas;
     private ArrayList<Trampa> trampas;    
     private ArrayList<Pared> paredes;
@@ -79,6 +81,7 @@ public class Nivel extends Dibujo
         this.angel = angel;
         angel.setInterfacesNivel(this, this, this);
         this.cofres = cofres;
+        this.potenciadores = new ArrayList<>();
         this.almas = almas;
         this.trampas = trampas;
         this.paredes = paredes;
@@ -246,7 +249,7 @@ public class Nivel extends Dibujo
         
         boolean movimientoAngel = angel.mover(codigo); // Si se mueve me retorna true de lo contrario false 
         if(movimientoAngel == true){  
-         // Verificar colisión con los demonios
+            // Verificar colisión con los demonios
             for (int i = 0; i < demonios.size(); i++) {
                 if (angel.intersects(demonios.get(i))) {
                     // Si hay colisión, revertir el movimiento
@@ -256,16 +259,7 @@ public class Nivel extends Dibujo
                 }
             }
             
-            //Verificar colisión con las trampas
-            for (int i = 0; i < trampas.size(); i++) {
-                Trampa trampa = trampas.get(i);
-                if (angel.intersects(trampa)) {
-                    trampa.accionar();
-                    trampas.remove(trampa);
-                }
-                    
-            }
-           notificador.notificarCambios();
+            notificador.notificarCambios();
         }
         
         if (llaveFinNivel != null && angel.intersects(llaveFinNivel)) {
@@ -274,6 +268,27 @@ public class Nivel extends Dibujo
             angel.agregarSeguidores(almas.size());
             
             notificador.notificarFinNivel();
+        }
+    }
+    
+    private void verificarColisionAngel() {
+        //Verificar colisión con las trampas
+        for (int i = 0; i < trampas.size(); i++) {
+            Trampa trampa = trampas.get(i);
+            if (angel.intersects(trampa)) {
+                trampa.accionar();
+                trampas.remove(trampa);
+            }
+        }
+        
+        //Verificar colision con los cofres
+        for (int i = 0; i < cofres.size(); i++) {
+            Cofre cofre = cofres.get(i);
+            
+            if (angel.intersects(cofre) && angel.tieneLlaves()) {
+                angel.abrirCofre();
+                potenciadores.add(cofre.crearPotenciador());
+            }
         }
     }
     
