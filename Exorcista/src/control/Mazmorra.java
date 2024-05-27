@@ -98,7 +98,9 @@ public class Mazmorra extends Dibujo
     
     public final void agregarNivel() throws IOException {
         numNivel++;
-        niveles.add(fabricaNivel.crearNivel(numNivel, angel, this));
+        Nivel nuevoNivel = fabricaNivel.crearNivel(numNivel, angel, this);
+        niveles.add(nuevoNivel);
+        
         
     }
 
@@ -148,16 +150,18 @@ public class Mazmorra extends Dibujo
 
     @Override
     public void notificarFinNivel() {
-        try {
-            niveles.get(numNivel-1).detener();
-        } catch (java.lang.InterruptedException e) {
-            e.getStackTrace();
-        }
-        
-        try {
-            agregarNivel();
-        } catch (IOException ex) {
-            ex.getStackTrace();
+        synchronized (niveles) {
+            try {
+                niveles.get(numNivel-1).detener();
+            } catch (java.lang.InterruptedException e) {
+                e.getStackTrace();
+            }
+
+            try {
+                agregarNivel();
+            } catch (IOException ex) {
+                ex.getStackTrace();
+            }
         }
     }
 

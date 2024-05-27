@@ -76,12 +76,12 @@ public class Nivel extends Dibujo
     
     private HiloMovimiento hiloMovimiento;
 
-    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) {
         super(0, 0, ancho, alto, null);
         
         this.imagenes = imagenes;
         this.fabrica = new FabricaDemonios(imagenes);
-        
+                
         this.numNivel = numNivel;
         
         this.cofres = cofres;
@@ -91,6 +91,7 @@ public class Nivel extends Dibujo
         this.trampas = trampas;
         this.paredes = paredes;
         this.puerta = puerta;
+                
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
         
@@ -100,19 +101,20 @@ public class Nivel extends Dibujo
         
         this.angel = angel;
         angel.setInterfacesNivel(this, this, this);
-        
+                
         pilaDemonios = new ArrayList<>();
         arregloTieneLlave = new ArrayList<>();
         cargarPilaDemoniosPorCrear();
+                
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
-        
+                
         hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas);
         hiloMovimiento.start();
-         
+                 
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
         hiloEspecial.start();
-        
+
         
     }
     
@@ -179,7 +181,7 @@ public class Nivel extends Dibujo
             }
             
         }
-        
+                
         cargarArregloTieneLlave();        
     }
     
@@ -195,7 +197,9 @@ public class Nivel extends Dibujo
             
             arregloTieneLlave.add(pos);
             cantidadLlaves--;
+            
         }
+        
     }
     
     public boolean crearDemonios() {
