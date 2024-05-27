@@ -19,7 +19,7 @@ public class Rayo extends Dibujo{
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
     
-    private int velocidad = 1;
+    private int velocidad = 4;
     private Notificable notificador;
     
     private Thread hiloMovimiento;
@@ -61,7 +61,7 @@ public class Rayo extends Dibujo{
     }
     
     
-  
+    /*
     public boolean seguirPunto() {        
    
         if (this.x < objetivoX) { 
@@ -83,6 +83,8 @@ public class Rayo extends Dibujo{
         return verificador.verificarColision(this) || seLlego;
         
     }
+    
+    */
 
     @Override
     public void dibujar(Graphics2D g) {
