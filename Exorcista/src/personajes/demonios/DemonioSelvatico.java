@@ -26,8 +26,8 @@ public class DemonioSelvatico extends Demonio{
     private boolean seLlego;
     private Image imagenRoca;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador);
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 7;
         daño = 2;

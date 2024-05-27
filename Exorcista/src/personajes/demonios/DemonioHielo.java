@@ -24,8 +24,8 @@ public class DemonioHielo extends Demonio{
     
     private int numMinas;
         
-    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador);
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador, boolean tieneLlave) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 1;
         daño = 1;

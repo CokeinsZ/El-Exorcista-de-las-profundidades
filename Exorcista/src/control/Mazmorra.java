@@ -112,7 +112,7 @@ public class Mazmorra extends Dibujo
     }
 
     public void cargarTodasImagenes() throws IOException {
-        imagenes = new Image[20];
+        imagenes = new Image[30];
         
         imagenes[0] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioElectrico2.png"));
         imagenes[1] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioFuego2.png"));
@@ -145,6 +145,8 @@ public class Mazmorra extends Dibujo
         
         imagenes[18] = ImageIO.read(new File("imagenes\\potenciadores\\rayos2.png"));
         imagenes[19] = ImageIO.read(new File("imagenes\\potenciadores\\vida2.png"));
+        
+        imagenes[20] = ImageIO.read(new File("imagenes\\cofres\\llaveCofre2.png"));
         
     }
 

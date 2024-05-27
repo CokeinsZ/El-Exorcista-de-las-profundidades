@@ -73,6 +73,7 @@ public class Angel extends Dibujo {
         this.areaAtaque = new Rectangle(x-10, y-10, width+10, height+10);
         
         this.estaParalizado  = false;
+        this.llavesCofres = new ArrayList<>();
     }
     
     public void setHiloMovimientoRayos(ArrayList<Rayo> rayos) {
@@ -220,7 +221,7 @@ public class Angel extends Dibujo {
     }
 
     public boolean tieneLlaves() {
-        return llavesCofres.size() > 0;
+        return llavesCofres.contains(true);
     }
     
     

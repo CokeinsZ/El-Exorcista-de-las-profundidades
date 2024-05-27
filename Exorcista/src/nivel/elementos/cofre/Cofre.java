@@ -45,10 +45,10 @@ public class Cofre extends Dibujo {
         }
         
         if (tipo == Potenciador.TIPO_VIDA) {
-            return new PotenciadorVida(x, y, imagenPotenciadorVida);
+            return new PotenciadorVida(x-50, y, imagenPotenciadorVida);
             
         } else if (tipo == Potenciador.TIPO_ATAQUE) {
-            return new PotenciadorAtaque(x, y, imagenPotenciadorAtaque);
+            return new PotenciadorAtaque(x-50, y, imagenPotenciadorAtaque);
             
         }
         

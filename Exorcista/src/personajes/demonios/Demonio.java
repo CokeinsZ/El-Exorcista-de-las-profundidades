@@ -27,14 +27,18 @@ public abstract class Demonio extends Dibujo {
     protected int velocidad;
     protected Angel enemigo;
     
+    protected boolean tieneLlave;
+    
     protected Notificable notificador;
     protected Agregable agregador;    
     protected Delimitable bordes;
     
-    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Agregable agregador) {
+    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave) {
         super(x, y, width, height, imagen);
         this.bordes = bordes;
         this.enemigo = enemigo;
+        
+        this.tieneLlave = tieneLlave;
         
         this.notificador = notificador;
         this.agregador = agregador;
@@ -48,6 +52,10 @@ public abstract class Demonio extends Dibujo {
         vida -= daño;
         
         return vida <= 0;
+    }
+    
+    public boolean tieneLlave() {
+        return tieneLlave;
     }
     
 }

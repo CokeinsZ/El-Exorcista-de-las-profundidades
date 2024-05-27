@@ -27,8 +27,8 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego, Agregable agregador) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador);
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego, Agregable agregador, boolean tieneLlave) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 5;
         daño = 2;

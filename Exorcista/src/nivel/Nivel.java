@@ -68,8 +68,10 @@ public class Nivel extends Dibujo
     private HiloFuncionesEspeciales hiloEspecial;
     
     private ArrayList<Integer> pilaDemonios;
+    private ArrayList<Integer> arregloTieneLlave;
     
     private Llave llaveFinNivel;
+    private ArrayList<Llave> llavesCofres;
     
     private HiloMovimiento hiloMovimiento;
 
@@ -81,9 +83,8 @@ public class Nivel extends Dibujo
         
         this.numNivel = numNivel;
         
-        this.angel = angel;
-        angel.setInterfacesNivel(this, this, this);
         this.cofres = cofres;
+        this.llavesCofres = new ArrayList<>();
         this.potenciadores = new ArrayList<>();
         this.almas = almas;
         this.trampas = trampas;
@@ -95,23 +96,22 @@ public class Nivel extends Dibujo
         
         this.notificador = notificador;
         
+        this.angel = angel;
+        angel.setInterfacesNivel(this, this, this);
+        
         pilaDemonios = new ArrayList<>();
+        arregloTieneLlave = new ArrayList<>();
         cargarPilaDemoniosPorCrear();
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
         
         hiloMovimiento = new HiloMovimiento(demonios, rayos);
         hiloMovimiento.start();
-        
-       //hiloDemonios = new HiloMovimientoDemonios(demonios);
-       // hiloDemonios.start();
-       
-      
-        
+         
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
         hiloEspecial.start();
         
-        //angel.setHiloMovimientoRayos(rayos);
+        
     }
     
     private void cargarPilaDemoniosPorCrear() {
@@ -177,18 +177,41 @@ public class Nivel extends Dibujo
             }
             
         }
+        
+        cargarArregloTieneLlave();        
+    }
+    
+    private void cargarArregloTieneLlave() {
+        Random r = new Random();
+        int cantidadDemonios = pilaDemonios.size();
+        int cantidadLlaves = cofres.size();
+        while (cantidadLlaves > 0) {
+            int pos = r .nextInt(0, cantidadDemonios);
+            
+            if (arregloTieneLlave.contains(pos))
+                continue;
+            
+            arregloTieneLlave.add(pos);
+            cantidadLlaves--;
+        }
     }
     
     public boolean crearDemonios() {
-        int tipo = pilaDemonios.remove(pilaDemonios.size() -1);
-        agregarDemonios(tipo);
+        int demonioCrear = pilaDemonios.size() -1;
+        boolean tieneLlave = false;
+        
+        if (arregloTieneLlave.contains(demonioCrear))
+            tieneLlave = true;
+        
+        int tipo = pilaDemonios.remove(demonioCrear);
+        agregarDemonios(tipo, tieneLlave);
         
         //Retorna true si aun hay demonios en la pila
         return !pilaDemonios.isEmpty();
     }
     
-    public void agregarDemonios(int tipodemonio) {
-        verificarPosicionDemonio(tipodemonio);
+    public void agregarDemonios(int tipodemonio, boolean tieneLlave) {
+        verificarPosicionDemonio(tipodemonio, tieneLlave);
     }
     
     //esto verifica que no se colisionen entre si  
@@ -229,12 +252,12 @@ public class Nivel extends Dibujo
     }
     
     // aqui creo un demonio en una posicion valida
-    public void verificarPosicionDemonio (int tipoDemonio) {
+    public void verificarPosicionDemonio (int tipoDemonio, boolean tieneLlave) {
         Demonio demonionuevo = null;
         boolean noColisiona = false;
         
         while(noColisiona == false){
-          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador, this);
+          demonionuevo = fabrica.crearDemonio(tipoDemonio, this, angel, notificador, this, tieneLlave);
           
           //se llama el metodo para verificar la colision de demonios con demonio y si esto 
           //nos retorna falso lo que debemos de hacer es volver a verificar que no se esten colisionando
@@ -249,37 +272,32 @@ public class Nivel extends Dibujo
         demonios.add(demonio);
     } 
 
-    public void moverAngel(int codigo){
+    public void moverAngel(int codigo){        
         //Tengo que guardar la posicion del angel en tal caso que tenga de deshacer un movimiento
         //posiciones anteriores al movimiento. es decir la posicion del angel antes de moverse 
         int xAnterior = (int) angel.getX();
         int yAnterior =  (int) angel.getY();
         
         boolean movimientoAngel = angel.mover(codigo); // Si se mueve me retorna true de lo contrario false 
-        if(movimientoAngel == true){  
-            // Verificar colisión con los demonios
-            for (int i = 0; i < demonios.size(); i++) {
-                if (angel.intersects(demonios.get(i))) {
-                    // Si hay colisión, revertir el movimiento
-                    angel.revertirMovimiento(xAnterior, yAnterior);
- 
-                    break;
-                }
-            }
+        if(movimientoAngel){  
+            verificarColisionAngel(xAnterior, yAnterior);
             
             notificador.notificarCambios();
         }
         
-        if (llaveFinNivel != null && angel.intersects(llaveFinNivel)) {
-            llaveFinNivel = null;
-        
-            angel.agregarSeguidores(almas.size());
-            
-            notificador.notificarFinNivel();
-        }
     }
     
-    private void verificarColisionAngel() {
+    private void verificarColisionAngel(int xAnterior, int yAnterior) {        
+        // Verificar colisión con los demonios
+        for (int i = 0; i < demonios.size(); i++) {
+            if (angel.intersects(demonios.get(i))) {
+                // Si hay colisión, revertir el movimiento
+                angel.revertirMovimiento(xAnterior, yAnterior);
+
+                break;
+            }
+        }
+        
         //Verificar colisión con las trampas
         for (int i = 0; i < trampas.size(); i++) {
             Trampa trampa = trampas.get(i);
@@ -295,8 +313,36 @@ public class Nivel extends Dibujo
             
             if (angel.intersects(cofre) && angel.tieneLlaves()) {
                 angel.abrirCofre();
+                cofres.remove(cofre);
                 potenciadores.add(cofre.crearPotenciador());
             }
+        }
+        
+        //Verificar colisión con las llaves de los cofres
+        for (int i = 0; i < llavesCofres.size(); i++) {
+            Llave llave = llavesCofres.get(i);
+            if (angel.intersects(llave)) {
+                angel.tomarLlaveCofre();
+                llavesCofres.remove(llave);
+            }
+        }
+        
+        for (int i = 0; i < potenciadores.size(); i++) {
+            Potenciador potenciador = potenciadores.get(i);
+            
+            if(angel.intersects(potenciador)) {
+                angel.tomarPotenciador(potenciador);
+                potenciadores.remove(potenciador);
+            }
+        }
+        
+        //Verifica colisión con la llave de fin de nivel
+        if (llaveFinNivel != null && angel.intersects(llaveFinNivel)) {
+            llaveFinNivel = null;
+        
+            angel.agregarSeguidores(almas.size());
+            notificador.notificarFinNivel();
+            
         }
     }
     
@@ -320,6 +366,17 @@ public class Nivel extends Dibujo
         for (int i = 0; i < cofres.size(); i++) {
             Cofre cofre = cofres.get(i);
             cofre.dibujar(g);
+        }
+        
+        for (int i = 0; i < potenciadores.size(); i++) {
+            Potenciador potenciador = potenciadores.get(i);
+            potenciador.dibujar(g);
+        }
+        
+        for (int i = 0; i < llavesCofres.size(); i++) {
+            Llave llave = llavesCofres.get(i);
+            llave.dibujar(g);
+            
         }
 
         for (int i = 0; i < almas.size(); i++) {
@@ -425,8 +482,11 @@ public class Nivel extends Dibujo
     }
 
     private void eliminarDemonio(Demonio demonio) {
-        if(demonios.size() == 1 && !hiloCreacionDemonios.isAlive())
-            reproducirEventoFinDeNivel((int) puerta.getX()-50, (int) puerta.getY());
+        if(demonio.tieneLlave())
+            crearLlaveCofre((int)demonio.getX(), (int)demonio.getY());
+        
+        if(getDemoniosRestantes() == 1)
+            crearLlaveFinNivel((int) puerta.getX()-50, (int) puerta.getY());
         
         demonios.remove(demonio);       
         notificador.notificarCambios();
@@ -456,8 +516,8 @@ public class Nivel extends Dibujo
         return false;
     }
 
-    private void reproducirEventoFinDeNivel(int x, int y) {        
-        llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE]);        
+    private void crearLlaveFinNivel(int x, int y) {        
+        llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE_PUERTA]);        
         
     }
 
@@ -490,5 +550,9 @@ public class Nivel extends Dibujo
     @Override
     public void agregarRayo(Rayo rayoNuevo) {
         rayos.add(rayoNuevo);
+    }
+
+    private void crearLlaveCofre(int x, int y) {
+        llavesCofres.add(new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE_COFRE]));
     }
 }

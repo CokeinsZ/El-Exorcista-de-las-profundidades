@@ -19,7 +19,7 @@ public class Rayo extends Dibujo{
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
     
-    private int velocidad = 1;
+    private int velocidad = 10;
     private Notificable notificador;
     
     private Thread hiloMovimiento;
