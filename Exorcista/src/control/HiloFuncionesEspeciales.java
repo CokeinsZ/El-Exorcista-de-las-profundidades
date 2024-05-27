@@ -61,11 +61,7 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
 
             if (currentTime % 10000 == 0)
                 angel.recargarEnergia();
-            
           
-        
-            
-            
         }
     }
     

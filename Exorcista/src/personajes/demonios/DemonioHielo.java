@@ -46,8 +46,10 @@ public class DemonioHielo extends Demonio{
     }
 
     @Override
-    public boolean atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void atacar() {
+        
+        enemigo.recibirImpacto(daño);
+        
     }
 
     /*
@@ -113,8 +115,10 @@ public class DemonioHielo extends Demonio{
             x += velocidad;
         }
         
+        if(enemigo.intersects(this)){
+            atacar(); 
+        }
         
-
         /*
         // Reducir los bordes después de cada vuelta
         bordes.setXMax(bordes.getXMax(y) - VELOCIDAD);
