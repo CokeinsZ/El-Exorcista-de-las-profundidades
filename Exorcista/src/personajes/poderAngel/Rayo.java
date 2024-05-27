@@ -76,7 +76,7 @@ public class Rayo extends Dibujo{
             this.y -= velocidad; // Mover hacia arriba
         }
         
-        if (this.x == objetivoX && this.y == objetivoY)
+        if (this.x >= objetivoX-velocidad && this.x <= objetivoX+velocidad  && this.y >= objetivoY-velocidad && this.y <= objetivoY+velocidad )
             seLlego = true;
      
         notificador.notificarCambios();

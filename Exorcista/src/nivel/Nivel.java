@@ -6,6 +6,7 @@ package nivel;
 
 import control.HiloCreacionDemonios;
 import control.HiloFuncionesEspeciales;
+import control.HiloMovimiento;
 import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.Agregable;
@@ -67,6 +68,8 @@ public class Nivel extends Dibujo
     private ArrayList<Integer> pilaDemonios;
     
     private Llave llaveFinNivel;
+    
+    private HiloMovimiento hiloMovimiento;
 
     public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) throws IOException {
         super(0, 0, ancho, alto, null);
@@ -94,13 +97,18 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
         
-        hiloDemonios = new HiloMovimientoDemonios(demonios);
-        hiloDemonios.start();
+        hiloMovimiento = new HiloMovimiento(demonios, rayos);
+        hiloMovimiento.start();
+        
+       //hiloDemonios = new HiloMovimientoDemonios(demonios);
+       // hiloDemonios.start();
+       
+      
         
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
         hiloEspecial.start();
         
-        angel.setHiloMovimientoRayos(rayos);
+        //angel.setHiloMovimientoRayos(rayos);
     }
     
     private void cargarPilaDemoniosPorCrear() {
