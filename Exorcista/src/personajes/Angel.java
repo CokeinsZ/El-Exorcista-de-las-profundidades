@@ -38,6 +38,7 @@ public class Angel extends Dibujo {
     private int energia;
     private int energiaMaxima;
     private Potenciador[] potenciadores;
+    private int contadorPotenciadores;
     private int almasLiberadas;
     
     private Image imagenRayo;
@@ -65,6 +66,7 @@ public class Angel extends Dibujo {
         this.almasLiberadas = 0;
         
         this.potenciadores = new Potenciador[3];    //El jugador va a poder tener máximo 3 potenciadores
+        this.contadorPotenciadores = 0;
                                 
         this.notificador = notificador;
         
@@ -214,10 +216,11 @@ public class Angel extends Dibujo {
     }
     
     public void tomarPotenciador(Potenciador potenciador) {
-        if (potenciadores.length >= 3)
+        if (contadorPotenciadores >= 3)
             return;
         
-        potenciadores[potenciadores.length - 1] = potenciador;
+        potenciadores[contadorPotenciadores] = potenciador;
+        contadorPotenciadores++;
     }
 
     public boolean tieneLlaves() {

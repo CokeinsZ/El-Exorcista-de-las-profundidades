@@ -33,6 +33,7 @@ import sprite.Dibujo;
     
   import java.util.Iterator;
 import nivel.elementos.cofre.potenciadores.Potenciador;
+import personajes.poderDemonios.Roca;
 
 
 /**
@@ -58,6 +59,7 @@ public class Nivel extends Dibujo
     private Puerta puerta;
     private ArrayList<Demonio> demonios;
     private ArrayList<Rayo> rayos;
+    private ArrayList<Roca> rocas;
     
     private Notificable notificador;
     
@@ -91,6 +93,7 @@ public class Nivel extends Dibujo
         this.paredes = paredes;
         this.puerta = puerta;
         this.rayos = new ArrayList<>();
+        this.rocas = new ArrayList<>();
         
         demonios = new ArrayList<>();
         
@@ -105,7 +108,7 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
         
-        hiloMovimiento = new HiloMovimiento(demonios, rayos);
+        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas);
         hiloMovimiento.start();
          
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
@@ -393,6 +396,11 @@ public class Nivel extends Dibujo
             Demonio demonio = demonios.get(i);
             demonio.dibujar(g);
         }
+        
+        for (int i = 0; i < rocas.size(); i++) {
+            Roca roca = rocas.get(i);
+            roca.dibujar(g);
+        }
 
         angel.dibujar(g);
 
@@ -554,5 +562,10 @@ public class Nivel extends Dibujo
 
     private void crearLlaveCofre(int x, int y) {
         llavesCofres.add(new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE_COFRE]));
+    }
+
+    @Override
+    public void agregarRoca(Roca rocaNueva) {
+        rocas.add(rocaNueva);
     }
 }

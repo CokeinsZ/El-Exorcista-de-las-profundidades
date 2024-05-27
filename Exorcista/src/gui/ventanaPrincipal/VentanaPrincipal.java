@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 
@@ -40,8 +41,19 @@ public class VentanaPrincipal extends javax.swing.JFrame
         buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
         
         initComponents();
+        ponerIconos();
     
     }
+    
+    private void ponerIconos() {
+    jLabel2.setIcon(new ImageIcon("imagenes/Iconos/Vidas.png"));
+    jLabel3.setIcon(new ImageIcon("imagenes/Iconos/Energía.png"));
+    jLabel6.setIcon(new ImageIcon("imagenes/Iconos/Almas Liberadas.png"));
+    jLabel7.setIcon(new ImageIcon("imagenes/Iconos/Potenciadores.png"));
+    jLabel10.setIcon(new ImageIcon("imagenes/Iconos/Número de niveles.png"));
+    jLabel11.setIcon(new ImageIcon("imagenes/Iconos/Demonios Restantes.png"));
+}
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -104,62 +116,62 @@ public class VentanaPrincipal extends javax.swing.JFrame
         });
 
         jLabel2.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 2, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Vida");
 
         jLabel3.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Energia");
 
         lVida.setBackground(new java.awt.Color(255, 0, 0));
-        lVida.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        lVida.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
         lVida.setForeground(new java.awt.Color(255, 255, 255));
         lVida.setText("100");
 
         lEnergia.setBackground(new java.awt.Color(255, 0, 0));
-        lEnergia.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        lEnergia.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
         lEnergia.setForeground(new java.awt.Color(255, 255, 255));
         lEnergia.setText("10");
 
         jLabel6.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel6.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Almas Liberadas");
 
         jLabel7.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel7.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Potenciadores");
 
         lAlmas.setBackground(new java.awt.Color(255, 0, 0));
-        lAlmas.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        lAlmas.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
         lAlmas.setForeground(new java.awt.Color(255, 255, 255));
         lAlmas.setText("0");
 
         lPotenciadores.setBackground(new java.awt.Color(255, 0, 0));
-        lPotenciadores.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        lPotenciadores.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
         lPotenciadores.setForeground(new java.awt.Color(255, 255, 255));
         lPotenciadores.setText("0");
 
         jLabel10.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel10.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("NumNivel");
 
         jLabel11.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel11.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Copperplate Gothic Bold", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("DemoniosRestantes");
 
         lNumNivel.setBackground(new java.awt.Color(255, 0, 0));
-        lNumNivel.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        lNumNivel.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
         lNumNivel.setForeground(new java.awt.Color(255, 255, 255));
         lNumNivel.setText("1");
 
         lDemoniosRestantes.setBackground(new java.awt.Color(255, 0, 0));
-        lDemoniosRestantes.setFont(new java.awt.Font("Dutch801 Rm BT", 2, 18)); // NOI18N
+        lDemoniosRestantes.setFont(new java.awt.Font("Cooper Black", 1, 18)); // NOI18N
         lDemoniosRestantes.setForeground(new java.awt.Color(255, 255, 255));
         lDemoniosRestantes.setText("10");
 
@@ -176,50 +188,56 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lVida)
                     .addComponent(lEnergia))
-                .addGap(281, 281, 281)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(256, 256, 256)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lPotenciadores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
-                        .addComponent(jLabel11))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lAlmas)
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)))
+                        .addComponent(lAlmas))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(58, 58, 58)
+                        .addComponent(lPotenciadores)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lNumNivel)
                     .addComponent(lDemoniosRestantes))
-                .addGap(117, 117, 117))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(lVida)
-                        .addComponent(jLabel6)
-                        .addComponent(lAlmas))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(lNumNivel))))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lEnergia)
-                    .addComponent(jLabel7)
-                    .addComponent(lPotenciadores)
-                    .addComponent(jLabel11)
-                    .addComponent(lDemoniosRestantes))
-                .addContainerGap(611, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
+                            .addComponent(lAlmas))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(lPotenciadores)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(lVida))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(lNumNivel))))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lEnergia)
+                            .addComponent(jLabel11)
+                            .addComponent(lDemoniosRestantes))))
+                .addContainerGap(613, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -296,7 +314,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
             if(p == null)
                 continue;
             
-            lPotenciadores.setText(lPotenciadores.getText() + p.toString());
+            lPotenciadores.setText(lPotenciadores.getText() + ", " + p.toString());
         }
         
         lNumNivel.setText("" + mazmorra.getNivelActual().getNumNivel());
@@ -305,9 +323,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
 
     @Override
     public void finalizarJuego() {
-        //TO-DO
-        /*
-        Dialogo fin de juego, que muestre el total de almas liberadas y que pida el nombre para guaradar su puntaje en el archivo de texto: puntajes
-        */
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

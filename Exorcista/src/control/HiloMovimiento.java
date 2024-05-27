@@ -48,8 +48,7 @@ public void run() {
             }
         }
         
-       synchronized(rayos){
-        
+        synchronized(rayos){
             for (int i = 0; i < rayos.size(); i++) {
                 Rayo nuevoRayo = rayos.get(i);
                 boolean control = nuevoRayo.seguirPunto();
@@ -60,7 +59,6 @@ public void run() {
         }
        
         synchronized(rocas){
-        
             for (int i = 0; i < rocas.size(); i++) {
                 Roca nuevoRoca = rocas.get(i);
                 boolean control = nuevoRoca.seguirPunto();
@@ -69,7 +67,6 @@ public void run() {
                 }
             }
         } 
-       
        
     }
     

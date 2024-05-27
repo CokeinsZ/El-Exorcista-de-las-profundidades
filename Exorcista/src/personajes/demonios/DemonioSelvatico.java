@@ -5,17 +5,11 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
-import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import personajes.Angel;
-import personajes.poderAngel.Rayo;
 import personajes.poderDemonios.Roca;
 
 /**
@@ -26,7 +20,6 @@ public class DemonioSelvatico extends Demonio{
     public static final int ANCHO = 92;
     public static final int ALTO = 98; 
     
-    private boolean seLlego;
     private Image imagenRoca;
     
     public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave) {
@@ -37,7 +30,6 @@ public class DemonioSelvatico extends Demonio{
         velocidad = 0;
         
         this.imagenRoca = imagenRoca;
-        this.seLlego = false;
     }
 
     @Override
