@@ -25,9 +25,11 @@ public class Empuje extends Trampa {
     @Override
     public void accionar() {
         Random r = new Random();
-        int nuevoX = 200;
+        int direccion = r.nextInt(37, 41);
         
-        angel.x += nuevoX;
+        for (int i = 0; i < 15; i++) {
+            angel.mover(direccion);
+        }
     }
 
     @Override

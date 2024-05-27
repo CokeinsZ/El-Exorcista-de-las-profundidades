@@ -27,5 +27,7 @@ public interface ConstantesComunes {
     public static final int IMAGEN_TRAMPA_INMOVILIZADORA = 15;
     public static final int IMAGEN_TRAMPA_EMPUJE = 17;
     public static final int IMAGEN_TRAMPA_AGUJERO = 16;
+    public static final int IMAGEN_PODER_RAYOS = 18;
+    
 
 }

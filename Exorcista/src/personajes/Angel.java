@@ -104,7 +104,7 @@ public class Angel extends Dibujo {
     public boolean mover(int codigo) {
         if (estaParalizado)
             return false;
-        
+                
         boolean seMovio = false;
         
         if (codigo == KeyEvent.VK_UP && y >= bordes.getYMin(x)){
