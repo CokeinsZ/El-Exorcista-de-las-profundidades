@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
+import personajes.poderDemonios.Roca;
 
 /**
  *
@@ -18,10 +19,13 @@ public class HiloMovimiento extends Thread implements Runnable {
     
     private ArrayList<Demonio> demonios;
     private ArrayList<Rayo> rayos;
+    private ArrayList<Roca> rocas;
 
-    public HiloMovimiento(ArrayList<Demonio> demonios, ArrayList<Rayo> rayos) {
+    public HiloMovimiento(ArrayList<Demonio> demonios, ArrayList<Rayo> rayos, ArrayList<Roca> rocas) {
         this.demonios = demonios;
         this.rayos = rayos;
+        this.rocas = rocas;
+        
     }
     
     
@@ -53,8 +57,24 @@ public void run() {
                     rayos.remove(nuevoRayo);
                 }
             }
-        }   
+        }
+       
+        synchronized(rocas){
+        
+            for (int i = 0; i < rocas.size(); i++) {
+                Roca nuevoRoca = rocas.get(i);
+                boolean control = nuevoRoca.seguirPunto();
+                if (control) {
+                    rocas.remove(nuevoRoca);
+                }
+            }
+        } 
+       
+       
     }
+    
+    
+    
 }
            
     

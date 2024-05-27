@@ -2,53 +2,42 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package personajes.poderAngel;
+package personajes.poderDemonios;
 
 import interfaces.Notificable;
 import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import personajes.Angel;
+import static personajes.poderAngel.Rayo.ALTO;
+import static personajes.poderAngel.Rayo.ANCHO;
 import sprite.Dibujo;
 
 /**
  *
- * @author Alejandro
+ * @author usuario
  */
-public class Rayo extends Dibujo{
-
-    public static final int ANCHO = 80;
-    public static final int ALTO = 20;
+public class Roca extends Dibujo{
     
-    private int velocidad = 7;
+    public static final int ANCHO = 50;
+    public static final int ALTO = 50;
+    public static final int DAÑO = 10;
+    
+    private int velocidad = 4;
     private Notificable notificador;
-    
-    private Thread hiloMovimiento;
     private volatile boolean seLlego;
     
     private int objetivoX;
     private int objetivoY;
     
-    private  Verificable verificador;
-    
-    public Rayo(int x, int y, Image imagen, Notificable notificador,Verificable verificador) {
+    private Angel objetivo;
+       
+    public Roca(int x, int y, Image imagen, Notificable notificador, Angel objetivo) {
         super(x, y, ANCHO, ALTO, imagen);
         seLlego = false;
         
         this.notificador = notificador;
-        this.verificador = verificador;
-        
-    }
-
-    public boolean isSeLlego() {
-        return seLlego;
-    }
-    
-    public void moverRayo(int x, int y) {
-        this.objetivoX = x;
-        this.objetivoY = y;
-        
-       // hiloMovimiento = new Thread(this);       
-       // hiloMovimiento.start();
+        this.objetivo = objetivo;
         
     }
 
@@ -61,8 +50,11 @@ public class Rayo extends Dibujo{
     }
     
     
-    /*
-    public boolean seguirPunto() {        
+    
+    
+    
+/*
+   public boolean seguirPunto() {        
    
         if (this.x < objetivoX) { 
             this.x += velocidad; // Mover hacia la derecha
@@ -77,23 +69,17 @@ public class Rayo extends Dibujo{
         }
         
         if (this.x >= objetivoX-velocidad && this.x <= objetivoX+velocidad  && this.y >= objetivoY-velocidad && this.y <= objetivoY+velocidad )
-            seLlego = true;
+            return true;
      
         notificador.notificarCambios();
-        return verificador.verificarColision(this) || seLlego;
+        return false;
         
     }
+*/
     
-    */
-
-    @Override
-    public void dibujar(Graphics2D g) {
-        g.drawImage(imagen, x, y, null);
-    }
     
-
     public boolean seguirPunto() {
-        
+
         boolean seLlego = false;
 
         // Calcular la distancia en cada eje
@@ -116,43 +102,19 @@ public class Rayo extends Dibujo{
             this.x = objetivoX;
             this.y = objetivoY;
             seLlego = true;
+            objetivo.recibirImpacto(DAÑO);
         }
 
         notificador.notificarCambios();
-        return verificador.verificarColision(this) || seLlego;
+        return seLlego;
     }
-
-
     
-    
-    /*
+
     @Override
-    public void run() {
-        while (!seLlego) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            seguirPunto(objetivoX, objetivoY);
-            boolean control = verificador.verificarColision(this);
-            if(control){
-                seLlego = true;
-                
-            }
-
-        }
+    public void dibujar(Graphics2D g) {
+        
+        g.drawImage(imagen, x, y,null);
+        
     }
     
-
-    */
-
-    public int getObjetivoX() {
-        return objetivoX;
-    }
-
-    public int getObjetivoY() {
-        return objetivoY;
-    }
 }

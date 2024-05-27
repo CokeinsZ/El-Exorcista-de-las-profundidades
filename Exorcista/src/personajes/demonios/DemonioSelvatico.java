@@ -8,12 +8,15 @@ import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import personajes.Angel;
+import personajes.poderAngel.Rayo;
+import personajes.poderDemonios.Roca;
 
 /**
  *
@@ -41,31 +44,20 @@ public class DemonioSelvatico extends Demonio{
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y, null);
     }
-
-   public boolean seguirPunto() {        
-   
-        if (this.x < enemigo.getX()) { 
-            this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > enemigo.getX()) {
-            this.x -= velocidad; // Mover hacia la izquierda
-        }
-
-        if (this.y < enemigo.getY()) {
-            this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > enemigo.getY()) {
-            this.y -= velocidad; // Mover hacia arriba
-        }
+    
+    
+    public void crearRocas() {
         
-        if (this.x == enemigo.getX() && this.y == enemigo.getY()){
-            seLlego = true;
-            notificador.notificarCambios();
-            return true;
-            
-        }
-      
-        return false;
-        
+        Roca nuevoRoca = new Roca(this.x, this.y, imagenRoca, notificador,enemigo);
+        nuevoRoca.setObjetivoX((int) enemigo.getX());
+        nuevoRoca.setObjetivoY((int) enemigo.getY());
+
+        agregador.agregarRoca(nuevoRoca);
+
+        //nuevoRayo.moverRayo(x, y);
+    
     }
+
 
     @Override
     public boolean atacar() {

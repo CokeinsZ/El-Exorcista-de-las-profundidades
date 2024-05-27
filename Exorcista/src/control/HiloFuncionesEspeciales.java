@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import personajes.Angel;
 import personajes.demonios.Demonio;
 import personajes.demonios.DemonioHielo;
+import personajes.demonios.DemonioSelvatico;
+import personajes.poderAngel.Rayo;
 
 /**
  *
@@ -45,7 +47,12 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
 
                         if(demonio instanceof DemonioHielo) {
                             ((DemonioHielo) demonio).ponerTrampa();
-                            break;
+                           
+                        }
+                        
+                        if(demonio instanceof DemonioSelvatico){
+                            ((DemonioSelvatico) demonio).crearRocas();
+                            
                         }
 
                     }
@@ -54,6 +61,11 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
 
             if (currentTime % 10000 == 0)
                 angel.recargarEnergia();
+            
+          
+        
+            
+            
         }
     }
     
