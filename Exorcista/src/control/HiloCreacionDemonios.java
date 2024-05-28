@@ -4,8 +4,6 @@
  */
 package control;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nivel.Nivel;
 
 /**

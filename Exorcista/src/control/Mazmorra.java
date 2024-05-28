@@ -31,7 +31,6 @@ public class Mazmorra extends Dibujo
 
     private Image[] imagenes;
     
-    private int puntajeTotal;
     private int numNivel;
     
     private FabricaNivel fabricaNivel;
@@ -46,7 +45,6 @@ public class Mazmorra extends Dibujo
         
         cargarTodasImagenes();
         
-        this.puntajeTotal = 0;
         this.numNivel = 0;
                 
         setAngel();
@@ -110,7 +108,7 @@ public class Mazmorra extends Dibujo
         refrescador.refrescar(cambio);
     }
 
-    public void cargarTodasImagenes() throws IOException {
+    public final void cargarTodasImagenes() throws IOException {
         imagenes = new Image[30];
         
         imagenes[0] = ImageIO.read(new File("imagenes\\personajes\\demonios\\demonioInferior\\DemonioElectrico2.png"));
