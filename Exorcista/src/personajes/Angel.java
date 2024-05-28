@@ -244,9 +244,7 @@ public class Angel extends Dibujo {
 
     
     public void seguirPunto(int tornadoX, int tornadoY) {
-
-        boolean seLlego = false;
-
+        
         // Calcular la distancia en cada eje
         double deltaX = tornadoX - this.x;
         double deltaY = tornadoY - this.y;
@@ -259,18 +257,16 @@ public class Angel extends Dibujo {
         double proporcionY = deltaY / distancia;
 
         // Calcular los nuevos valores de x e y basados en la velocidad y las proporciones
-        if (distancia > VELOCIDAD) {
-            this.x += proporcionX * VELOCIDAD;
-            this.y += proporcionY * VELOCIDAD;
+        if (distancia > 3) {
+            this.x += proporcionX * 3;
+            this.y += proporcionY * 3;
         } else {
             // Si estamos cerca del objetivo, mover directamente al objetivo
             this.x = tornadoX;
             this.y = tornadoY;
-            seLlego = true;
         }
 
         notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
-        
     }
     
     

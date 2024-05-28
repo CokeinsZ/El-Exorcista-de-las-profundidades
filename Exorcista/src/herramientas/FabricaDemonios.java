@@ -51,7 +51,7 @@ public class FabricaDemonios {
             case Demonio.TIPO_SELVATICO:
                 x = r.nextInt(bordes.getAncho() - DemonioSelvatico.ANCHO);
                 y = r.nextInt(bordes.getAlto() - DemonioSelvatico.ALTO);
-                return new DemonioSelvatico(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_SELVATICO], imagenes[ConstantesComunes.IMAGEN_ROCA], agregador, tieneLlave);
+                return new DemonioSelvatico(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_SELVATICO], imagenes[ConstantesComunes.IMAGEN_ROCA], imagenes[ConstantesComunes.IMAGEN_TORNADO], agregador, tieneLlave);
 
             case Demonio.TIPO_HIELO:
                 x = r.nextInt(bordes.getAncho() - DemonioHielo.ANCHO);

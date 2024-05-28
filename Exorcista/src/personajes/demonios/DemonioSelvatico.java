@@ -22,8 +22,9 @@ public class DemonioSelvatico extends Demonio{
     public static final int ALTO = 98; 
     
     private Image imagenRoca;
+    private Image imagenTornado;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave) {
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Image imagenTornado, Agregable agregador, boolean tieneLlave) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 7;
@@ -31,6 +32,7 @@ public class DemonioSelvatico extends Demonio{
         velocidad = 0;
         
         this.imagenRoca = imagenRoca;
+        this.imagenTornado = imagenTornado;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class DemonioSelvatico extends Demonio{
     
     public void crearTornado(){
         
-        Tornado tornadoNuevo = new Tornado(x, y, imagenRoca, notificador, enemigo);
+        Tornado tornadoNuevo = new Tornado(x, y, imagenTornado, notificador, enemigo);
         agregador.agregarTornado(tornadoNuevo);
         notificador.notificarCambios(daño);
         
