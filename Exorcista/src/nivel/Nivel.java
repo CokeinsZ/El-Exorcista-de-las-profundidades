@@ -27,12 +27,14 @@ import personajes.Angel;
 import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
-    
-  import java.util.Iterator;
+import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import nivel.elementos.pared.Suelo;
 import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
+import personajes.poderDemonios.Tornado;
 
 
 /**
@@ -61,6 +63,7 @@ public class Nivel extends Dibujo
     private ArrayList<Roca> rocas;
     private ArrayList<Fuego> fuegos;
     private ArrayList<Suelo> suelos;
+    private ArrayList<Tornado> tornados;
     
     private Notificable notificador;
     
@@ -81,9 +84,10 @@ public class Nivel extends Dibujo
         super(0, 0, ancho, alto, null);
         
         this.imagenes = imagenes;
-        this.fabrica = new FabricaDemonios(imagenes);
                 
         this.numNivel = numNivel;
+        
+        this.fabrica = new FabricaDemonios(imagenes, numNivel);
         
         this.cofres = cofres;
         this.llavesCofres = new ArrayList<>();
@@ -93,6 +97,7 @@ public class Nivel extends Dibujo
         this.paredes = paredes;
         this.puerta = puerta;
         this.suelos = suelos;
+        this.tornados = new ArrayList<>();
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
@@ -112,7 +117,7 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
                 
-        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos);
+        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos, tornados);
         hiloMovimiento.start();
                  
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
@@ -409,6 +414,11 @@ public class Nivel extends Dibujo
             demonio.dibujar(g);
         }
         
+        for (int i = 0; i < tornados.size(); i++) {
+            Tornado tornado = tornados.get(i);
+            tornado.dibujar(g);
+        }
+        
         for (int i = 0; i < rocas.size(); i++) {
             Roca roca = rocas.get(i);
             roca.dibujar(g);
@@ -612,5 +622,21 @@ public class Nivel extends Dibujo
             return true;
         
         return false;
+    }
+
+    @Override
+    public void agregarTornado(Tornado tornadoNuevo) {
+        synchronized (tornados) {
+            this.tornados.add(tornadoNuevo);
+            
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    tornados.remove(tornadoNuevo);
+                }
+            }, 3000);
+        }
+        
     }
 }

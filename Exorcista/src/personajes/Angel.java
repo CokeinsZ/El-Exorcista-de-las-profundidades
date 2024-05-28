@@ -5,6 +5,7 @@
 package personajes;
 
 import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
@@ -23,7 +24,8 @@ import java.util.TimerTask;
  *
  * @author Alejandro
  */
-public class Angel extends Dibujo {
+public class Angel extends Dibujo
+                   implements Asesinable{
     
     public final static int ANCHO = 78;
     public final static int ALTO = 95;
@@ -31,7 +33,7 @@ public class Angel extends Dibujo {
     public final int VELOCIDAD = 10;
     public static final int DAÑO = 1;
     
-    private float vida;
+    private double vida;
     private int energia;
     private int energiaMaxima;
     private Potenciador[] potenciadores;
@@ -101,19 +103,19 @@ public class Angel extends Dibujo {
         int yAnterior = y;
         
         switch (codigo) {
-            case KeyEvent.VK_UP -> {
+            case KeyEvent.VK_W -> {
                 y -= VELOCIDAD;
             }
             
-            case KeyEvent.VK_DOWN -> {
+            case KeyEvent.VK_S -> {
                 y += VELOCIDAD;
             }
             
-            case KeyEvent.VK_RIGHT -> {
+            case KeyEvent.VK_D -> {
                 x += VELOCIDAD;
             }
             
-            case KeyEvent.VK_LEFT -> {
+            case KeyEvent.VK_A -> {
                 x -= VELOCIDAD;
             }
             
@@ -130,7 +132,7 @@ public class Angel extends Dibujo {
         return true;
     }
     
-    public void recibirImpacto(int daño) {
+    public void recibirImpacto(double daño) {
         this.vida -= daño;
         
         if (vida <= 0)
@@ -155,9 +157,9 @@ public class Angel extends Dibujo {
         nuevoRayo.setObjetivoY(y);
             
         agregador.agregarRayo(nuevoRayo);
-        notificador.notificarCambios(Notificable.EVENTO_LANZAR_RAYO);
         
-       //nuevoRayo.moverRayo(x, y);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_RAYO);
+        System.out.println("Pium pium");
         energia = energia==0 ?0 :energia-1;
     }
     
@@ -180,7 +182,7 @@ public class Angel extends Dibujo {
         energiaMaxima += almasLiberadas % 3;
     }
 
-    public float getVida() {
+    public double getVida() {
         return vida;
     }
 
@@ -243,5 +245,31 @@ public class Angel extends Dibujo {
     }
 
     
+    public void seguirPunto(int tornadoX, int tornadoY) {
+        
+        // Calcular la distancia en cada eje
+        double deltaX = tornadoX - this.x;
+        double deltaY = tornadoY - this.y;
+
+        // Calcular la distancia total
+        double distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Calcular las proporciones de movimiento
+        double proporcionX = deltaX / distancia;
+        double proporcionY = deltaY / distancia;
+
+        // Calcular los nuevos valores de x e y basados en la velocidad y las proporciones
+        if (distancia > 3) {
+            this.x += proporcionX * 3;
+            this.y += proporcionY * 3;
+        } else {
+            // Si estamos cerca del objetivo, mover directamente al objetivo
+            this.x = tornadoX;
+            this.y = tornadoY;
+        }
+
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
+    }
+
     
 }

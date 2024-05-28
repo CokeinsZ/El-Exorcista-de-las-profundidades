@@ -5,6 +5,7 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Image;
@@ -23,9 +24,9 @@ public abstract class Demonio extends Dibujo {
     public static final int TIPO_ELECTRICO = 4;
 
     protected int vida;
-    protected int daño;
+    protected double daño;
     protected int velocidad;
-    protected Angel enemigo;
+    protected Asesinable enemigo;
     
     protected boolean tieneLlave;
     protected boolean tieneEnfriamiento;
@@ -34,7 +35,7 @@ public abstract class Demonio extends Dibujo {
     protected Agregable agregador;    
     protected Delimitable bordes;
     
-    public Demonio(int x, int y, int width, int height, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave) {
+    public Demonio(int x, int y, int width, int height, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave) {
         super(x, y, width, height, imagen);
         this.bordes = bordes;
         this.enemigo = enemigo;
@@ -46,7 +47,7 @@ public abstract class Demonio extends Dibujo {
         tieneEnfriamiento = false;
     }
         
-    public abstract void seguirAngel();
+    public abstract void seguirEnemigo();
     public abstract void atacar();
     public abstract void mover();
     

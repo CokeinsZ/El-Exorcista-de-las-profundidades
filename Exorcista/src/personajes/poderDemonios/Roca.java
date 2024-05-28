@@ -4,13 +4,11 @@
  */
 package personajes.poderDemonios;
 
+import interfaces.Asesinable;
 import interfaces.Notificable;
-import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import personajes.Angel;
-import static personajes.poderAngel.Rayo.ALTO;
-import static personajes.poderAngel.Rayo.ANCHO;
 import sprite.Dibujo;
 
 /**
@@ -25,61 +23,24 @@ public class Roca extends Dibujo{
     
     private int velocidad = 4;
     private Notificable notificador;
-    private volatile boolean seLlego;
     
     private int objetivoX;
     private int objetivoY;
     
-    private Angel objetivo;
+    private Asesinable objetivo;
        
-    public Roca(int x, int y, Image imagen, Notificable notificador, Angel objetivo) {
+    public Roca(int x, int y, Image imagen, Notificable notificador, Asesinable objetivo) {
         super(x, y, ANCHO, ALTO, imagen);
-        seLlego = false;
         
         this.notificador = notificador;
         this.objetivo = objetivo;
         
-    }
-
-    public void setObjetivoX(int objetivoX) {
-        this.objetivoX = objetivoX;
-    }
-
-    public void setObjetivoY(int objetivoY) {
-        this.objetivoY = objetivoY;
-    }
-    
-    
-    
-    
-    
-/*
-   public boolean seguirPunto() {        
-   
-        if (this.x < objetivoX) { 
-            this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > objetivoX) {
-            this.x -= velocidad; // Mover hacia la izquierda
-        }
-
-        if (this.y < objetivoY) {
-            this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > objetivoY) {
-            this.y -= velocidad; // Mover hacia arriba
-        }
+        objetivoX = (int) objetivo.getX();
+        objetivoY = (int) objetivo.getY();
         
-        if (this.x >= objetivoX-velocidad && this.x <= objetivoX+velocidad  && this.y >= objetivoY-velocidad && this.y <= objetivoY+velocidad )
-            return true;
-     
-        notificador.notificarCambios();
-        return false;
-        
-    }
-*/
-    
+    }   
     
     public boolean seguirPunto() {
-
         boolean seLlego = false;
 
         // Calcular la distancia en cada eje
@@ -104,7 +65,7 @@ public class Roca extends Dibujo{
             seLlego = true;
         }
         
-        if(this.intersects(objetivo)){
+        if (objetivo.intersects(this)) {
             objetivo.recibirImpacto(DAÑO);
             notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
             return true;
@@ -118,7 +79,6 @@ public class Roca extends Dibujo{
 
     @Override
     public void dibujar(Graphics2D g) {
-        
         g.drawImage(imagen, x, y,null);
         
     }

@@ -4,11 +4,9 @@
  */
 package nivel.elementos.trampa;
 
+import interfaces.Asesinable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import personajes.Angel;
 
 /**
  *
@@ -19,8 +17,8 @@ public class Inmovilizadora extends Trampa {
     public static final int ANCHO = 50;
     public static final int ALTO = 50; 
     
-    public Inmovilizadora(int x, int y, Image imagen, Angel angel) {
-        super(x, y, ANCHO, ALTO, imagen, angel);
+    public Inmovilizadora(int x, int y, Image imagen, Asesinable objetivo) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo);
     }
 
     @Override
@@ -35,7 +33,7 @@ public class Inmovilizadora extends Trampa {
         Animación de congelamiento
         */
         
-        angel.paralizar();
+        objetivo.paralizar();
     }
     
 }

@@ -7,7 +7,6 @@ package nivel.elementos.cofre;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.Random;
 import nivel.elementos.cofre.potenciadores.PotenciadorAtaque;
 import nivel.elementos.cofre.potenciadores.PotenciadorVida;

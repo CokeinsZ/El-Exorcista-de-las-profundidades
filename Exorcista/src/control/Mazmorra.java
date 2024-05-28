@@ -9,7 +9,6 @@ import interfaces.ConstantesComunes;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -68,10 +67,10 @@ public class Mazmorra extends Dibujo
     }
 
     public void manejarTecla(int codigo) {
-        if (codigo == KeyEvent.VK_UP
-                || codigo == KeyEvent.VK_DOWN
-                || codigo == KeyEvent.VK_RIGHT
-                || codigo == KeyEvent.VK_LEFT ) {
+        if (codigo == KeyEvent.VK_W
+                || codigo == KeyEvent.VK_S
+                || codigo == KeyEvent.VK_D
+                || codigo == KeyEvent.VK_A ) {
             
             niveles.get(numNivel-1).moverAngel(codigo);
         
@@ -151,6 +150,7 @@ public class Mazmorra extends Dibujo
         imagenes[21] = ImageIO.read(new File("imagenes\\suelo\\suelof.jpeg"));
         imagenes[22] = ImageIO.read(new File("imagenes\\suelo\\suelo2.png"));
         
+        imagenes[23] = ImageIO.read(new File("imagenes/personajes/demonios/demonioInferior/tornado2.png"));
     }
 
     @Override
@@ -175,7 +175,11 @@ public class Mazmorra extends Dibujo
     }
 
     public Nivel getNivelActual() {
-        return niveles.get(numNivel-1);
+        try {
+            return niveles.get(numNivel-1);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     @Override

@@ -5,14 +5,13 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
-import interfaces.ConstantesComunes;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Timer;
 import java.util.TimerTask;
-import personajes.Angel;
 
 /**
  *
@@ -22,31 +21,31 @@ public class DemonioElectrico extends Demonio {
     public static final int ANCHO = 84;
     public static final int ALTO = 124; 
         
-    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave) {
+    public DemonioElectrico(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 4;
-        daño = 3;
+        daño = 3 * multiplicadorDaño;
         velocidad = 5;
         
     }
         
     @Override
-    public void seguirAngel() {
+    public void seguirEnemigo() {
         
-        int angelX = (int) enemigo.getX();
-        int angelY = (int) enemigo.getY();
+        int enemigoX = (int) enemigo.getX();
+        int enemigoY = (int) enemigo.getY();
 
         // Comparar posiciones del demonio y el ángel para determinar dirección de movimiento
-        if (x < angelX ) { //TO-DO Nombre para el estatico margen
+        if (x < enemigoX ) { //TO-DO Nombre para el estatico margen
             x += velocidad; // Mover hacia la derecha
-        } else if (x > angelX && x > 0) {
+        } else if (x > enemigoX && x > 0) {
             x -= velocidad; // Mover hacia la izquierda
         }
 
-        if (y < angelY) {
+        if (y < enemigoY) {
             y += velocidad; // Mover hacia abajo
-        } else if (y > angelY && y > 0) {
+        } else if (y > enemigoY && y > 0) {
             y -= velocidad; // Mover hacia arriba
         }
         
@@ -91,7 +90,7 @@ public class DemonioElectrico extends Demonio {
 
     @Override
     public void mover() {
-        seguirAngel();
+        seguirEnemigo();
     }
 
     @Override
