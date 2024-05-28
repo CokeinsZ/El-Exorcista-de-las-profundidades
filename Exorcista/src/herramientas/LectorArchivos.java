@@ -37,6 +37,5 @@ public class LectorArchivos {
     
     public String leerLinea() throws IOException {
         return reader.readLine();
-    }
-    
+    }    
 }

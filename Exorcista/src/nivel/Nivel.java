@@ -198,6 +198,8 @@ public class Nivel extends Dibujo
 
                     default:
                         break;
+                        
+                        
             }
             
         }

@@ -28,7 +28,12 @@ import sprite.Dibujo;
  */
 public class Mazmorra extends Dibujo
                       implements Notificable {
-
+    
+    
+    
+    
+    
+    
     private Image[] imagenes;
     
     private int puntajeTotal;

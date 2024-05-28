@@ -23,6 +23,5 @@ public class Llave extends Dibujo {
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, x, y, null);
-    }
-    
+    }   
 }

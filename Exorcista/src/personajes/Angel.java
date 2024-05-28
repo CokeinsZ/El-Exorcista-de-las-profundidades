@@ -204,6 +204,7 @@ public class Angel extends Dibujo
     
     public void tomarLlaveCofre() {
         llavesCofres.add(true);
+        
     }
     
     public void abrirCofre() {
@@ -277,6 +278,4 @@ public class Angel extends Dibujo
         
         notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
-
-    
 }

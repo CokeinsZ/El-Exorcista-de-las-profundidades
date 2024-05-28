@@ -64,10 +64,10 @@ public class VentanaPrincipal extends javax.swing.JFrame
             "Sonidos/LanzarRayoAngel.wav",
             "Sonidos/LanzarBolaFuego.wav",
             "Sonidos/LanzarRocaDS.wav",
-            "Sonidos/ExplotMina.wav",
             "Sonidos/PasarDeNivel.wav",
             "Sonidos/TrampaEmpuje.wav",
             "Sonidos/TrampaTornadoJ.wav",
+            "Sonidos/ExplotMina.wav"
             
                 
              

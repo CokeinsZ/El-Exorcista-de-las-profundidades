@@ -29,5 +29,4 @@ public interface Notificable {
     public void notificarFinNivel();
 
     public void notificarFinJuego();
-    
 }

@@ -32,7 +32,7 @@ public class PotenciadorAtaque extends Potenciador {
     @Override
     public void accionar(Delimitable bordes) {
         double r = bordes.getAncho() / 2.0;
-        int rInt = (int) r; // Convert to integer for looping
+        int rInt = (int) r; // Convertir a int para iterar  
         int centerX = (int) angel.getX();
         int centerY = (int) angel.getY();
 
