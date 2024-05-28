@@ -30,6 +30,9 @@ public interface ConstantesComunes {
     public static final int IMAGEN_POTENCIADOR_RAYOS = 18;
     public static final int IMAGEN_POTENCIADOR_VIDA = 19;
     public static final int IMAGEN_LLAVE_COFRE = 20;
+    public static final int IMAGEN_SUELO = 21;
+    public static final int IMAGEN_SUELO2 = 22;
+    
     
     
 

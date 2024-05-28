@@ -31,6 +31,7 @@ import sprite.Dibujo;
     
   import java.util.Iterator;
 import nivel.elementos.cofre.potenciadores.Potenciador;
+import nivel.elementos.pared.Suelo;
 import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
 
@@ -60,6 +61,7 @@ public class Nivel extends Dibujo
     private ArrayList<Rayo> rayos;
     private ArrayList<Roca> rocas;
     private ArrayList<Fuego> fuegos;
+    private ArrayList<Suelo> suelos;
     
     private Notificable notificador;
     
@@ -76,7 +78,7 @@ public class Nivel extends Dibujo
     
     private HiloMovimiento hiloMovimiento;
 
-    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, Image[] imagenes, int ancho, int alto) {
+    public Nivel(int numNivel, Angel angel, Notificable notificador, ArrayList<Cofre> cofres, ArrayList<Alma> almas, ArrayList<Trampa> trampas, ArrayList<Pared> paredes, Puerta puerta, ArrayList<Suelo> suelos, Image[] imagenes, int ancho, int alto) {
         super(0, 0, ancho, alto, null);
         
         this.imagenes = imagenes;
@@ -91,6 +93,7 @@ public class Nivel extends Dibujo
         this.trampas = trampas;
         this.paredes = paredes;
         this.puerta = puerta;
+        this.suelos = suelos;
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
@@ -354,7 +357,12 @@ public class Nivel extends Dibujo
     }
     
     @Override
-    public void dibujar(Graphics2D g) {               
+    public void dibujar(Graphics2D g) {           
+        for (int i = 0; i < suelos.size(); i++) {
+            Suelo suelo = suelos.get(i);
+            suelo.dibujar(g);
+        }
+        
         for (int i = 0; i < paredes.size(); i++) {
             Pared pared = paredes.get(i);
             pared.dibujar(g);
