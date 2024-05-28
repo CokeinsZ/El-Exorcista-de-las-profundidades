@@ -126,7 +126,7 @@ public class FabricaNivel {
     
     public Suelo agregarSuelo(int x, int y) {
         
-        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO2]);
+        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO3]);
 
         
         return imagenSuelo;
