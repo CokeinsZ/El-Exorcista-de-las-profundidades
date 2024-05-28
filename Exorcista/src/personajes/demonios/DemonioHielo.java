@@ -85,6 +85,9 @@ public class DemonioHielo extends Demonio{
             
         }
         
+        if (enemigo.intersects(this))
+            atacar();
+        
         if (bordes.tocaBorde(this)) {
             revertirMovimiento(xAnterior, yAnterior);
             cambiarDireccion();
