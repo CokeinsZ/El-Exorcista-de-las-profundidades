@@ -6,6 +6,7 @@ package gui.ventanaPrincipal;
 
 import control.Mazmorra;
 import interfaces.Refrescable;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -26,11 +27,29 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private Mazmorra mazmorra;
     
     private BufferedImage buffer;
+    
+    private AudioClip MuerteDemonioHielo;
+    private AudioClip MuerteDemonioFuego;
+    private AudioClip LanzarRayo;
+    private AudioClip LanzarRoca;
+    private AudioClip MuerteDemonioElectrico;
+    private AudioClip MuerteDemonioSelvatico;
+    private AudioClip ExploBomba;
+    private AudioClip LanzarBolaFuego;
+    private AudioClip PasarNivel;
+    private AudioClip AbrirCofre;
+    private AudioClip MuerteAngel;
+    private AudioClip Hueco;
+    private AudioClip TrampaEmpuje;
+    
 
     public void setMazmorra(Mazmorra mazmorra) {
         this.mazmorra = mazmorra;
     }
     
+    private void setSonidos(){
+        
+    }
     /**
      * Creates new form VentanaPrincipal
      */

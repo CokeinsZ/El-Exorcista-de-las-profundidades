@@ -16,12 +16,14 @@ import nivel.elementos.pared.Pared;
 import nivel.elementos.pared.ParedEspinas;
 import nivel.elementos.pared.ParedEstructural;
 import nivel.elementos.pared.Puerta;
+import nivel.elementos.pared.Suelo;
 import nivel.elementos.trampa.Agujero;
 import nivel.elementos.trampa.Empuje;
 import nivel.elementos.trampa.Mina;
 import nivel.elementos.trampa.Trampa;
 import personajes.Alma;
 import personajes.Angel;
+import sprite.Dibujo;
 
 /**
  *
@@ -56,14 +58,26 @@ public class FabricaNivel {
         ArrayList<Alma> almas = new ArrayList<>();
         ArrayList<Trampa> trampas = new ArrayList<>();
         ArrayList<Pared> paredes = new ArrayList<>();
+        ArrayList<Suelo> suelos = new ArrayList<>();
         Puerta puerta = null;
         
         String linea = lector.leerLinea();  //Agoto la primera linea vacia
         int x = 0;
         int y = 100;
-        while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {                        
-            for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
-                switch (linea.charAt(posCaracter)) {
+        // Dentro del bucle while
+while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {
+    boolean iniciaForma = false;
+    for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
+        char caracterActual = linea.charAt(posCaracter);
+
+        if (caracterActual == '#')
+            iniciaForma = cambiarBooleano(iniciaForma);
+        
+        if (iniciaForma) {
+            suelos.add(agregarSuelo(x, y));
+        }
+        
+        switch (linea.charAt(posCaracter)) {
                     case '$':
                         cofres.add(crearCofre(x, y));
                         break;
@@ -87,18 +101,39 @@ public class FabricaNivel {
                     default:
                         break;
                 }
-                x += Pared.ANCHO;
-            }
-            
-            y += Pared.ALTO;
-            x = 0;
-        }
+        
+
+        x += Pared.ANCHO;
+    }
+
+    y += Pared.ALTO;
+    x = 0;
+}
+
+
+        
         
         int ancho = calcularAnchoNivel(paredes);
         int alto = calcularAltoNivel(paredes);
         
-        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, imagenes, ancho, alto);
+        return new Nivel(numNivel, angel, notificador, cofres, almas, trampas, paredes, puerta, suelos, imagenes, ancho, alto);
    
+    }
+    
+    private boolean cambiarBooleano(boolean var) {
+        if (var == true)
+            return false;
+        
+        return true;
+        
+    }
+    
+    public Suelo agregarSuelo(int x, int y) {
+        
+        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO2]);
+
+        
+        return imagenSuelo;
     }
     
     public int calcularAnchoNivel(ArrayList<Pared> paredes) {
