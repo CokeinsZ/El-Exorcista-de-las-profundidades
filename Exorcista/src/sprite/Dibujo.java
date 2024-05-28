@@ -7,9 +7,6 @@ package sprite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -31,37 +28,16 @@ public abstract class Dibujo extends Rectangle {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int getAncho() {
         return (int) super.getWidth();
     }
 
-    public void setAncho(int ancho) {
-        width = ancho;
-    }
-
     public int getAlto() {
         return (int) super.getHeight();
-    }
-
-    public void setAlto(int alto) {
-        height = alto;
-    }
-
-    public Image getImagen() {
-        return imagen;
-    }
-   
+    }   
     
 }

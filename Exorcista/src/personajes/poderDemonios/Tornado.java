@@ -44,7 +44,7 @@ public class Tornado extends Dibujo {
     public void atraerAngel(){
         
         objetivo.seguirPunto(this.x, this.y);
-        notificador.notificarCambios(1);   
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);   
         
     }
     
