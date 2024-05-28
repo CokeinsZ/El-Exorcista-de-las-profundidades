@@ -165,21 +165,33 @@ public class Nivel extends Dibujo
             int tipo = r.nextInt(1, limSupTipoDemonios);
                 switch (tipo) {
                     case Demonio.TIPO_HIELO:
+                        if(numDemoniosHielo <= 0)
+                            break;
+                        
                         pilaDemonios.add(tipo);
                         numDemoniosHielo--;
                         break;
 
                     case Demonio.TIPO_FUEGO:
+                        if(numDemoniosFuego <= 0)
+                            break;
+                        
                         pilaDemonios.add(tipo);
                         numDemoniosFuego--;
                         break;
 
                     case Demonio.TIPO_SELVATICO:
+                        if (numDemoniosSelvatico <= 0)
+                            break;
+                        
                         pilaDemonios.add(tipo);
                         numDemoniosSelvatico--;
                         break;
 
                     case Demonio.TIPO_ELECTRICO:
+                        if (numDemoniosElectrico <= 0)
+                            break;
+                        
                         pilaDemonios.add(tipo);
                         numDemoniosElectrico--;
                         break;
