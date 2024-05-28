@@ -246,6 +246,9 @@ public class Angel extends Dibujo
     
     public void seguirPunto(int tornadoX, int tornadoY) {
         
+        int xAnterior = this.x;
+        int yAnterior = this.y;
+        
         // Calcular la distancia en cada eje
         double deltaX = tornadoX - this.x;
         double deltaY = tornadoY - this.y;
@@ -266,7 +269,11 @@ public class Angel extends Dibujo
             this.x = tornadoX;
             this.y = tornadoY;
         }
-
+        
+        if(verificador.verificarColisionDemonio(this)){   
+            this.revertirMovimiento(xAnterior, yAnterior);          
+        }
+        
         notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
 
