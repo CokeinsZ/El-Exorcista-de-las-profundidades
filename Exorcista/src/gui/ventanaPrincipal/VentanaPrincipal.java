@@ -5,6 +5,7 @@
 package gui.ventanaPrincipal;
 
 import control.Mazmorra;
+import interfaces.ConstantesComunes;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Graphics;
@@ -59,10 +60,9 @@ public class VentanaPrincipal extends javax.swing.JFrame
     
     private void cargarSonidos() throws UnsupportedAudioFileException, IOException {
         String[] rutasSonidos = {
-            "Sonidos/LanzarRayoA.wav",
-            "Sonidos/MuerteDemonioFueg.wav",
-            "Sonidos/MuerteDemonioElec.wav",
             "Sonidos/MuerteDemonio_1.wav",
+            "Sonidos/LanzarRayoAngel.wav",
+            "Sonidos/LanzarBolaFuego.wav",
 
 
             // ... (Rutas de los demás sonidos)
@@ -320,20 +320,19 @@ public class VentanaPrincipal extends javax.swing.JFrame
     @Override
     public void refrescar(int cambio) {
         cargarInformacion();
-        
-        switch (cambio) {
 
+        switch (cambio) {
             case Notificable.EVENTO_MUERTE_DEMONIO:
-                // Código para manejar el evento de muerte de demonio
+                reproducirSonido(ConstantesComunes.SONIDO_MUERTE_DEMONIO);
                 break;
             case Notificable.EVENTO_MUERTE_ANGEL:
                 // Código para manejar el evento de muerte de ángel
                 break;
             case Notificable.EVENTO_LANZAR_RAYO:
-                // Código para manejar el evento de lanzar rayo
+                reproducirSonido(ConstantesComunes.SONIDO_LANZAR_RAYO);
                 break;
             case Notificable.EVENTO_LANZAR_FUEGO:
-                // Código para manejar el evento de lanzar fuego
+                reproducirSonido(ConstantesComunes.SONIDO_LANZAR_FUEGO);
                 break;
             case Notificable.EVENTO_LANZAR_ROCA:
                 // Código para manejar el evento de lanzar roca
@@ -370,9 +369,21 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 break;
         }
 
-        
         repaint();
     }
+
+    private void reproducirSonido(int indice) {
+        try {
+            if (sonidos[indice] != null) {
+                sonidos[indice].stop();
+                sonidos[indice].setFramePosition(0);
+                sonidos[indice].start();
+            }
+        } catch (Exception e) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;

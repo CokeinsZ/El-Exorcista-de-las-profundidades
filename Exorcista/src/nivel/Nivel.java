@@ -238,7 +238,7 @@ public class Nivel extends Dibujo
             if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
                 return false;
             
-            if (demonio.intersects(iteradorParedes.next()) )
+            if (demonio.intersects(iteradorParedes.next()) || demonio.getX() < getXMin((int) demonio.getY()) || demonio.getX() > getXMax((int) demonio.getY()) || demonio.getY() < getYMin((int) demonio.getX()) || demonio.getY() > getYMax((int) demonio.getX()))
                 return false;
             
             if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
@@ -467,6 +467,81 @@ public class Nivel extends Dibujo
         }
 
         return false;
+    }
+    
+    @Override
+    public int getXMin(int y) {
+        int xMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredY = (int) pared.getY();
+            if(y >= paredY && y < paredY + Pared.ALTO && pared.getX() < xMin) 
+                xMin = (int) pared.getX();            
+            else if (y >= puerta.getY() && y < puerta.getY() + Puerta.ALTO && puerta.getX() < xMin)
+                xMin = (int) puerta.getX();  
+        }
+        
+        return xMin + Pared.ANCHO;
+    }
+
+    @Override
+    public int getXMax(int y) {
+        int xMax = Integer.MIN_VALUE;
+        boolean foundValidPared = false;
+
+        for (Pared pared : paredes) {
+            int paredY = (int) pared.getY();
+            if (paredY < y && paredY >= y - Pared.ALTO) {
+                int paredX = (int) pared.getX();
+                xMax = Math.max(xMax, paredX);
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
+                
+            } else if (puerta.getY() < y && puerta.getY() >= y - Puerta.ALTO) {
+                xMax = (int) Math.max(xMax, puerta.getX());
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
+            }
+        }
+
+        if (!foundValidPared || xMax <= 0) {
+            // No se encontró ninguna pared válida en el rango, o xMax es menor o igual a cero
+            // Devolvemos un valor especial para indicar que no hay un límite válido
+            return Integer.MIN_VALUE;
+        }
+
+        return xMax;
+    }
+
+    @Override
+    public int getYMin(int x) {
+        int yMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() < yMin)
+                yMin = (int) pared.getY();
+                
+            else if(x >= puerta.getX() && x < puerta.getX() + Puerta.ANCHO && puerta.getY() < yMin)
+                yMin = (int) puerta.getY();
+        }
+        
+        return yMin + Pared.ALTO; 
+    }
+
+    @Override
+    public int getYMax(int x) {
+        int yMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(x > paredX && x <= paredX + Pared.ANCHO && pared.getY() > yMax)
+                yMax = (int) pared.getY();
+            
+            else if(x > puerta.getX() && x <= puerta.getX() + Puerta.ANCHO && puerta.getY() > yMax)
+                yMax = (int) puerta.getY();
+                
+        }
+        
+        return yMax;
     }
 
     private void crearLlaveFinNivel(int x, int y) {        

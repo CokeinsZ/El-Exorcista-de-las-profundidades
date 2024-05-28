@@ -155,6 +155,7 @@ public class Angel extends Dibujo {
         nuevoRayo.setObjetivoY(y);
             
         agregador.agregarRayo(nuevoRayo);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_RAYO);
         
        //nuevoRayo.moverRayo(x, y);
         energia = energia==0 ?0 :energia-1;

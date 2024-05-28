@@ -5,19 +5,12 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
-import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import personajes.Angel;
-import static personajes.demonios.DemonioElectrico.ALTO;
-import static personajes.demonios.DemonioElectrico.ANCHO;
 import personajes.poderDemonios.Fuego;
-import personajes.poderDemonios.Roca;
 
 /**
  *
@@ -51,6 +44,7 @@ public class DemonioFuego extends Demonio{
         nuevoFuego.setObjetivoY((int) enemigo.getY());
 
         agregador.agregarFuego(nuevoFuego);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_FUEGO);
     
     }
 
