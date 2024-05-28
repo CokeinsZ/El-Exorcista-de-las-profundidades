@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package personajes.demonios;
 
 import interfaces.Agregable;
@@ -33,6 +30,10 @@ public class DemonioElectrico extends Demonio {
     @Override
     public void seguirEnemigo() {
         
+        int xAnterior = this.x;
+        int yAnterior = this.y;
+                
+        
         int enemigoX = (int) enemigo.getX();
         int enemigoY = (int) enemigo.getY();
 
@@ -50,14 +51,18 @@ public class DemonioElectrico extends Demonio {
         }
         
         if(enemigo.intersects(this)){
-            
             atacar();
+            revertirMovimiento(xAnterior, yAnterior);
             
         }
         
         notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
     
+   public void revertirMovimiento(int xAnterior, int yAnterior) {
+        this.x = xAnterior;
+        this.y = yAnterior;
+    }    
 
     @Override
     public void dibujar(Graphics2D g) {
