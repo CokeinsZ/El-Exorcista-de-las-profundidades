@@ -137,26 +137,26 @@ public class Nivel extends Dibujo
         int numDemoniosElectrico = 0;
         
         if (numNivel == 1) {
-            numDemoniosHielo = 1;
+            numDemoniosHielo = 5;
             limSupTipoDemonios = 2;
                     
         } else if (numNivel == 2) {
-            numDemoniosHielo = 0;
-            numDemoniosSelvatico = 5;
+            numDemoniosHielo = 5;
+            numDemoniosSelvatico = 2;
             limSupTipoDemonios = 3;
         
         } else if (numNivel == 3) {
-            numDemoniosHielo = 1;
-            numDemoniosSelvatico = 1;
+            numDemoniosHielo = 5;
+            numDemoniosSelvatico = 3;
             numDemoniosFuego = 1;
-            numDemoniosElectrico = 1;
+            numDemoniosElectrico = 4;
             limSupTipoDemonios = 5;
         
         } else if (numNivel > 3) {            
-            numDemoniosHielo = r.nextInt(1,2);
-            numDemoniosSelvatico = r.nextInt(1,2);
-            numDemoniosFuego = r.nextInt(1,2);
-            numDemoniosElectrico = r.nextInt(1,2);
+            numDemoniosHielo = r.nextInt(1,10);
+            numDemoniosSelvatico = r.nextInt(1,10);
+            numDemoniosFuego = r.nextInt(1,10);
+            numDemoniosElectrico = r.nextInt(1,10);
             limSupTipoDemonios = 5;
             
         }
