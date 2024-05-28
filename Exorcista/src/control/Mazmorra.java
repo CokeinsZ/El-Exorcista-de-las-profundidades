@@ -68,10 +68,10 @@ public class Mazmorra extends Dibujo
     }
 
     public void manejarTecla(int codigo) {
-        if (codigo == KeyEvent.VK_UP
-                || codigo == KeyEvent.VK_DOWN
-                || codigo == KeyEvent.VK_RIGHT
-                || codigo == KeyEvent.VK_LEFT ) {
+        if (codigo == KeyEvent.VK_W
+                || codigo == KeyEvent.VK_S
+                || codigo == KeyEvent.VK_D
+                || codigo == KeyEvent.VK_A ) {
             
             niveles.get(numNivel-1).moverAngel(codigo);
         
