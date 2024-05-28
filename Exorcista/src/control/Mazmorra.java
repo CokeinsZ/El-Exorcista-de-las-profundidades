@@ -9,7 +9,6 @@ import interfaces.ConstantesComunes;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;

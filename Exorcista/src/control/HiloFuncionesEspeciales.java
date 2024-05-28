@@ -40,6 +40,7 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
         long initialTime = System.currentTimeMillis();
         long lastDemonioExecutionTime = 0;
         long lastAngelExecutionTime = 0;
+        long lalstTornadoExecutionTime = 0;
 
         while (corriendo) {
             long currentTime = System.currentTimeMillis() - initialTime;
@@ -59,6 +60,26 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
                 lastAngelExecutionTime = currentTime;
                 angel.recargarEnergia();
             }
+            
+             // Check and perform demonio.accionEspecial() every 5000 ms
+            if (currentTime - lalstTornadoExecutionTime >= 8000) {
+                lalstTornadoExecutionTime = currentTime;
+                synchronized (demonios) {
+                    for (Demonio demonio : demonios) {
+                        
+                        if(demonio instanceof DemonioSelvatico){
+                            
+                            ((DemonioSelvatico) demonio).crearTornado();
+                            
+                        }
+                        
+                    }
+                }
+            }
+            
+            
+            
+            
         }
     }
 

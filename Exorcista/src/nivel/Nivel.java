@@ -28,6 +28,8 @@ import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import nivel.elementos.pared.Suelo;
 import personajes.poderDemonios.Fuego;
@@ -412,6 +414,11 @@ public class Nivel extends Dibujo
             demonio.dibujar(g);
         }
         
+        for (int i = 0; i < tornados.size(); i++) {
+            Tornado tornado = tornados.get(i);
+            tornado.dibujar(g);
+        }
+        
         for (int i = 0; i < rocas.size(); i++) {
             Roca roca = rocas.get(i);
             roca.dibujar(g);
@@ -619,6 +626,17 @@ public class Nivel extends Dibujo
 
     @Override
     public void agregarTornado(Tornado tornadoNuevo) {
-        this.tornados.add(tornadoNuevo);
+        synchronized (tornados) {
+            this.tornados.add(tornadoNuevo);
+            
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    tornados.remove(tornadoNuevo);
+                }
+            }, 3000);
+        }
+        
     }
 }
