@@ -4,8 +4,10 @@
  */
 package nivel.elementos.cofre.potenciadores;
 
+import interfaces.Delimitable;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,5 +23,33 @@ public class PotenciadorAtaque extends Potenciador {
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, x, y, null);
     }
+
+    @Override
+    public String toString() {
+        return "Ataque";
+    }
+
+    @Override
+    public void accionar(Delimitable bordes) {
+        double r = bordes.getAncho() / 2.0;
+        int rInt = (int) r; // Convert to integer for looping
+        int centerX = (int) angel.getX();
+        int centerY = (int) angel.getY();
+
+        for (int x = -rInt; x <= rInt; x++) {
+            int y = (int) Math.sqrt(r * r - x * x);
+            angel.lanzarRayos(centerX + x, centerY + y);
+            angel.lanzarRayos(centerX + x, centerY - y);
+        }
+
+        for (int y = -rInt; y <= rInt; y++) {
+            int x = (int) Math.sqrt(r * r - y * y);
+            angel.lanzarRayos(centerX + x, centerY + y);
+            angel.lanzarRayos(centerX - x, centerY + y);
+        }
+        
+    }
+
+    
     
 }

@@ -4,12 +4,14 @@
  */
 package personajes.demonios;
 
-import interfaces.ConstantesComunes;
+import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import personajes.Angel;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -19,34 +21,41 @@ public class DemonioElectrico extends Demonio {
     public static final int ANCHO = 84;
     public static final int ALTO = 124; 
         
-    public DemonioElectrico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+    public DemonioElectrico(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagen, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 4;
-        daño = 3;
-        velocidad = 10;
+        daño = 3 * multiplicadorDaño;
+        velocidad = 5;
         
     }
         
     @Override
-    public void seguirAngel() {        
-        int angelX = (int) enemigo.getX();
-        int angelY = (int) enemigo.getY();
+    public void seguirEnemigo() {
+        
+        int enemigoX = (int) enemigo.getX();
+        int enemigoY = (int) enemigo.getY();
 
         // Comparar posiciones del demonio y el ángel para determinar dirección de movimiento
-        if (x < angelX && x < bordes.getAncho() - ANCHO) { //TO-DO Nombre para el estatico margen
+        if (x < enemigoX ) { //TO-DO Nombre para el estatico margen
             x += velocidad; // Mover hacia la derecha
-        } else if (x > angelX && x > 0) {
+        } else if (x > enemigoX && x > 0) {
             x -= velocidad; // Mover hacia la izquierda
         }
 
-        if (y < angelY && y < bordes.getAlto() - ALTO) {
+        if (y < enemigoY) {
             y += velocidad; // Mover hacia abajo
-        } else if (y > angelY && y > 0) {
+        } else if (y > enemigoY && y > 0) {
             y -= velocidad; // Mover hacia arriba
         }
         
-        notificador.notificarCambios();
+        if(enemigo.intersects(this)){
+            
+            atacar();
+            
+        }
+        
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
     
 
@@ -57,13 +66,35 @@ public class DemonioElectrico extends Demonio {
 
 
     @Override
-    public boolean atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void atacar() {
+        if (tieneEnfriamiento == true) {
+            return;
+        }
+        
+        enemigo.recibirImpacto(daño);
+        iniciarEnfriamiento();
+    }
+    
+    
+     private void iniciarEnfriamiento() {
+        tieneEnfriamiento = true;
+
+        Timer timer = new Timer(); //recibe un objeto timertask que es una interfaz la cual debemos de implementar y un time
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                tieneEnfriamiento = false;
+            }
+        }, 3000);
     }
 
     @Override
     public void mover() {
-        seguirAngel();
+        seguirEnemigo();
+    }
+
+    @Override
+    public void accionEspecial() {
     }
 
     

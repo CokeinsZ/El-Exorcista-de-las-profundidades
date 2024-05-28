@@ -4,18 +4,22 @@
  */
 package nivel.elementos.trampa;
 
+import interfaces.Asesinable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
+import personajes.Angel;
 
 /**
  *
  * @author Alejandro
  */
 public class Mina extends Trampa{
+    
+    public static final int ANCHO = 25;
+    public static final int ALTO = 34;    
 
-    public Mina(int x, int y, Image imagen) throws IOException {
-        super(x, y, imagen);
+    public Mina(int x, int y, Image imagen, Asesinable objetivo) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo);
         
     }
 
@@ -23,5 +27,16 @@ public class Mina extends Trampa{
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, this.x, this.y, null);
     }
+
+    @Override
+    public void accionar() {
+        //TO-DO
+        /*
+        Animación de exploción
+        */
+        
+        objetivo.recibirImpacto(20);
+    }
     
+
 }

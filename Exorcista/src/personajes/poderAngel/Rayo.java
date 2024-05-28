@@ -8,23 +8,20 @@ import interfaces.Notificable;
 import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import sprite.Dibujo;
 
 /**
  *
  * @author Alejandro
  */
-public class Rayo extends Dibujo implements Runnable {
+public class Rayo extends Dibujo{
 
     public static final int ANCHO = 80;
     public static final int ALTO = 20;
     
-    private int velocidad = 1;
+    private int velocidad = 7;
     private Notificable notificador;
     
-    private Thread hiloMovimiento;
     private volatile boolean seLlego;
     
     private int objetivoX;
@@ -49,55 +46,57 @@ public class Rayo extends Dibujo implements Runnable {
         this.objetivoX = x;
         this.objetivoY = y;
         
-        hiloMovimiento = new Thread(this);       
-        hiloMovimiento.start();
-        
     }
-    
-    
-     public void seguirPunto(int x, int y ) {        
-   
-        if (this.x < x) { 
-            this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > x) {
-            this.x -= velocidad; // Mover hacia la izquierda
-        }
 
-        if (this.y < y) {
-            this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > y) {
-            this.y -= velocidad; // Mover hacia arriba
-        }
-        
-        if (this.x == x && this.y == y)
-            seLlego = true;
-     
-        notificador.notificarCambios();
+    public void setObjetivoX(int objetivoX) {
+        this.objetivoX = objetivoX;
+    }
+
+    public void setObjetivoY(int objetivoY) {
+        this.objetivoY = objetivoY;
     }
 
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(imagen, x, y, null);
     }
-
-    @Override
-    public void run() {
-        while (!seLlego) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            seguirPunto(objetivoX, objetivoY);
-            boolean control = verificador.verificarColision(this);
-            if(control){
-                
-                seLlego = true;
-                
-            }
-
-        }
-    }
     
+
+    public boolean seguirPunto() {
+        
+        boolean seLlego = false;
+
+        // Calcular la distancia en cada eje
+        double deltaX = objetivoX - this.x;
+        double deltaY = objetivoY - this.y;
+
+        // Calcular la distancia total
+        double distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Calcular las proporciones de movimiento
+        double proporcionX = deltaX / distancia;
+        double proporcionY = deltaY / distancia;
+
+        // Calcular los nuevos valores de x e y basados en la velocidad y las proporciones
+        if (distancia > velocidad) {
+            this.x += proporcionX * velocidad;
+            this.y += proporcionY * velocidad;
+        } else {
+            // Si estamos cerca del objetivo, mover directamente al objetivo
+            this.x = objetivoX;
+            this.y = objetivoY;
+            seLlego = true;
+        }
+
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
+        return verificador.verificarColision(this) || seLlego;
+    }
+
+    public int getObjetivoX() {
+        return objetivoX;
+    }
+
+    public int getObjetivoY() {
+        return objetivoY;
+    }
 }

@@ -4,14 +4,17 @@
  */
 package personajes.demonios;
 
-import interfaces.ConstantesComunes;
+import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
+import java.awt.event.KeyEvent;
 import java.util.Random;
-import personajes.Angel;
+import java.util.Timer;
+import java.util.TimerTask;
+import nivel.elementos.trampa.Inmovilizadora;
 
 /**
  *
@@ -20,14 +23,23 @@ import personajes.Angel;
 public class DemonioHielo extends Demonio{
     public static final int ANCHO = 90;
     public static final int ALTO = 100; 
+    
+    private Image imagenTrampa;
+    private int direccion;
+    private int numMinas;
         
-    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen);
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 1;
-        daño = 1;
+        daño = 1 * multiplicadorDaño;
         velocidad = 5;
         
+        direccion = 39;
+        
+        this.imagenTrampa = imagenTrampa;
+        
+        numMinas = 0;
     }
 
     @Override
@@ -36,88 +48,85 @@ public class DemonioHielo extends Demonio{
     }
 
     @Override
-    public void seguirAngel() {
+    public void atacar() {
+        if (tieneEnfriamiento == true) {
+            return;
+        }
+        
+        enemigo.recibirImpacto(daño);
+        iniciarEnfriamiento();
     }
-
-    @Override
-    public boolean atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    private void cambiarDireccion() {
+        Random r = new Random();
+        direccion = r.nextInt(37, 41);
     }
-
-    /*
-    @Override
-    public void mover() {
-        Random random = new Random();
-        int direccion = random.nextInt(1, 5);
+    
+    public void mover() {        
+        int xAnterior = x;
+        int yAnterior = y;
         
         switch (direccion) {
-            case 1:
-                if (y > bordes.getYMin(x)) {
-                    y -= VELOCIDAD;
-                }
-                break;
-
-            case 2:
-                if (y < bordes.getYMax(x)) {
-                    y += VELOCIDAD;
-                }
-                break;
-
-            case 3:
-                if (x < bordes.getXMax(y)) {
-                    x += VELOCIDAD;
-                }
-                break;
-
-            case 4:
-                if (x > bordes.getXMin(y)) {
-                    x -= VELOCIDAD;
-                }
-                break;
-
-            default:
-                break;
+            case KeyEvent.VK_UP -> {
+                y -= velocidad;
+            }
+            
+            case KeyEvent.VK_DOWN -> {
+                y += velocidad;
+            }
+            
+            case KeyEvent.VK_RIGHT -> {
+                x += velocidad;
+            }
+            
+            case KeyEvent.VK_LEFT -> {
+                x -= velocidad;
+            }
+            
         }
         
-        notificador.notificarCambios();
+        if (bordes.tocaBorde(this)) {
+            revertirMovimiento(xAnterior, yAnterior);
+            cambiarDireccion();
+        }
+        
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
-    */
     
+    public void revertirMovimiento(int xAnterior, int yAnterior) {
+        this.x = xAnterior;
+        this.y = yAnterior;
+    }
+    
+    public void ponerTrampa() {
+        if (numMinas >= 4)
+            return;
+        
+        agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa, enemigo));
+        numMinas += 1;
+        
+        notificador.notificarCambios(Notificable.EVENTO_NUEVA_MINA);
+    }
+
+    private void iniciarEnfriamiento() {
+        tieneEnfriamiento = true;
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                tieneEnfriamiento = false;
+            }
+        }, 3000);
+    }
+
     @Override
-    public void mover() {
-        System.out.println("XMax  " + bordes.getXMax(y));
-        System.out.println("xMin  " + bordes.getXMin(y));
-        System.out.println("YMax  " + bordes.getYMax(x));
-        System.out.println("YMIn  " + bordes.getXMin(y));
- 
-        if (x >= bordes.getXMax(y) - ANCHO && y <= bordes.getYMax(x) - ALTO) {
-            // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior
-            y += velocidad;
-            
-        } else if (y >= bordes.getYMax(x) - ALTO && x >= bordes.getXMin(y)) {
-            // Mover hacia la izquierda si estamos en el borde inferior y no hemos llegado al borde izquierdo
-            x -= velocidad;
-            
-        } else if (x <= bordes.getXMin(y) && y >= bordes.getYMin(x)) {
-            // Mover hacia arriba si estamos en el borde izquierdo y no hemos llegado al borde superior
-            y -= velocidad;
-            
-        } else {
-            // Mover hacia la derecha si estamos en el borde superior o si no estamos en ningún borde
-            x += velocidad;
-        }
-        
-        
+    public void accionEspecial() {
+        ponerTrampa();
+    }
 
-        /*
-        // Reducir los bordes después de cada vuelta
-        bordes.setXMax(bordes.getXMax(y) - VELOCIDAD);
-        bordes.setXMin(bordes.getXMin(y) + VELOCIDAD);
-        bordes.setYMax(bordes.getYMax(x) - VELOCIDAD);
-        bordes.setYMin(bordes.getYMin(x) + VELOCIDAD);
-        */
-
-        notificador.notificarCambios();
+    @Override
+    public void seguirEnemigo() {
     }
 
     

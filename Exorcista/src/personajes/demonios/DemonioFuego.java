@@ -4,17 +4,13 @@
  */
 package personajes.demonios;
 
-import interfaces.ConstantesComunes;
+import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import personajes.Angel;
-import static personajes.demonios.DemonioElectrico.ALTO;
-import static personajes.demonios.DemonioElectrico.ANCHO;
+import personajes.poderDemonios.Fuego;
 
 /**
  *
@@ -26,11 +22,11 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego) {
-        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio);
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
+        super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 5;
-        daño = 2;
+        daño = 2 * multiplicadorDaño;
         velocidad = 0;
         
         this.imagenFuego = imagenFuego;
@@ -40,20 +36,31 @@ public class DemonioFuego extends Demonio{
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y,null);
     }
+    
+    public void crearFuego(){
+        Fuego nuevoFuego= new Fuego(this.x, this.y, imagenFuego, notificador, enemigo);
 
-    @Override
-    public void seguirAngel() {
-        return;
+        agregador.agregarFuego(nuevoFuego);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_FUEGO);
+    
     }
 
     @Override
-    public boolean atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void atacar() {
     }
 
     @Override
     public void mover() {
-        return;
+    }
+
+    @Override
+    public void accionEspecial() {
+        crearFuego();
+        
+    }
+
+    @Override
+    public void seguirEnemigo() {
     }
 
     
