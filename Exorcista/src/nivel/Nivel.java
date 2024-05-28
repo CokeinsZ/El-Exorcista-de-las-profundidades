@@ -141,8 +141,8 @@ public class Nivel extends Dibujo
             limSupTipoDemonios = 2;
                     
         } else if (numNivel == 2) {
-            numDemoniosHielo = 1;
-            numDemoniosSelvatico = 1;
+            numDemoniosHielo = 0;
+            numDemoniosSelvatico = 5;
             limSupTipoDemonios = 3;
         
         } else if (numNivel == 3) {
@@ -237,30 +237,48 @@ public class Nivel extends Dibujo
         Iterator<Cofre> iteradorCofres = cofres.iterator();
         //Iterator<Suelo> iteradorSuelos = suelos.iterator();
         
-        while (iteradorParedes.hasNext()) {
-            //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
-            
-            if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
-                return false;
-            
-            if (demonio.intersects(iteradorParedes.next()) || demonio.getX() < getXMin((int) demonio.getY()) || demonio.getX() > getXMax((int) demonio.getY()) || demonio.getY() < getYMin((int) demonio.getX()) || demonio.getY() > getYMax((int) demonio.getX()))
-                return false;
-            
-            if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
-                return false;
-            }
-            
-            if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
-                return false;
-            }
-            
-            if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
-                return false;
-            }
-            
-            if (demonio.intersects(angel))
-                return false;
-        }
+    while (iteradorParedes.hasNext()) {
+          // El iterador nos ayuda a recorrer todos los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
+
+          synchronized (trampas) {
+              if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next())) {
+                  return false;
+              }
+          }
+
+          synchronized (paredes) {
+              if (demonio.intersects(iteradorParedes.next()) || 
+                  demonio.getX() < getXMin((int) demonio.getY()) || 
+                  demonio.getX() > getXMax((int) demonio.getY()) || 
+                  demonio.getY() < getYMin((int) demonio.getX()) || 
+                  demonio.getY() > getYMax((int) demonio.getX())) {
+                  return false;
+              }
+          }
+
+          synchronized (demonios) {
+              if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
+                  return false;
+              }
+          }
+
+          synchronized (almas) {
+              if (iteradorAlmas.hasNext() && demonio.intersects(iteradorAlmas.next())) {
+                  return false;
+              }
+          }
+
+          synchronized (cofres) {
+              if (iteradorCofres.hasNext() && demonio.intersects(iteradorCofres.next())) {
+                  return false;
+              }
+          }
+
+          if (demonio.intersects(angel)) {
+              return false;
+          }
+      }
+
         
         // Si no hay colisión con ninguna de los demonios existentes, retorna verdadero
         return true;      
@@ -478,6 +496,28 @@ public class Nivel extends Dibujo
 
         return false;
     }
+    
+    @Override
+    public boolean verificarColisionDemonio(Angel angel){
+        
+         synchronized (demonios) { // sincroniza el acceso a la lista de demonios
+            
+             for (int i = 0; i < demonios.size(); i++) {
+                 
+                Demonio demonioNuevo = demonios.get(i);
+                if(angel.intersects(demonioNuevo)){
+                    
+                    return true;
+                    
+                }
+                    
+             }
+             
+             return false;
+        }
+        
+    }
+    
     
     @Override
     public int getXMin(int y) {

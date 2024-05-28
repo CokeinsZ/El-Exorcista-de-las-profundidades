@@ -86,6 +86,10 @@ public class HiloMovimiento extends Thread implements Runnable {
             synchronized(tornados){ 
                 for (int i = 0; i < tornados.size(); i++) {
                     Tornado tornadoNuevo = tornados.get(i);
+                    if(tornadoNuevo== null){
+                        continue;
+                    }
+                    
                     tornadoNuevo.atraerAngel();
                     
                 }
