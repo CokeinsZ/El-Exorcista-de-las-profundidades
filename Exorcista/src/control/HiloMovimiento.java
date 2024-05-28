@@ -55,6 +55,9 @@ public class HiloMovimiento extends Thread implements Runnable {
             synchronized(rayos){
                 for (int i = 0; i < rayos.size(); i++) {
                     Rayo nuevoRayo = rayos.get(i);
+                    if(nuevoRayo == null)
+                        continue;
+                    
                     boolean control = nuevoRayo.seguirPunto();
                     if (control) {
                         rayos.remove(nuevoRayo);
