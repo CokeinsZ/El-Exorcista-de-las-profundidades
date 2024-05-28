@@ -5,6 +5,7 @@
 package personajes;
 
 import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
@@ -18,13 +19,13 @@ import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 import java.util.Timer;
 import java.util.TimerTask;
-import static personajes.poderDemonios.Roca.DAÑO;
 
 /**
  *
  * @author Alejandro
  */
-public class Angel extends Dibujo {
+public class Angel extends Dibujo
+                   implements Asesinable{
     
     public final static int ANCHO = 78;
     public final static int ALTO = 95;
@@ -32,7 +33,7 @@ public class Angel extends Dibujo {
     public final int VELOCIDAD = 10;
     public static final int DAÑO = 1;
     
-    private float vida;
+    private double vida;
     private int energia;
     private int energiaMaxima;
     private Potenciador[] potenciadores;
@@ -131,7 +132,7 @@ public class Angel extends Dibujo {
         return true;
     }
     
-    public void recibirImpacto(int daño) {
+    public void recibirImpacto(double daño) {
         this.vida -= daño;
         
         if (vida <= 0)
@@ -180,7 +181,7 @@ public class Angel extends Dibujo {
         energiaMaxima += almasLiberadas % 3;
     }
 
-    public float getVida() {
+    public double getVida() {
         return vida;
     }
 
@@ -268,6 +269,6 @@ public class Angel extends Dibujo {
 
         notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
-    
+
     
 }

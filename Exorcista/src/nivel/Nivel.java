@@ -27,12 +27,12 @@ import personajes.Angel;
 import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
-    
-  import java.util.Iterator;
+import java.util.Iterator;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import nivel.elementos.pared.Suelo;
 import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
+import personajes.poderDemonios.Tornado;
 
 
 /**
@@ -61,6 +61,7 @@ public class Nivel extends Dibujo
     private ArrayList<Roca> rocas;
     private ArrayList<Fuego> fuegos;
     private ArrayList<Suelo> suelos;
+    private ArrayList<Tornado> tornados;
     
     private Notificable notificador;
     
@@ -94,6 +95,7 @@ public class Nivel extends Dibujo
         this.paredes = paredes;
         this.puerta = puerta;
         this.suelos = suelos;
+        this.tornados = new ArrayList<>();
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
@@ -113,7 +115,7 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
                 
-        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos);
+        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos, tornados);
         hiloMovimiento.start();
                  
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
@@ -613,5 +615,10 @@ public class Nivel extends Dibujo
             return true;
         
         return false;
+    }
+
+    @Override
+    public void agregarTornado(Tornado tornadoNuevo) {
+        this.tornados.add(tornadoNuevo);
     }
 }

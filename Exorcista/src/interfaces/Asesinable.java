@@ -14,6 +14,7 @@ public interface Asesinable {
     public void recibirImpacto(double daño);
     public boolean mover(int codigo);
     public void paralizar();
+    public void seguirPunto(int x, int y);
     
     public double getX();
     public double getY();
