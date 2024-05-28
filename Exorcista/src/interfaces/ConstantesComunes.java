@@ -32,11 +32,13 @@ public interface ConstantesComunes {
     public static final int IMAGEN_LLAVE_COFRE = 20;
     public static final int IMAGEN_SUELO = 21;
     public static final int IMAGEN_SUELO2 = 22;
+    public static final int IMAGEN_SUELO3= 27;
     
     public static final int SONIDO_LANZAR_RAYO = 23;
     public static final int SONIDO_MUERTE_DEMONIO_FUEGO = 24;
     public static final int SONIDO_MUERTE_DEMONIO_ELECTRICO = 25;
     public static final int SONIDO_MUERTE_DEMONIO_HIELO = 26;
+    
     
     
     

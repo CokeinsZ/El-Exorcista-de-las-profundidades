@@ -130,7 +130,7 @@ while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {
     
     public Suelo agregarSuelo(int x, int y) {
         
-        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO2]);
+        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO3]);
 
         
         return imagenSuelo;

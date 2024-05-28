@@ -1,7 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+
 package gui.ventanaPrincipal;
 
 import control.Mazmorra;
@@ -64,10 +62,12 @@ public class VentanaPrincipal extends javax.swing.JFrame
 
 private void cargarSonidos() throws UnsupportedAudioFileException, IOException {
     String[] rutasSonidos = {
-        "Sonidos/LanzarRayoA.wav",
+        
         "Sonidos/MuerteDemonioFueg.wav",
         "Sonidos/MuerteDemonioElec.wav",
         "Sonidos/MuerteDemonio_1.wav",
+        
+        
         
         
         // ... (Rutas de los demás sonidos)

@@ -148,6 +148,7 @@ public class Mazmorra extends Dibujo
         
         imagenes[21] = ImageIO.read(new File("imagenes\\suelo\\suelof.jpeg"));
         imagenes[22] = ImageIO.read(new File("imagenes\\suelo\\suelo2.png"));
+        imagenes [27] = ImageIO.read(new File("imagenes\\suelo\\Suelooo.png"));
         
         
         
