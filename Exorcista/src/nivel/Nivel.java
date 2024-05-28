@@ -81,9 +81,10 @@ public class Nivel extends Dibujo
         super(0, 0, ancho, alto, null);
         
         this.imagenes = imagenes;
-        this.fabrica = new FabricaDemonios(imagenes);
                 
         this.numNivel = numNivel;
+        
+        this.fabrica = new FabricaDemonios(imagenes, numNivel);
         
         this.cofres = cofres;
         this.llavesCofres = new ArrayList<>();

@@ -5,11 +5,11 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import personajes.Angel;
 import personajes.poderDemonios.Roca;
 
 /**
@@ -22,11 +22,11 @@ public class DemonioSelvatico extends Demonio{
     
     private Image imagenRoca;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave) {
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 7;
-        daño = 2;
+        daño = 2 * multiplicadorDaño;
         velocidad = 0;
         
         this.imagenRoca = imagenRoca;
@@ -41,12 +41,8 @@ public class DemonioSelvatico extends Demonio{
     public void crearRocas() {
         
         Roca nuevoRoca = new Roca(this.x, this.y, imagenRoca, notificador,enemigo);
-        nuevoRoca.setObjetivoX((int) enemigo.getX());
-        nuevoRoca.setObjetivoY((int) enemigo.getY());
 
         agregador.agregarRoca(nuevoRoca);
-
-        //nuevoRayo.moverRayo(x, y);
     
     }
 
@@ -60,14 +56,13 @@ public class DemonioSelvatico extends Demonio{
     }
 
     @Override
-    public void seguirAngel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void accionEspecial() {
 
         crearRocas();
+    }
+
+    @Override
+    public void seguirEnemigo() {
     }
 
 }
