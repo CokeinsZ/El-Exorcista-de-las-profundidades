@@ -47,6 +47,8 @@ public class DemonioSelvatico extends Demonio {
 
 
         agregador.agregarRoca(nuevoRoca);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_ROCA);
+        
 
         //nuevoRayo.moverRayo(x, y);
     
@@ -57,7 +59,8 @@ public class DemonioSelvatico extends Demonio {
         
         Tornado tornadoNuevo = new Tornado(x, y, imagenTornado, notificador, enemigo);
         agregador.agregarTornado(tornadoNuevo);
-        notificador.notificarCambios(1);
+       
+        notificador.notificarCambios(Notificable.EVENTO_TORNADO);
         
     }
 

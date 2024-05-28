@@ -87,7 +87,7 @@ public class FabricaNivel {
                         break;
 
                     case '*':
-                        trampas.add(crearTrampa(x, y, angel));
+                        trampas.add(crearTrampa(x, y, angel, notificador));
                         break;
 
                     case '#':
@@ -184,7 +184,7 @@ public class FabricaNivel {
         return new Cofre(x, y, imagenes[ConstantesComunes.IMAGEN_COFRE], imagenes[ConstantesComunes.IMAGEN_POTENCIADOR_VIDA], imagenes[ConstantesComunes.IMAGEN_POTENCIADOR_RAYOS]);                
     }
 
-    private Trampa crearTrampa(int x, int y, Angel angel) {
+    private Trampa crearTrampa(int x, int y, Angel angel, Notificable notificador) {
         int tipo;
         
         Random r = new Random();
@@ -192,13 +192,13 @@ public class FabricaNivel {
                 
         switch (tipo) {
             case Trampa.TIPO_MINA:
-                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_MINA], angel);
+                return new Mina(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_MINA], angel, notificador);
                 
             case Trampa.TIPO_AGUJERO:
-                return new Agujero(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_AGUJERO], angel);
+                return new Agujero(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_AGUJERO], angel, notificador);
                 
             case Trampa.TIPO_EMPUJE:
-                return new Empuje(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_EMPUJE], angel);
+                return new Empuje(x, y, imagenes[ConstantesComunes.IMAGEN_TRAMPA_EMPUJE], angel, notificador);
         }
         
         return null;

@@ -5,6 +5,7 @@
 package nivel.elementos.trampa;
 
 import interfaces.Asesinable;
+import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import personajes.Angel;
@@ -17,9 +18,11 @@ public class Agujero extends Trampa {
     
     public static final int ANCHO = 76;
     public static final int ALTO = 60; 
+    
+    
 
-    public Agujero(int x, int y, Image imagen, Asesinable objetivo) {
-        super(x, y, ANCHO, ALTO, imagen, objetivo);
+    public Agujero(int x, int y, Image imagen, Asesinable objetivo, Notificable notificador) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo, notificador);
     }
 
 

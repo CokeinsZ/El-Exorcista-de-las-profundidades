@@ -63,6 +63,14 @@ public class VentanaPrincipal extends javax.swing.JFrame
             "Sonidos/MuerteDemonio_1.wav",
             "Sonidos/LanzarRayoAngel.wav",
             "Sonidos/LanzarBolaFuego.wav",
+            "Sonidos/LanzarRocaDS.wav",
+            "Sonidos/ExplotMina.wav",
+            "Sonidos/PasarDeNivel.wav",
+            "Sonidos/TrampaEmpuje.wav",
+            "Sonidos/TrampaTornadoJ.wav",
+            
+                
+             
 
 
             // ... (Rutas de los demás sonidos)
@@ -80,7 +88,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
             sonidos[indice] = clip;
         } catch (LineUnavailableException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            // Implementar mecanismo para notificar al usuario
         }
     }
     
@@ -335,6 +342,8 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 reproducirSonido(ConstantesComunes.SONIDO_LANZAR_FUEGO);
                 break;
             case Notificable.EVENTO_LANZAR_ROCA:
+                reproducirSonido(ConstantesComunes.SONIDO_LANZAR_ROCA);
+                
                 // Código para manejar el evento de lanzar roca
                 break;
             case Notificable.EVENTO_FIN_NIVEL:
@@ -344,12 +353,15 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 // Código para manejar el evento de cofre abierto
                 break;
             case Notificable.EVENTO_TORNADO:
+                reproducirSonido(ConstantesComunes.SONIDO_TORNADO);
                 // Código para manejar el evento de tornado
                 break;
             case Notificable.EVENTO_NUEVA_MINA:
+                reproducirSonido(ConstantesComunes.SONIDO_ACTIVACION_MINA);
                 // Código para manejar el evento de nueva mina
                 break;
             case Notificable.EVENTO_ACTIVACION_MINA:
+                reproducirSonido(ConstantesComunes.SONIDO_ACTIVACION_MINA);
                 // Código para manejar el evento de activación de mina
                 break;
             case Notificable.EVENTO_ACTIVACION_INMOVILIZADOR:
