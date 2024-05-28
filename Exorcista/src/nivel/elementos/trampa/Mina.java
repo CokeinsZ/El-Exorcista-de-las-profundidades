@@ -4,6 +4,7 @@
  */
 package nivel.elementos.trampa;
 
+import interfaces.Asesinable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import personajes.Angel;
@@ -17,8 +18,8 @@ public class Mina extends Trampa{
     public static final int ANCHO = 25;
     public static final int ALTO = 34;    
 
-    public Mina(int x, int y, Image imagen, Angel angel) {
-        super(x, y, ANCHO, ALTO, imagen, angel);
+    public Mina(int x, int y, Image imagen, Asesinable objetivo) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo);
         
     }
 
@@ -34,7 +35,7 @@ public class Mina extends Trampa{
         Animación de exploción
         */
         
-        angel.recibirImpacto(20);
+        objetivo.recibirImpacto(20);
     }
     
 

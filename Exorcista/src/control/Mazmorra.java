@@ -9,7 +9,6 @@ import interfaces.ConstantesComunes;
 import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -176,7 +175,11 @@ public class Mazmorra extends Dibujo
     }
 
     public Nivel getNivelActual() {
-        return niveles.get(numNivel-1);
+        try {
+            return niveles.get(numNivel-1);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     @Override

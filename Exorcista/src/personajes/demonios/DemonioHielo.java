@@ -5,6 +5,7 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
@@ -14,7 +15,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import nivel.elementos.trampa.Inmovilizadora;
-import personajes.Angel;
 
 /**
  *
@@ -28,11 +28,11 @@ public class DemonioHielo extends Demonio{
     private int direccion;
     private int numMinas;
         
-    public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador, boolean tieneLlave) {
+    public DemonioHielo(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagen, agregador, tieneLlave);
         
         vida = 1;
-        daño = 1;
+        daño = 1 * multiplicadorDaño;
         velocidad = 5;
         
         direccion = 39;
@@ -45,10 +45,6 @@ public class DemonioHielo extends Demonio{
     @Override
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y, null);
-    }
-
-    @Override
-    public void seguirAngel() {
     }
 
     @Override
@@ -127,6 +123,10 @@ public class DemonioHielo extends Demonio{
     @Override
     public void accionEspecial() {
         ponerTrampa();
+    }
+
+    @Override
+    public void seguirEnemigo() {
     }
 
     

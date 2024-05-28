@@ -4,11 +4,10 @@
  */
 package personajes.poderDemonios;
 
+import interfaces.Asesinable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import personajes.Angel;
-import static personajes.poderDemonios.Roca.DAÑO;
 import sprite.Dibujo;
 
 /**
@@ -23,28 +22,20 @@ public class Fuego extends Dibujo  {
     
     private int velocidad = 4;
     private Notificable notificador;
-    private volatile boolean seLlego;
     
     private int objetivoX;
     private int objetivoY;
     
-    private Angel objetivo;
+    private Asesinable objetivo;
        
-    public Fuego(int x, int y, Image imagen, Notificable notificador, Angel objetivo) {
+    public Fuego(int x, int y, Image imagen, Notificable notificador, Asesinable objetivo) {
         super(x, y, ANCHO, ALTO, imagen);
-        seLlego = false;
         
         this.notificador = notificador;
         this.objetivo = objetivo;
         
-    }
-
-    public void setObjetivoX(int objetivoX) {
-        this.objetivoX = objetivoX;
-    }
-
-    public void setObjetivoY(int objetivoY) {
-        this.objetivoY = objetivoY;
+        objetivoX = (int) objetivo.getX();
+        objetivoY = (int) objetivo.getY();
     }
 
     @Override
@@ -72,6 +63,7 @@ public class Fuego extends Dibujo  {
         if (distancia > velocidad) {
             this.x += proporcionX * velocidad;
             this.y += proporcionY * velocidad;
+            
         } else {
             // Si estamos cerca del objetivo, mover directamente al objetivo
             this.x = objetivoX;
@@ -79,8 +71,7 @@ public class Fuego extends Dibujo  {
             seLlego = true;
         }
 
-        if (this.intersects(objetivo)) {
-
+        if (objetivo.intersects(this)) {
             objetivo.recibirImpacto(DAÑO);
             notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
             return true;

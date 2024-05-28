@@ -5,19 +5,12 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
-import interfaces.ConstantesComunes;
+import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import personajes.Angel;
-import static personajes.demonios.DemonioElectrico.ALTO;
-import static personajes.demonios.DemonioElectrico.ANCHO;
 import personajes.poderDemonios.Fuego;
-import personajes.poderDemonios.Roca;
 
 /**
  *
@@ -29,11 +22,11 @@ public class DemonioFuego extends Demonio{
     
     private Image imagenFuego;
     
-    public DemonioFuego(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego, Agregable agregador, boolean tieneLlave) {
+    public DemonioFuego(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagenDemonio, Image imagenFuego, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 5;
-        daño = 2;
+        daño = 2 * multiplicadorDaño;
         velocidad = 0;
         
         this.imagenFuego = imagenFuego;
@@ -45,18 +38,11 @@ public class DemonioFuego extends Demonio{
     }
     
     public void crearFuego(){
-        
         Fuego nuevoFuego= new Fuego(this.x, this.y, imagenFuego, notificador, enemigo);
-        nuevoFuego.setObjetivoX((int) enemigo.getX());
-        nuevoFuego.setObjetivoY((int) enemigo.getY());
 
         agregador.agregarFuego(nuevoFuego);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_FUEGO);
     
-    }
-
-    @Override
-    public void seguirAngel() {
-        return;
     }
 
     @Override
@@ -69,9 +55,12 @@ public class DemonioFuego extends Demonio{
 
     @Override
     public void accionEspecial() {
-        
         crearFuego();
         
+    }
+
+    @Override
+    public void seguirEnemigo() {
     }
 
     

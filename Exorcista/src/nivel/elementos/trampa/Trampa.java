@@ -4,8 +4,8 @@
  */
 package nivel.elementos.trampa;
 
+import interfaces.Asesinable;
 import java.awt.Image;
-import personajes.Angel;
 import sprite.Dibujo;
 
 /**
@@ -18,12 +18,12 @@ public abstract class Trampa extends Dibujo {
     public static final int TIPO_AGUJERO = 2;
     public static final int TIPO_EMPUJE = 3;
     
-    protected Angel angel;
+    protected Asesinable objetivo;
     
-    public Trampa(int x, int y, int ancho, int alto, Image imagen, Angel angel) {
+    public Trampa(int x, int y, int ancho, int alto, Image imagen, Asesinable objetivo) {
         super(x, y, ancho, alto, imagen);
         
-        this.angel = angel;
+        this.objetivo = objetivo;
     }
     
     public abstract void accionar();

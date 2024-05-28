@@ -46,9 +46,6 @@ public class Rayo extends Dibujo{
         this.objetivoX = x;
         this.objetivoY = y;
         
-       // hiloMovimiento = new Thread(this);       
-       // hiloMovimiento.start();
-        
     }
 
     public void setObjetivoX(int objetivoX) {
@@ -58,32 +55,6 @@ public class Rayo extends Dibujo{
     public void setObjetivoY(int objetivoY) {
         this.objetivoY = objetivoY;
     }
-    
-    
-    /*
-    public boolean seguirPunto() {        
-   
-        if (this.x < objetivoX) { 
-            this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > objetivoX) {
-            this.x -= velocidad; // Mover hacia la izquierda
-        }
-
-        if (this.y < objetivoY) {
-            this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > objetivoY) {
-            this.y -= velocidad; // Mover hacia arriba
-        }
-        
-        if (this.x >= objetivoX-velocidad && this.x <= objetivoX+velocidad  && this.y >= objetivoY-velocidad && this.y <= objetivoY+velocidad )
-            seLlego = true;
-     
-        notificador.notificarCambios();
-        return verificador.verificarColision(this) || seLlego;
-        
-    }
-    
-    */
 
     @Override
     public void dibujar(Graphics2D g) {
@@ -120,32 +91,6 @@ public class Rayo extends Dibujo{
         notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
         return verificador.verificarColision(this) || seLlego;
     }
-
-
-    
-    
-    /*
-    @Override
-    public void run() {
-        while (!seLlego) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Rayo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            seguirPunto(objetivoX, objetivoY);
-            boolean control = verificador.verificarColision(this);
-            if(control){
-                seLlego = true;
-                
-            }
-
-        }
-    }
-    
-
-    */
 
     public int getObjetivoX() {
         return objetivoX;

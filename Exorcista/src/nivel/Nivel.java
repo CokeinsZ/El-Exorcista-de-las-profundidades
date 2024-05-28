@@ -27,8 +27,9 @@ import personajes.Angel;
 import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
-    
-  import java.util.Iterator;
+import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import nivel.elementos.pared.Suelo;
 import personajes.poderDemonios.Fuego;
@@ -83,9 +84,10 @@ public class Nivel extends Dibujo
         super(0, 0, ancho, alto, null);
         
         this.imagenes = imagenes;
-        this.fabrica = new FabricaDemonios(imagenes);
                 
         this.numNivel = numNivel;
+        
+        this.fabrica = new FabricaDemonios(imagenes, numNivel);
         
         this.cofres = cofres;
         this.llavesCofres = new ArrayList<>();
@@ -95,12 +97,11 @@ public class Nivel extends Dibujo
         this.paredes = paredes;
         this.puerta = puerta;
         this.suelos = suelos;
-     
+        this.tornados = new ArrayList<>();
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
         this.fuegos = new ArrayList<>();
-        this.tornados = new ArrayList<>();
         
         demonios = new ArrayList<>();
         
@@ -242,7 +243,7 @@ public class Nivel extends Dibujo
             if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
                 return false;
             
-            if (demonio.intersects(iteradorParedes.next()))
+            if (demonio.intersects(iteradorParedes.next()) || demonio.getX() < getXMin((int) demonio.getY()) || demonio.getX() > getXMax((int) demonio.getY()) || demonio.getY() < getYMin((int) demonio.getX()) || demonio.getY() > getYMax((int) demonio.getX()))
                 return false;
             
             if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
@@ -413,6 +414,11 @@ public class Nivel extends Dibujo
             demonio.dibujar(g);
         }
         
+        for (int i = 0; i < tornados.size(); i++) {
+            Tornado tornado = tornados.get(i);
+            tornado.dibujar(g);
+        }
+        
         for (int i = 0; i < rocas.size(); i++) {
             Roca roca = rocas.get(i);
             roca.dibujar(g);
@@ -422,14 +428,6 @@ public class Nivel extends Dibujo
             Fuego fuego = fuegos.get(i);
             fuego.dibujar(g);
         }
-        
-        for (int i = 0; i < tornados.size(); i++) {
-            Tornado tornado = tornados.get(i);
-            tornado.dibujar(g);
-            
-        }
-        
-   
 
         angel.dibujar(g);
 
@@ -479,6 +477,81 @@ public class Nivel extends Dibujo
         }
 
         return false;
+    }
+    
+    @Override
+    public int getXMin(int y) {
+        int xMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredY = (int) pared.getY();
+            if(y >= paredY && y < paredY + Pared.ALTO && pared.getX() < xMin) 
+                xMin = (int) pared.getX();            
+            else if (y >= puerta.getY() && y < puerta.getY() + Puerta.ALTO && puerta.getX() < xMin)
+                xMin = (int) puerta.getX();  
+        }
+        
+        return xMin + Pared.ANCHO;
+    }
+
+    @Override
+    public int getXMax(int y) {
+        int xMax = Integer.MIN_VALUE;
+        boolean foundValidPared = false;
+
+        for (Pared pared : paredes) {
+            int paredY = (int) pared.getY();
+            if (paredY < y && paredY >= y - Pared.ALTO) {
+                int paredX = (int) pared.getX();
+                xMax = Math.max(xMax, paredX);
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
+                
+            } else if (puerta.getY() < y && puerta.getY() >= y - Puerta.ALTO) {
+                xMax = (int) Math.max(xMax, puerta.getX());
+                foundValidPared = true; // Hemos encontrado al menos una pared válida
+            }
+        }
+
+        if (!foundValidPared || xMax <= 0) {
+            // No se encontró ninguna pared válida en el rango, o xMax es menor o igual a cero
+            // Devolvemos un valor especial para indicar que no hay un límite válido
+            return Integer.MIN_VALUE;
+        }
+
+        return xMax;
+    }
+
+    @Override
+    public int getYMin(int x) {
+        int yMin = Integer.MAX_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(x >= paredX && x < paredX + Pared.ANCHO && pared.getY() < yMin)
+                yMin = (int) pared.getY();
+                
+            else if(x >= puerta.getX() && x < puerta.getX() + Puerta.ANCHO && puerta.getY() < yMin)
+                yMin = (int) puerta.getY();
+        }
+        
+        return yMin + Pared.ALTO; 
+    }
+
+    @Override
+    public int getYMax(int x) {
+        int yMax = Integer.MIN_VALUE;
+        
+        for(Pared pared: paredes) {
+            int paredX = (int) pared.getX();
+            if(x > paredX && x <= paredX + Pared.ANCHO && pared.getY() > yMax)
+                yMax = (int) pared.getY();
+            
+            else if(x > puerta.getX() && x <= puerta.getX() + Puerta.ANCHO && puerta.getY() > yMax)
+                yMax = (int) puerta.getY();
+                
+        }
+        
+        return yMax;
     }
 
     private void crearLlaveFinNivel(int x, int y) {        
@@ -532,13 +605,6 @@ public class Nivel extends Dibujo
         fuegos.add(fuegonuevo);
         
     }
-    
-    public void agregarTornado(Tornado tornadonuevo){
-        
-        tornados.add(tornadonuevo);
-        
-    }
-    
 
     public void detener() throws java.lang.InterruptedException {
         hiloMovimiento.detenerHilo();
@@ -556,5 +622,21 @@ public class Nivel extends Dibujo
             return true;
         
         return false;
+    }
+
+    @Override
+    public void agregarTornado(Tornado tornadoNuevo) {
+        synchronized (tornados) {
+            this.tornados.add(tornadoNuevo);
+            
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    tornados.remove(tornadoNuevo);
+                }
+            }, 3000);
+        }
+        
     }
 }

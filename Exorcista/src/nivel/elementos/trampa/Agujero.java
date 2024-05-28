@@ -4,6 +4,7 @@
  */
 package nivel.elementos.trampa;
 
+import interfaces.Asesinable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import personajes.Angel;
@@ -17,16 +18,15 @@ public class Agujero extends Trampa {
     public static final int ANCHO = 76;
     public static final int ALTO = 60; 
 
-    public Agujero(int x, int y, Image imagen, Angel angel) {
-        super(x, y, ANCHO, ALTO, imagen, angel);
+    public Agujero(int x, int y, Image imagen, Asesinable objetivo) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo);
     }
 
 
     @Override
     public void accionar() {
-        angel.recibirImpacto(10);
-        angel.x = this.x-Angel.ANCHO;
-        angel.y = this.y-Angel.ALTO;
+        objetivo.recibirImpacto(10);
+        objetivo.setLocation(x-10, y-10);
     }
 
     @Override

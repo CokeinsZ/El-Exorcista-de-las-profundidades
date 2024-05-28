@@ -4,6 +4,7 @@
  */
 package personajes.poderDemonios;
 
+import interfaces.Asesinable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -18,20 +19,14 @@ public class Tornado extends Dibujo {
     
     public static final int ANCHO = 50;
     public static final int ALTO = 50;
-    public static final int DAÑO = 10;
 
-    private int velocidad = 4;
     private Notificable notificador;
-    private volatile boolean seLlego;
 
-    private int objetivoX;
-    private int objetivoY;
 
-    private Angel objetivo;
+    private Asesinable objetivo;
 
-    public Tornado(int x, int y, Image imagen, Notificable notificador, Angel objetivo) {
+    public Tornado(int x, int y, Image imagen, Notificable notificador, Asesinable objetivo) {
         super(x, y, ANCHO, ALTO, imagen);
-        seLlego = false;
 
         this.notificador = notificador;
         this.objetivo = objetivo;

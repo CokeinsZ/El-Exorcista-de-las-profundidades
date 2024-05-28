@@ -35,6 +35,20 @@ public interface ConstantesComunes {
     public static final int IMAGEN_TORNADO = 23;
     
     public static final int SONIDO_MUERTE_DEMONIO = 0;
+    public static final int SONIDO_LANZAR_RAYO = 1;
+    public static final int SONIDO_LANZAR_FUEGO = 2;
+    public static final int SONIDO_LANZAR_ROCA = 3;
+    public static final int SONIDO_MUERTE_ANGEL = 4;
+    public static final int SONIDO_FIN_NIVEL = 5;
+    public static final int SONIDO_COFRE_ABIERTO = 6;
+    public static final int SONIDO_TORNADO = 7;
+    public static final int SONIDO_NUEVA_MINA = 8;
+    public static final int SONIDO_ACTIVACION_MINA = 9;
+    public static final int SONIDO_ACTIVACION_INMOVILIZADOR = 10;
+    public static final int SONIDO_ACTIVACION_AGUJERO = 11;
+    public static final int SONIDO_POTENCIADOR_VIDA = 12;
+    public static final int SONIDO_POTENCIADOR_ATAQUE = 13;
+
     
 
 }

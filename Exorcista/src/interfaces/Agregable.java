@@ -19,6 +19,7 @@ public interface Agregable {
     public void agregarRayo(Rayo rayoNuevo);
     public void agregarRoca(Roca rocaNueva);
     public void agregarFuego(Fuego fuegoNuevo);
+
     public void agregarTornado(Tornado tornadoNuevo);
     
 }
