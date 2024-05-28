@@ -33,6 +33,7 @@ import sprite.Dibujo;
     
   import java.util.Iterator;
 import nivel.elementos.cofre.potenciadores.Potenciador;
+import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
 
 
@@ -60,6 +61,7 @@ public class Nivel extends Dibujo
     private ArrayList<Demonio> demonios;
     private ArrayList<Rayo> rayos;
     private ArrayList<Roca> rocas;
+    private ArrayList<Fuego> fuegos;
     
     private Notificable notificador;
     
@@ -94,6 +96,7 @@ public class Nivel extends Dibujo
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
+        this.fuegos = new ArrayList<>();
         
         demonios = new ArrayList<>();
         
@@ -109,7 +112,7 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
                 
-        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas);
+        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos);
         hiloMovimiento.start();
                  
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
@@ -404,6 +407,11 @@ public class Nivel extends Dibujo
             Roca roca = rocas.get(i);
             roca.dibujar(g);
         }
+        
+        for (int i = 0; i < fuegos.size(); i++) {
+            Fuego fuego = fuegos.get(i);
+            fuego.dibujar(g);
+        }
 
         angel.dibujar(g);
 
@@ -570,6 +578,13 @@ public class Nivel extends Dibujo
     @Override
     public void agregarRoca(Roca rocaNueva) {
         rocas.add(rocaNueva);
+    }
+    
+    @Override
+    public void agregarFuego(Fuego fuegonuevo){
+        
+        fuegos.add(fuegonuevo);
+        
     }
 
     public void detener() throws java.lang.InterruptedException {

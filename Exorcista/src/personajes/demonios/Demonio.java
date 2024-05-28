@@ -60,4 +60,6 @@ public abstract class Demonio extends Dibujo {
         return tieneLlave;
     }
     
+    public abstract void accionEspecial();
+    
 }
