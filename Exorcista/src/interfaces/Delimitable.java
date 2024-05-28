@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import sprite.Dibujo;
+
 /**
  *
  * @author Alejandro
@@ -11,6 +13,8 @@ package interfaces;
 public interface Delimitable {
     public int getAncho();
     public int getAlto();
+    
+    public boolean tocaBorde(Dibujo objeto);
     
     public int getXMin(int y);
     public int getXMax(int y);

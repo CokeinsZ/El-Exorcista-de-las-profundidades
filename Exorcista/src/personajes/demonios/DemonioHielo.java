@@ -23,7 +23,7 @@ public class DemonioHielo extends Demonio{
     public static final int ALTO = 100; 
     
     private Image imagenTrampa;
-    
+    private int direccion;
     private int numMinas;
         
     public DemonioHielo(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagen, Image imagenTrampa, Agregable agregador, boolean tieneLlave) {

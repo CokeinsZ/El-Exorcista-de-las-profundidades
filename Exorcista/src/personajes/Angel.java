@@ -99,31 +99,37 @@ public class Angel extends Dibujo {
         if (estaParalizado)
             return false;
                 
-        boolean seMovio = false;
+        int xAnterior = x;
+        int yAnterior = y;
         
-        if (codigo == KeyEvent.VK_UP && y >= bordes.getYMin(x)){
-            y -= VELOCIDAD;
-            seMovio = true;
+        switch (codigo) {
+            case KeyEvent.VK_UP -> {
+                y -= VELOCIDAD;
+            }
+            
+            case KeyEvent.VK_DOWN -> {
+                y += VELOCIDAD;
+            }
+            
+            case KeyEvent.VK_RIGHT -> {
+                x += VELOCIDAD;
+            }
+            
+            case KeyEvent.VK_LEFT -> {
+                x -= VELOCIDAD;
+            }
+            
         }
+
         
-        if (codigo == KeyEvent.VK_DOWN && y <= bordes.getYMax(x) - Pared.ALTO) {
-            y += VELOCIDAD;
-            seMovio = true;
-        }
-            
-        if (codigo == KeyEvent.VK_RIGHT && x <= bordes.getXMax(y) - Pared.ANCHO) {
-            x += VELOCIDAD;
-            seMovio = true;
-        }
-            
-        if (codigo == KeyEvent.VK_LEFT && x >= bordes.getXMin(y)) {
-            x -= VELOCIDAD;
-            seMovio = true;
+        if (bordes.tocaBorde(this)) {
+            revertirMovimiento(xAnterior, yAnterior);
+            return false;
         }
         
         areaAtaque.setLocation(x-10, y-10);
-       
-        return seMovio;
+        notificador.notificarCambios();
+        return true;
     }
     
     public void recibirImpacto(int daño) {

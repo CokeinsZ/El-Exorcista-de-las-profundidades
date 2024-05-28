@@ -506,7 +506,7 @@ public class Nivel extends Dibujo
             crearLlaveCofre((int)demonio.getX(), (int)demonio.getY());
         
         if(getDemoniosRestantes() == 1)
-            crearLlaveFinNivel((int) puerta.getX()-50, (int) puerta.getY());
+            crearLlaveFinNivel((int) puerta.getX(), (int) puerta.getY()-100);
         
         demonios.remove(demonio);       
         notificador.notificarCambios();
@@ -591,5 +591,18 @@ public class Nivel extends Dibujo
     public void detener() throws java.lang.InterruptedException {
         hiloMovimiento.detenerHilo();
         hiloEspecial.detenerHilo();
+    }
+
+    @Override
+    public boolean tocaBorde(Dibujo objeto) {
+        for (Pared pared : paredes) {
+            if (pared.intersects(objeto))
+                return true;
+        }
+        
+        if(puerta.intersects(objeto))
+            return true;
+        
+        return false;
     }
 }
