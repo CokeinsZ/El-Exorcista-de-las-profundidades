@@ -347,6 +347,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 // Código para manejar el evento de lanzar roca
                 break;
             case Notificable.EVENTO_FIN_NIVEL:
+                reproducirSonido(ConstantesComunes.SONIDO_FIN_NIVEL);
                 // Código para manejar el evento de fin de nivel
                 break;
             case Notificable.EVENTO_COFRE_ABIERTO:
