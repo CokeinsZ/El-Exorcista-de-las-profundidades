@@ -107,8 +107,8 @@ public class Mazmorra extends Dibujo
     }
 
     @Override
-    public void notificarCambios() {
-        refrescador.refrescar();
+    public void notificarCambios(int cambio) {
+        refrescador.refrescar(cambio);
     }
 
     public void cargarTodasImagenes() throws IOException {

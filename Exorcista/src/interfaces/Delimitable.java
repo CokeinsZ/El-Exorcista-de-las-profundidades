@@ -15,11 +15,5 @@ public interface Delimitable {
     public int getAlto();
     
     public boolean tocaBorde(Dibujo objeto);
-    
-    public int getXMin(int y);
-    public int getXMax(int y);
-    
-    public int getYMin(int x);
-    public int getYMax(int x);
 
 }

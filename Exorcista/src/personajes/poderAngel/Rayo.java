@@ -22,7 +22,6 @@ public class Rayo extends Dibujo{
     private int velocidad = 7;
     private Notificable notificador;
     
-    private Thread hiloMovimiento;
     private volatile boolean seLlego;
     
     private int objetivoX;
@@ -118,7 +117,7 @@ public class Rayo extends Dibujo{
             seLlego = true;
         }
 
-        notificador.notificarCambios();
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
         return verificador.verificarColision(this) || seLlego;
     }
 
