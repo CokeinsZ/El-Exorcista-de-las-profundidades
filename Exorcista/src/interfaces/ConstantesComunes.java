@@ -49,6 +49,7 @@ public interface ConstantesComunes {
     public static final int SONIDO_ACTIVACION_AGUJERO = 11;
     public static final int SONIDO_POTENCIADOR_VIDA = 12;
     public static final int SONIDO_POTENCIADOR_ATAQUE = 13;
+    
 
     
 

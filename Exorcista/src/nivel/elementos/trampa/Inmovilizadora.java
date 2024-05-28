@@ -5,6 +5,7 @@
 package nivel.elementos.trampa;
 
 import interfaces.Asesinable;
+import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -17,8 +18,8 @@ public class Inmovilizadora extends Trampa {
     public static final int ANCHO = 50;
     public static final int ALTO = 50; 
     
-    public Inmovilizadora(int x, int y, Image imagen, Asesinable objetivo) {
-        super(x, y, ANCHO, ALTO, imagen, objetivo);
+    public Inmovilizadora(int x, int y, Image imagen, Asesinable objetivo, Notificable notificador) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo, notificador);
     }
 
     @Override

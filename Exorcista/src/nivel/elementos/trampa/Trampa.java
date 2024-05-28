@@ -5,6 +5,7 @@
 package nivel.elementos.trampa;
 
 import interfaces.Asesinable;
+import interfaces.Notificable;
 import java.awt.Image;
 import sprite.Dibujo;
 
@@ -19,11 +20,13 @@ public abstract class Trampa extends Dibujo {
     public static final int TIPO_EMPUJE = 3;
     
     protected Asesinable objetivo;
+    protected Notificable notificador;
     
-    public Trampa(int x, int y, int ancho, int alto, Image imagen, Asesinable objetivo) {
+    public Trampa(int x, int y, int ancho, int alto, Image imagen, Asesinable objetivo, Notificable notificador) {
         super(x, y, ancho, alto, imagen);
         
         this.objetivo = objetivo;
+        this.notificador = notificador;
     }
     
     public abstract void accionar();

@@ -5,6 +5,7 @@
 package nivel.elementos.trampa;
 
 import interfaces.Asesinable;
+import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Random;
@@ -19,8 +20,8 @@ public class Empuje extends Trampa {
     public static final int ANCHO = 50;
     public static final int ALTO = 75; 
     
-    public Empuje(int x, int y, Image imagen, Asesinable objetivo) {
-        super(x, y, ANCHO, ALTO, imagen, objetivo);
+    public Empuje(int x, int y, Image imagen, Asesinable objetivo, Notificable notificador) {
+        super(x, y, ANCHO, ALTO, imagen, objetivo, notificador);
     }
 
     @Override

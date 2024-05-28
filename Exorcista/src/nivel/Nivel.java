@@ -637,6 +637,5 @@ public class Nivel extends Dibujo
                 }
             }, 3000);
         }
-        
     }
 }
