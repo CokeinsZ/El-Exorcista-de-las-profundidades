@@ -103,19 +103,19 @@ public class Angel extends Dibujo {
         int yAnterior = y;
         
         switch (codigo) {
-            case KeyEvent.VK_UP -> {
+            case KeyEvent.VK_W -> {
                 y -= VELOCIDAD;
             }
             
-            case KeyEvent.VK_DOWN -> {
+            case KeyEvent.VK_S -> {
                 y += VELOCIDAD;
             }
             
-            case KeyEvent.VK_RIGHT -> {
+            case KeyEvent.VK_D -> {
                 x += VELOCIDAD;
             }
             
-            case KeyEvent.VK_LEFT -> {
+            case KeyEvent.VK_A -> {
                 x -= VELOCIDAD;
             }
             
