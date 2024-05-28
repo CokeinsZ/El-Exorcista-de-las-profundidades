@@ -20,10 +20,8 @@ import personajes.demonios.*;
 public class FabricaDemonios {
     
     private Image[] imagenes;
-    private int numNivel;
 
-    public FabricaDemonios(Image[] imagenes, int numNivel) {
-        this.numNivel = numNivel;
+    public FabricaDemonios(Image[] imagenes) {
         this.imagenes = imagenes;
     }
     
@@ -43,22 +41,22 @@ public class FabricaDemonios {
             case Demonio.TIPO_FUEGO:
                 x = r.nextInt(bordes.getAncho() - DemonioFuego.ANCHO);
                 y = r.nextInt(bordes.getAlto() - DemonioFuego.ALTO);
-                return new DemonioFuego(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_FUEGO], imagenes[ConstantesComunes.IMAGEN_FUEGO], agregador, tieneLlave, ((numNivel-1)/100) + 1);
+                return new DemonioFuego(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_FUEGO], imagenes[ConstantesComunes.IMAGEN_FUEGO], agregador, tieneLlave);
 
             case Demonio.TIPO_ELECTRICO:
                 x = r.nextInt(bordes.getAncho() - DemonioElectrico.ANCHO);
                 y = r.nextInt(bordes.getAlto() - DemonioElectrico.ALTO);
-                return new DemonioElectrico(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_ELECTRICO], agregador, tieneLlave, ((numNivel-1)/100) + 1);
+                return new DemonioElectrico(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_ELECTRICO], agregador, tieneLlave);
 
             case Demonio.TIPO_SELVATICO:
                 x = r.nextInt(bordes.getAncho() - DemonioSelvatico.ANCHO);
                 y = r.nextInt(bordes.getAlto() - DemonioSelvatico.ALTO);
-                return new DemonioSelvatico(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_SELVATICO], imagenes[ConstantesComunes.IMAGEN_ROCA], agregador, tieneLlave, ((numNivel-1)/100) + 1);
+                return new DemonioSelvatico(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_SELVATICO], imagenes[ConstantesComunes.IMAGEN_ROCA], imagenes[ConstantesComunes.IMAGEN_TORNADO], agregador, tieneLlave);
 
             case Demonio.TIPO_HIELO:
                 x = r.nextInt(bordes.getAncho() - DemonioHielo.ANCHO);
                 y = r.nextInt(bordes.getAlto() - DemonioHielo.ALTO);
-                return new DemonioHielo(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_HIELO], imagenes[ConstantesComunes.IMAGEN_TRAMPA_INMOVILIZADORA], agregador, tieneLlave, ((numNivel-1)/100) + 1);
+                return new DemonioHielo(x, y, bordes, enemigo, notificador, imagenes[ConstantesComunes.IMAGEN_DEMONIO_HIELO], imagenes[ConstantesComunes.IMAGEN_TRAMPA_INMOVILIZADORA], agregador, tieneLlave);
 
         }
         

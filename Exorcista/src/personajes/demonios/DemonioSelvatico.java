@@ -5,12 +5,13 @@
 package personajes.demonios;
 
 import interfaces.Agregable;
-import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import personajes.Angel;
 import personajes.poderDemonios.Roca;
+import personajes.poderDemonios.Tornado;
 
 /**
  *
@@ -21,15 +22,17 @@ public class DemonioSelvatico extends Demonio{
     public static final int ALTO = 98; 
     
     private Image imagenRoca;
+    private Image imagenTornado;
     
-    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Asesinable enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Agregable agregador, boolean tieneLlave, double multiplicadorDaño) {
+    public DemonioSelvatico(int posX, int posY, Delimitable bordes, Angel enemigo, Notificable notificador, Image imagenDemonio, Image imagenRoca, Image imagenTornado, Agregable agregador, boolean tieneLlave) {
         super(posX, posY, ANCHO, ALTO, bordes, enemigo, notificador, imagenDemonio, agregador, tieneLlave);
         
         vida = 7;
-        daño = 2 * multiplicadorDaño;
+        daño = 2;
         velocidad = 0;
         
         this.imagenRoca = imagenRoca;
+        this.imagenTornado = imagenTornado;
     }
 
     @Override
@@ -41,11 +44,23 @@ public class DemonioSelvatico extends Demonio{
     public void crearRocas() {
         
         Roca nuevoRoca = new Roca(this.x, this.y, imagenRoca, notificador,enemigo);
+        nuevoRoca.setObjetivoX((int) enemigo.getX());
+        nuevoRoca.setObjetivoY((int) enemigo.getY());
 
         agregador.agregarRoca(nuevoRoca);
-    
-    }
 
+        //nuevoRayo.moverRayo(x, y);
+    
+        
+    }
+    
+    public void crearTornado(){
+        
+        Tornado tornadoNuevo = new Tornado(x, y, imagenTornado, notificador, enemigo);
+        agregador.agregarTornado(tornadoNuevo);
+        notificador.notificarCambios(daño);
+        
+    }
 
     @Override
     public void atacar() {
@@ -56,13 +71,14 @@ public class DemonioSelvatico extends Demonio{
     }
 
     @Override
-    public void accionEspecial() {
-
-        crearRocas();
+    public void seguirAngel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void seguirEnemigo() {
+    public void accionEspecial() {
+
+        crearRocas();
     }
 
 }

@@ -5,7 +5,6 @@
 package personajes;
 
 import interfaces.Agregable;
-import interfaces.Asesinable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
@@ -19,13 +18,13 @@ import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 import java.util.Timer;
 import java.util.TimerTask;
+import static personajes.poderDemonios.Roca.DAÑO;
 
 /**
  *
  * @author Alejandro
  */
-public class Angel extends Dibujo 
-                   implements Asesinable {
+public class Angel extends Dibujo {
     
     public final static int ANCHO = 78;
     public final static int ALTO = 95;
@@ -33,7 +32,7 @@ public class Angel extends Dibujo
     public final int VELOCIDAD = 10;
     public static final int DAÑO = 1;
     
-    private double vida;
+    private float vida;
     private int energia;
     private int energiaMaxima;
     private Potenciador[] potenciadores;
@@ -98,7 +97,7 @@ public class Angel extends Dibujo
     public boolean mover(int codigo) {
         if (estaParalizado)
             return false;
-                        
+                
         int xAnterior = x;
         int yAnterior = y;
         
@@ -132,7 +131,7 @@ public class Angel extends Dibujo
         return true;
     }
     
-    public void recibirImpacto(double daño) {
+    public void recibirImpacto(int daño) {
         this.vida -= daño;
         
         if (vida <= 0)
@@ -157,7 +156,6 @@ public class Angel extends Dibujo
         nuevoRayo.setObjetivoY(y);
             
         agregador.agregarRayo(nuevoRayo);
-        notificador.notificarCambios(Notificable.EVENTO_LANZAR_RAYO);
         
        //nuevoRayo.moverRayo(x, y);
         energia = energia==0 ?0 :energia-1;
@@ -182,7 +180,7 @@ public class Angel extends Dibujo
         energiaMaxima += almasLiberadas % 3;
     }
 
-    public double getVida() {
+    public float getVida() {
         return vida;
     }
 
@@ -244,6 +242,32 @@ public class Angel extends Dibujo
         return energia > 0;
     }
 
+    
+    public void seguirPunto(int tornadoX, int tornadoY) {
+        
+        // Calcular la distancia en cada eje
+        double deltaX = tornadoX - this.x;
+        double deltaY = tornadoY - this.y;
+
+        // Calcular la distancia total
+        double distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Calcular las proporciones de movimiento
+        double proporcionX = deltaX / distancia;
+        double proporcionY = deltaY / distancia;
+
+        // Calcular los nuevos valores de x e y basados en la velocidad y las proporciones
+        if (distancia > 3) {
+            this.x += proporcionX * 3;
+            this.y += proporcionY * 3;
+        } else {
+            // Si estamos cerca del objetivo, mover directamente al objetivo
+            this.x = tornadoX;
+            this.y = tornadoY;
+        }
+
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
+    }
     
     
 }
