@@ -103,4 +103,12 @@ public class DemonioElectrico extends Demonio {
     }
 
     
+    public void lanzarRayo(){
+        
+        
+        
+      
+    }
+    
+   
 }
