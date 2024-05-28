@@ -158,7 +158,7 @@ public class Angel extends Dibujo
             
         agregador.agregarRayo(nuevoRayo);
         
-       //nuevoRayo.moverRayo(x, y);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_RAYO);
         energia = energia==0 ?0 :energia-1;
     }
     
