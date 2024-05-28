@@ -9,6 +9,8 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import nivel.elementos.trampa.Inmovilizadora;
@@ -56,40 +58,46 @@ public class DemonioHielo extends Demonio{
         enemigo.recibirImpacto(daño);
         iniciarEnfriamiento();
     }
-
-    @Override
-    public void mover() {
-
-        if (x >= bordes.getXMax(y) - ANCHO && y <= bordes.getYMax(x) - ALTO) {
-            // Mover hacia abajo si estamos en el borde derecho y no hemos llegado al borde inferior
-            y += velocidad;
+    
+    private void cambiarDireccion() {
+        Random r = new Random();
+        direccion = r.nextInt(37, 41);
+    }
+    
+    public void mover() {        
+        int xAnterior = x;
+        int yAnterior = y;
+        
+        switch (direccion) {
+            case KeyEvent.VK_UP -> {
+                y -= velocidad;
+            }
             
-        } else if (y >= bordes.getYMax(x) - ALTO && x >= bordes.getXMin(y)) {
-            // Mover hacia la izquierda si estamos en el borde inferior y no hemos llegado al borde izquierdo
-            x -= velocidad;
+            case KeyEvent.VK_DOWN -> {
+                y += velocidad;
+            }
             
-        } else if (x <= bordes.getXMin(y) && y >= bordes.getYMin(x)) {
-            // Mover hacia arriba si estamos en el borde izquierdo y no hemos llegado al borde superior
-            y -= velocidad;
+            case KeyEvent.VK_RIGHT -> {
+                x += velocidad;
+            }
             
-        } else {
-            // Mover hacia la derecha si estamos en el borde superior o si no estamos en ningún borde
-            x += velocidad;
+            case KeyEvent.VK_LEFT -> {
+                x -= velocidad;
+            }
+            
         }
         
-        if(enemigo.intersects(this)){
-            atacar(); 
+        if (bordes.tocaBorde(this)) {
+            revertirMovimiento(xAnterior, yAnterior);
+            cambiarDireccion();
         }
         
-        /*
-        // Reducir los bordes después de cada vuelta
-        bordes.setXMax(bordes.getXMax(y) - VELOCIDAD);
-        bordes.setXMin(bordes.getXMin(y) + VELOCIDAD);
-        bordes.setYMax(bordes.getYMax(x) - VELOCIDAD);
-        bordes.setYMin(bordes.getYMin(x) + VELOCIDAD);
-        */
-
         notificador.notificarCambios();
+    }
+    
+    public void revertirMovimiento(int xAnterior, int yAnterior) {
+        this.x = xAnterior;
+        this.y = yAnterior;
     }
     
     public void ponerTrampa() {
