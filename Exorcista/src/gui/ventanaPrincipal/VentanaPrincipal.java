@@ -267,7 +267,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_formKeyPressed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-         mazmorra.manejarClick(evt, getGraphics());
+         mazmorra.manejarClick(evt);
     }//GEN-LAST:event_formMousePressed
 
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
@@ -275,7 +275,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_jPanel1KeyPressed
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-         mazmorra.manejarClick(evt, getGraphics());
+         mazmorra.manejarClick(evt);
     }//GEN-LAST:event_jPanel1MousePressed
 
     @Override

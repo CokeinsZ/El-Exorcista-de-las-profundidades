@@ -4,7 +4,6 @@
  */
 package personajes;
 
-import control.HiloMovimientoRayo;
 import interfaces.Agregable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
@@ -51,9 +50,7 @@ public class Angel extends Dibujo {
     private ArrayList<Boolean> llavesCofres;
     
     private Rectangle areaAtaque;
-    
-    private HiloMovimientoRayo hilorayo;
-    
+        
     private boolean estaParalizado;
                 
     public Angel(int x, int y, Image imagenAngel, Image imagenRayo, Notificable notificador) {
@@ -76,11 +73,6 @@ public class Angel extends Dibujo {
         
         this.estaParalizado  = false;
         this.llavesCofres = new ArrayList<>();
-    }
-    
-    public void setHiloMovimientoRayos(ArrayList<Rayo> rayos) {
-        hilorayo = new HiloMovimientoRayo(rayos);
-        hilorayo.start(); 
     }
         
     @Override
@@ -153,11 +145,7 @@ public class Angel extends Dibujo {
         this.agregador = agregador;
     }
     
-    public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
-        if(energia <= 0){
-                return;
-        }
-        
+    public void lanzarRayos(int x, int y) {        
         Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador); 
         nuevoRayo.setObjetivoX(x);
         nuevoRayo.setObjetivoY(y);
@@ -165,7 +153,7 @@ public class Angel extends Dibujo {
         agregador.agregarRayo(nuevoRayo);
         
        //nuevoRayo.moverRayo(x, y);
-        energia--;
+        energia = energia==0 ?0 :energia-1;
     }
     
     public void setVerificable(Verificable verificador){
@@ -219,6 +207,8 @@ public class Angel extends Dibujo {
         if (contadorPotenciadores >= 3)
             return;
         
+        potenciador.setAngel(this);
+        
         potenciadores[contadorPotenciadores] = potenciador;
         contadorPotenciadores++;
     }
@@ -226,6 +216,27 @@ public class Angel extends Dibujo {
     public boolean tieneLlaves() {
         return llavesCofres.contains(true);
     }
+
+    public void recuperarVida() {
+        if (vida >= 80)
+            recargarEnergia();
+        
+        this.vida += 20;
+    }
+
+    public void accionarPotenciador() {
+        if (contadorPotenciadores <= 0)
+            return;
+        
+        potenciadores[contadorPotenciadores-1].accionar(bordes);
+        potenciadores[contadorPotenciadores-1] = null;
+        contadorPotenciadores--;
+    }
+
+    public boolean tineEnergia() {
+        return energia > 0;
+    }
+
     
     
 }

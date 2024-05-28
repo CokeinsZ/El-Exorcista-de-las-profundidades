@@ -78,12 +78,14 @@ public class Mazmorra extends Dibujo
         } else if (codigo == KeyEvent.VK_F) {
             niveles.get(numNivel-1).angelAtacar();
             
+        } else if (codigo == KeyEvent.VK_SPACE) {
+            angel.accionarPotenciador();
         }
     }
 
-    public void manejarClick(MouseEvent evt, Graphics g) {
+    public void manejarClick(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1)
-            niveles.get(numNivel-1).lanzarRayo(g, evt.getX(), evt.getY());
+            niveles.get(numNivel-1).lanzarRayo(evt.getX(), evt.getY());
         
     }
 

@@ -7,7 +7,6 @@ package nivel;
 import control.HiloCreacionDemonios;
 import control.HiloFuncionesEspeciales;
 import control.HiloMovimiento;
-import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.Agregable;
 import interfaces.ConstantesComunes;
@@ -17,7 +16,6 @@ import interfaces.Verificable;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import nivel.elementos.cofre.Cofre;
@@ -487,8 +485,11 @@ public class Nivel extends Dibujo
         return yMax;
     }
 
-    public void lanzarRayo(Graphics g, int x, int y) {
-        angel.lanzarRayos(g, x, y);
+    public void lanzarRayo(int x, int y) {
+        if (!angel.tineEnergia())
+            return;
+        
+        angel.lanzarRayos(x, y);
 
     }
 
