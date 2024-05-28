@@ -98,7 +98,7 @@ public class Angel extends Dibujo
     public boolean mover(int codigo) {
         if (estaParalizado)
             return false;
-                
+                        
         int xAnterior = x;
         int yAnterior = y;
         

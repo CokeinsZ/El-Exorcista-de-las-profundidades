@@ -175,7 +175,11 @@ public class Mazmorra extends Dibujo
     }
 
     public Nivel getNivelActual() {
-        return niveles.get(numNivel-1);
+        try {
+            return niveles.get(numNivel-1);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     @Override

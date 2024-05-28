@@ -25,11 +25,12 @@ public class Empuje extends Trampa {
 
     @Override
     public void accionar() {
+        int[] direcciones = new int[] {65, 68, 83, 87};
         Random r = new Random();
-        int direccion = r.nextInt(37, 41);
+        int direccion = r.nextInt(0, 4);
         
         for (int i = 0; i < 15; i++) {
-            objetivo.mover(direccion);
+            objetivo.mover(direcciones[direccion]);
         }
     }
 

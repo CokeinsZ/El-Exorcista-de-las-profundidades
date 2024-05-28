@@ -417,6 +417,10 @@ public class VentanaPrincipal extends javax.swing.JFrame
             lPotenciadores.setText(lPotenciadores.getText() + ", " + p.toString());
         }
         
+        if (mazmorra.getNivelActual() == null) {
+            cargarInformacion();
+            return;
+        }
         lNumNivel.setText("" + mazmorra.getNivelActual().getNumNivel());
         lDemoniosRestantes.setText("" + mazmorra.getNivelActual().getDemoniosRestantes());
     }
