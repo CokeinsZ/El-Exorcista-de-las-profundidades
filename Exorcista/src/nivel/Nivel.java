@@ -409,53 +409,90 @@ public class Nivel extends Dibujo
         
         for (int i = 0; i < rayos.size(); i++) {
             Rayo rayo = rayos.get(i);
+            if(rayo == null){
+                continue;
+            }
             rayo.dibujar(g);
             
         }
 
         for (int i = 0; i < cofres.size(); i++) {
             Cofre cofre = cofres.get(i);
+            if(cofre == null){  
+                continue;
+            }
             cofre.dibujar(g);
         }
         
         for (int i = 0; i < potenciadores.size(); i++) {
             Potenciador potenciador = potenciadores.get(i);
+            if(potenciador == null){
+                continue;
+            }
             potenciador.dibujar(g);
         }
         
         for (int i = 0; i < llavesCofres.size(); i++) {
             Llave llave = llavesCofres.get(i);
+            if(llave==null){
+                continue;
+            }
             llave.dibujar(g);
             
         }
 
         for (int i = 0; i < almas.size(); i++) {
             Alma alma = almas.get(i);
+            if(alma == null){
+                continue;
+            }
             alma.dibujar(g);
         }
 
         for (int i = 0; i < trampas.size(); i++) {
             Trampa trampa = trampas.get(i);
+            if(trampa == null){
+                continue;
+            }
             trampa.dibujar(g);
         }
 
         for (int i = 0; i < demonios.size(); i++) {
             Demonio demonio = demonios.get(i);
+            if(demonio == null){
+                continue;
+            }
             demonio.dibujar(g);
         }
         
         for (int i = 0; i < tornados.size(); i++) {
             Tornado tornado = tornados.get(i);
+            if(tornado == null){
+                
+                continue;
+                
+            }
             tornado.dibujar(g);
         }
         
         for (int i = 0; i < rocas.size(); i++) {
             Roca roca = rocas.get(i);
+            if(roca == null){
+                
+                continue;
+            }
+            
             roca.dibujar(g);
         }
         
         for (int i = 0; i < fuegos.size(); i++) {
             Fuego fuego = fuegos.get(i);
+            
+            if(fuego == null){
+                
+                continue;
+            }
+            
             fuego.dibujar(g);
         }
 

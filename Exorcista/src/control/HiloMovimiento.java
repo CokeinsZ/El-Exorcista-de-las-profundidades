@@ -68,6 +68,8 @@ public class HiloMovimiento extends Thread implements Runnable {
             synchronized(rocas){
                 for (int i = 0; i < rocas.size(); i++) {
                     Roca nuevoRoca = rocas.get(i);
+                    if(nuevoRoca == null)
+                        continue;
                     boolean control = nuevoRoca.seguirPunto();
                     if (control) {
                         rocas.remove(nuevoRoca);
@@ -78,6 +80,8 @@ public class HiloMovimiento extends Thread implements Runnable {
             synchronized(fuegos){ 
                 for (int i = 0; i < fuegos.size(); i++) {
                     Fuego fuegoNuevo = fuegos.get(i);
+                    if(fuegoNuevo == null)
+                        continue;
                     boolean control = fuegoNuevo.seguirPunto();
                     if(control){
                         fuegos.remove(fuegoNuevo);
@@ -89,6 +93,8 @@ public class HiloMovimiento extends Thread implements Runnable {
             synchronized(tornados){ 
                 for (int i = 0; i < tornados.size(); i++) {
                     Tornado tornadoNuevo = tornados.get(i);
+                    if(tornadoNuevo == null)
+                        continue;
                     if(tornadoNuevo== null){
                         continue;
                     }
