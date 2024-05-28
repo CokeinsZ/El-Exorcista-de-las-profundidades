@@ -4,7 +4,9 @@
  */
 package nivel.elementos.cofre.potenciadores;
 
+import interfaces.Delimitable;
 import java.awt.Image;
+import personajes.Angel;
 import sprite.Dibujo;
 
 /**
@@ -17,10 +19,18 @@ public abstract class Potenciador extends Dibujo {
     
     public static final int ANCHO = 100;
     public static final int ALTO = 100;
+    
+    protected Angel angel;
 
     public Potenciador(int x, int y, Image imagen) {
         super(x, y, ANCHO, ALTO, imagen);
     }
+    
+    public void setAngel(Angel angel) {
+        this.angel = angel;
+    }
+    
+    public abstract void accionar(Delimitable bordes);
 
     
     

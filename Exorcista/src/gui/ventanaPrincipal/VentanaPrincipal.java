@@ -1,18 +1,18 @@
-
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package gui.ventanaPrincipal;
 
 import control.Mazmorra;
+import interfaces.ConstantesComunes;
+import interfaces.Notificable;
 import interfaces.Refrescable;
-import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
@@ -34,73 +34,64 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private Mazmorra mazmorra;
     
     private BufferedImage buffer;
-    
-    private Clip[] sonidos;
-    
-    
+
     public void setMazmorra(Mazmorra mazmorra) {
         this.mazmorra = mazmorra;
     }
     
-
+    private Clip[] sonidos;
+    
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal(int ancho, int alto) throws UnsupportedAudioFileException, IOException {
-    mazmorra = null;
-    setSize(ancho, alto);
-
-    buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
-
-    initComponents();
-    ponerIconos();
-
-    sonidos = new Clip[10];
-
-    cargarSonidos(); // Método auxiliar para cargar todos los sonidos
-}
-
-private void cargarSonidos() throws UnsupportedAudioFileException, IOException {
-    String[] rutasSonidos = {
+        mazmorra = null;
+        setSize(ancho, alto);
         
-        "Sonidos/MuerteDemonioFueg.wav",
-        "Sonidos/MuerteDemonioElec.wav",
-        "Sonidos/MuerteDemonio_1.wav",
+        buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
         
+        sonidos = new Clip[20];
         
-        
-        
-        // ... (Rutas de los demás sonidos)
-    };
-
-    for (int i = 0; i < rutasSonidos.length; i++) {
-        cargarSonido(rutasSonidos[i], i);
-    }
-}
-
-private void cargarSonido(String rutaSonido, int indice) throws UnsupportedAudioFileException, IOException {
-    try (AudioInputStream stream = AudioSystem.getAudioInputStream(new File(rutaSonido))) {
-        Clip clip = AudioSystem.getClip();
-        clip.open(stream);
-        sonidos[indice] = clip;
-    } catch (LineUnavailableException ex) {
-        Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        // Implementar mecanismo para notificar al usuario
-    }
-}
-
-        
-  
+        cargarSonidos();
+        initComponents();
+        ponerIconos();
     
+    }
+    
+    private void cargarSonidos() throws UnsupportedAudioFileException, IOException {
+        String[] rutasSonidos = {
+            "Sonidos/MuerteDemonio_1.wav",
+            "Sonidos/LanzarRayoAngel.wav",
+            "Sonidos/LanzarBolaFuego.wav",
+
+
+            // ... (Rutas de los demás sonidos)
+        };
+
+        for (int i = 0; i < rutasSonidos.length; i++) {
+            cargarSonido(rutasSonidos[i], i);
+        }
+    }
+
+    private void cargarSonido(String rutaSonido, int indice) throws UnsupportedAudioFileException, IOException {
+        try (AudioInputStream stream = AudioSystem.getAudioInputStream(new File(rutaSonido))) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(stream);
+            sonidos[indice] = clip;
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            // Implementar mecanismo para notificar al usuario
+        }
+    }
     
     private void ponerIconos() {
-    jLabel2.setIcon(new ImageIcon("imagenes/Iconos/Vidas.png"));
-    jLabel3.setIcon(new ImageIcon("imagenes/Iconos/Energía.png"));
-    jLabel6.setIcon(new ImageIcon("imagenes/Iconos/Almas Liberadas.png"));
-    jLabel7.setIcon(new ImageIcon("imagenes/Iconos/Potenciadores.png"));
-    jLabel10.setIcon(new ImageIcon("imagenes/Iconos/Número de niveles.png"));
-    jLabel11.setIcon(new ImageIcon("imagenes/Iconos/Demonios Restantes.png"));
-}
+        jLabel2.setIcon(new ImageIcon("imagenes/Iconos/Vidas.png"));
+        jLabel3.setIcon(new ImageIcon("imagenes/Iconos/Energía.png"));
+        jLabel6.setIcon(new ImageIcon("imagenes/Iconos/Almas Liberadas.png"));
+        jLabel7.setIcon(new ImageIcon("imagenes/Iconos/Potenciadores.png"));
+        jLabel10.setIcon(new ImageIcon("imagenes/Iconos/Número de niveles.png"));
+        jLabel11.setIcon(new ImageIcon("imagenes/Iconos/Demonios Restantes.png"));
+    }
 
     
     @SuppressWarnings("unchecked")
@@ -315,7 +306,7 @@ private void cargarSonido(String rutaSonido, int indice) throws UnsupportedAudio
     }//GEN-LAST:event_formKeyPressed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-         mazmorra.manejarClick(evt, getGraphics());
+         mazmorra.manejarClick(evt);
     }//GEN-LAST:event_formMousePressed
 
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
@@ -323,15 +314,76 @@ private void cargarSonido(String rutaSonido, int indice) throws UnsupportedAudio
     }//GEN-LAST:event_jPanel1KeyPressed
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-         mazmorra.manejarClick(evt, getGraphics());
+         mazmorra.manejarClick(evt);
     }//GEN-LAST:event_jPanel1MousePressed
 
     @Override
-    public void refrescar() {
+    public void refrescar(int cambio) {
         cargarInformacion();
-        
+
+        switch (cambio) {
+            case Notificable.EVENTO_MUERTE_DEMONIO:
+                reproducirSonido(ConstantesComunes.SONIDO_MUERTE_DEMONIO);
+                break;
+            case Notificable.EVENTO_MUERTE_ANGEL:
+                // Código para manejar el evento de muerte de ángel
+                break;
+            case Notificable.EVENTO_LANZAR_RAYO:
+                reproducirSonido(ConstantesComunes.SONIDO_LANZAR_RAYO);
+                break;
+            case Notificable.EVENTO_LANZAR_FUEGO:
+                reproducirSonido(ConstantesComunes.SONIDO_LANZAR_FUEGO);
+                break;
+            case Notificable.EVENTO_LANZAR_ROCA:
+                // Código para manejar el evento de lanzar roca
+                break;
+            case Notificable.EVENTO_FIN_NIVEL:
+                // Código para manejar el evento de fin de nivel
+                break;
+            case Notificable.EVENTO_COFRE_ABIERTO:
+                // Código para manejar el evento de cofre abierto
+                break;
+            case Notificable.EVENTO_TORNADO:
+                // Código para manejar el evento de tornado
+                break;
+            case Notificable.EVENTO_NUEVA_MINA:
+                // Código para manejar el evento de nueva mina
+                break;
+            case Notificable.EVENTO_ACTIVACION_MINA:
+                // Código para manejar el evento de activación de mina
+                break;
+            case Notificable.EVENTO_ACTIVACION_INMOVILIZADOR:
+                // Código para manejar el evento de activación de inmovilizador
+                break;
+            case Notificable.EVENTO_ACTIVACION_AGUJERO:
+                // Código para manejar el evento de activación de agujero
+                break;
+            case Notificable.EVENTO_POTENCIADOR_VIDA:
+                // Código para manejar el evento de potenciador de vida
+                break;
+            case Notificable.EVENTO_POTENCIADOR_ATAQUE:
+                // Código para manejar el evento de potenciador de ataque
+                break;
+            default:
+                // Código para manejar cualquier otro caso
+                break;
+        }
+
         repaint();
     }
+
+    private void reproducirSonido(int indice) {
+        try {
+            if (sonidos[indice] != null) {
+                sonidos[indice].stop();
+                sonidos[indice].setFramePosition(0);
+                sonidos[indice].start();
+            }
+        } catch (Exception e) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
@@ -383,7 +435,8 @@ private void cargarSonido(String rutaSonido, int indice) throws UnsupportedAudio
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (InterruptedException ex) {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+            
+        }
+        
     }
 }

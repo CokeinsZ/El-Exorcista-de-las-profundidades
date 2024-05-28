@@ -7,17 +7,14 @@ package nivel;
 import control.HiloCreacionDemonios;
 import control.HiloFuncionesEspeciales;
 import control.HiloMovimiento;
-import control.HiloMovimientoDemonios;
 import herramientas.FabricaDemonios;
 import interfaces.Agregable;
 import interfaces.ConstantesComunes;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import nivel.elementos.cofre.Cofre;
@@ -34,6 +31,7 @@ import sprite.Dibujo;
   import java.util.Iterator;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import nivel.elementos.pared.Suelo;
+import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
 
 
@@ -61,6 +59,7 @@ public class Nivel extends Dibujo
     private ArrayList<Demonio> demonios;
     private ArrayList<Rayo> rayos;
     private ArrayList<Roca> rocas;
+    private ArrayList<Fuego> fuegos;
     private ArrayList<Suelo> suelos;
     
     private Notificable notificador;
@@ -97,6 +96,7 @@ public class Nivel extends Dibujo
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
+        this.fuegos = new ArrayList<>();
         
         demonios = new ArrayList<>();
         
@@ -112,7 +112,7 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
                 
-        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas);
+        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos);
         hiloMovimiento.start();
                  
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
@@ -230,6 +230,7 @@ public class Nivel extends Dibujo
         Iterator<Trampa> iteradorTrampas = trampas.iterator();
         Iterator<Alma> iteradorAlmas = almas.iterator();
         Iterator<Cofre> iteradorCofres = cofres.iterator();
+        //Iterator<Suelo> iteradorSuelos = suelos.iterator();
         
         while (iteradorParedes.hasNext()) {
             //El iterador nos ayuda a recorrer todo los arreglos para así verificar la colisión del demonio con cualquier otro objeto sobre el nivel
@@ -291,7 +292,7 @@ public class Nivel extends Dibujo
         if(movimientoAngel){  
             verificarColisionAngel(xAnterior, yAnterior);
             
-            notificador.notificarCambios();
+            notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
         }
         
     }
@@ -356,7 +357,7 @@ public class Nivel extends Dibujo
     }
     
     @Override
-    public void dibujar(Graphics2D g) {
+    public void dibujar(Graphics2D g) {           
         for (int i = 0; i < suelos.size(); i++) {
             Suelo suelo = suelos.get(i);
             suelo.dibujar(g);
@@ -412,16 +413,62 @@ public class Nivel extends Dibujo
             Roca roca = rocas.get(i);
             roca.dibujar(g);
         }
+        
+        for (int i = 0; i < fuegos.size(); i++) {
+            Fuego fuego = fuegos.get(i);
+            fuego.dibujar(g);
+        }
 
         angel.dibujar(g);
 
         if (llaveFinNivel != null) {
             llaveFinNivel.dibujar(g);
         }
-        
-       
     }
 
+    public void lanzarRayo(int x, int y) {
+        if (!angel.tineEnergia())
+            return;
+        
+        angel.lanzarRayos(x, y);
+
+    }
+
+    private void eliminarDemonio(Demonio demonio) {
+        if(demonio.tieneLlave())
+            crearLlaveCofre((int)demonio.getX(), (int)demonio.getY());
+        
+        if(getDemoniosRestantes() == 1)
+            crearLlaveFinNivel((int) puerta.getX(), (int) puerta.getY()-100);
+        
+        demonios.remove(demonio);       
+        notificador.notificarCambios(Notificable.EVENTO_MUERTE_DEMONIO);
+    }
+
+    @Override
+    public boolean verificarColision(Rayo rayo) {
+        synchronized (demonios) { // sincroniza el acceso a la lista de demonios
+            Iterator<Demonio> demonioIterator = demonios.iterator();
+            while (demonioIterator.hasNext()) {
+                Demonio demonio = demonioIterator.next();
+                if (demonio.intersects(rayo)) {
+                    if (demonio.recibirImapcto(Angel.DAÑO)) {
+                        eliminarDemonio(demonio);
+                    }
+                    return true;
+                }
+            }
+        }
+
+        for (int i = 0; i < paredes.size(); i++) {
+            if (paredes.get(i).intersects(rayo)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
     @Override
     public int getXMin(int y) {
         int xMin = Integer.MAX_VALUE;
@@ -497,46 +544,6 @@ public class Nivel extends Dibujo
         return yMax;
     }
 
-    public void lanzarRayo(Graphics g, int x, int y) {
-        angel.lanzarRayos(g, x, y);
-
-    }
-
-    private void eliminarDemonio(Demonio demonio) {
-        if(demonio.tieneLlave())
-            crearLlaveCofre((int)demonio.getX(), (int)demonio.getY());
-        
-        if(getDemoniosRestantes() == 1)
-            crearLlaveFinNivel((int) puerta.getX()-50, (int) puerta.getY());
-        
-        demonios.remove(demonio);       
-        notificador.notificarCambios();
-    }
-
-    @Override
-    public boolean verificarColision(Rayo rayo) {
-        synchronized (demonios) { // sincroniza el acceso a la lista de demonios
-            Iterator<Demonio> demonioIterator = demonios.iterator();
-            while (demonioIterator.hasNext()) {
-                Demonio demonio = demonioIterator.next();
-                if (demonio.intersects(rayo)) {
-                    if (demonio.recibirImapcto(Angel.DAÑO)) {
-                        eliminarDemonio(demonio);
-                    }
-                    return true;
-                }
-            }
-        }
-
-        for (int i = 0; i < paredes.size(); i++) {
-            if (paredes.get(i).intersects(rayo)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private void crearLlaveFinNivel(int x, int y) {        
         llaveFinNivel = new Llave(x, y, imagenes[ConstantesComunes.IMAGEN_LLAVE_PUERTA]);        
         
@@ -581,16 +588,29 @@ public class Nivel extends Dibujo
     public void agregarRoca(Roca rocaNueva) {
         rocas.add(rocaNueva);
     }
+    
+    @Override
+    public void agregarFuego(Fuego fuegonuevo){
+        
+        fuegos.add(fuegonuevo);
+        
+    }
 
     public void detener() throws java.lang.InterruptedException {
         hiloMovimiento.detenerHilo();
         hiloEspecial.detenerHilo();
     }
-    
-    public void agregarSuelo (Suelo sueloNuevo){
-        suelos.add(sueloNuevo);
+
+    @Override
+    public boolean tocaBorde(Dibujo objeto) {
+        for (Pared pared : paredes) {
+            if (pared.intersects(objeto))
+                return true;
+        }
         
+        if(puerta.intersects(objeto))
+            return true;
         
+        return false;
     }
-    
 }

@@ -65,54 +65,50 @@ public class FabricaNivel {
         int x = 0;
         int y = 100;
         // Dentro del bucle while
-while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {
-    boolean iniciaForma = false;
-    for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
-        char caracterActual = linea.charAt(posCaracter);
+        while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {
+            boolean iniciaForma = false;
+            for (int posCaracter = 0; posCaracter < linea.length(); posCaracter++) {
+                char caracterActual = linea.charAt(posCaracter);
 
-        if (caracterActual == '#')
-            iniciaForma = cambiarBooleano(iniciaForma);
-        
-        if (iniciaForma) {
-            suelos.add(agregarSuelo(x, y));
-        }
-        
-        switch (linea.charAt(posCaracter)) {
+                if (caracterActual == '#')
+                    iniciaForma = cambiarBooleano(iniciaForma);
+
+                if (iniciaForma) {
+                    suelos.add(agregarSuelo(x, y));
+                }
+
+                switch (linea.charAt(posCaracter)) {
                     case '$':
                         cofres.add(crearCofre(x, y));
                         break;
-                    
+
                     case '!':
                         almas.add(crearAlma(x , y));
                         break;
-                        
+
                     case '*':
                         trampas.add(crearTrampa(x, y, angel));
                         break;
-                    
+
                     case '#':
                         paredes.add(crearPared(x, y));
                         break;         
-                        
+
                     case 'P':
                         puerta = crearPuerta(x, y);
                         break;
-                        
+
                     default:
                         break;
                 }
-        
 
-        x += Pared.ANCHO;
-    }
+                x += Pared.ANCHO;
+            }
 
-    y += Pared.ALTO;
-    x = 0;
-}
+            y += Pared.ALTO;
+            x = 0;
+        }
 
-
-        
-        
         int ancho = calcularAnchoNivel(paredes);
         int alto = calcularAltoNivel(paredes);
         
@@ -130,7 +126,7 @@ while ((linea = lector.leerLinea()) != null && linea.isBlank() == false) {
     
     public Suelo agregarSuelo(int x, int y) {
         
-        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO3]);
+        Suelo imagenSuelo = new Suelo(x, y, imagenes[ConstantesComunes.IMAGEN_SUELO2]);
 
         
         return imagenSuelo;

@@ -78,12 +78,14 @@ public class Mazmorra extends Dibujo
         } else if (codigo == KeyEvent.VK_F) {
             niveles.get(numNivel-1).angelAtacar();
             
+        } else if (codigo == KeyEvent.VK_SPACE) {
+            angel.accionarPotenciador();
         }
     }
 
-    public void manejarClick(MouseEvent evt, Graphics g) {
+    public void manejarClick(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1)
-            niveles.get(numNivel-1).lanzarRayo(g, evt.getX(), evt.getY());
+            niveles.get(numNivel-1).lanzarRayo(evt.getX(), evt.getY());
         
     }
 
@@ -105,8 +107,8 @@ public class Mazmorra extends Dibujo
     }
 
     @Override
-    public void notificarCambios() {
-        refrescador.refrescar();
+    public void notificarCambios(int cambio) {
+        refrescador.refrescar(cambio);
     }
 
     public void cargarTodasImagenes() throws IOException {
@@ -148,9 +150,6 @@ public class Mazmorra extends Dibujo
         
         imagenes[21] = ImageIO.read(new File("imagenes\\suelo\\suelof.jpeg"));
         imagenes[22] = ImageIO.read(new File("imagenes\\suelo\\suelo2.png"));
-        imagenes [27] = ImageIO.read(new File("imagenes\\suelo\\Suelooo.png"));
-        
-        
         
     }
 
@@ -195,5 +194,8 @@ public class Mazmorra extends Dibujo
 
         niveles = new ArrayList<>();
         agregarNivel(); //Agrega el primer nivel
-    }   
+    }
+
+    
+    
 }

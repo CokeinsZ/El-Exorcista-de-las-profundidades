@@ -4,19 +4,16 @@
  */
 package personajes;
 
-import control.HiloMovimientoRayo;
 import interfaces.Agregable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
-import java.awt.Graphics;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import nivel.elementos.pared.Pared;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 import java.util.Timer;
@@ -51,9 +48,7 @@ public class Angel extends Dibujo {
     private ArrayList<Boolean> llavesCofres;
     
     private Rectangle areaAtaque;
-    
-    private HiloMovimientoRayo hilorayo;
-    
+        
     private boolean estaParalizado;
                 
     public Angel(int x, int y, Image imagenAngel, Image imagenRayo, Notificable notificador) {
@@ -76,11 +71,6 @@ public class Angel extends Dibujo {
         
         this.estaParalizado  = false;
         this.llavesCofres = new ArrayList<>();
-    }
-    
-    public void setHiloMovimientoRayos(ArrayList<Rayo> rayos) {
-        hilorayo = new HiloMovimientoRayo(rayos);
-        hilorayo.start(); 
     }
         
     @Override
@@ -107,31 +97,37 @@ public class Angel extends Dibujo {
         if (estaParalizado)
             return false;
                 
-        boolean seMovio = false;
+        int xAnterior = x;
+        int yAnterior = y;
         
-        if (codigo == KeyEvent.VK_UP && y >= bordes.getYMin(x)){
-            y -= VELOCIDAD;
-            seMovio = true;
+        switch (codigo) {
+            case KeyEvent.VK_UP -> {
+                y -= VELOCIDAD;
+            }
+            
+            case KeyEvent.VK_DOWN -> {
+                y += VELOCIDAD;
+            }
+            
+            case KeyEvent.VK_RIGHT -> {
+                x += VELOCIDAD;
+            }
+            
+            case KeyEvent.VK_LEFT -> {
+                x -= VELOCIDAD;
+            }
+            
         }
+
         
-        if (codigo == KeyEvent.VK_DOWN && y <= bordes.getYMax(x) - Pared.ALTO) {
-            y += VELOCIDAD;
-            seMovio = true;
-        }
-            
-        if (codigo == KeyEvent.VK_RIGHT && x <= bordes.getXMax(y) - Pared.ANCHO) {
-            x += VELOCIDAD;
-            seMovio = true;
-        }
-            
-        if (codigo == KeyEvent.VK_LEFT && x >= bordes.getXMin(y)) {
-            x -= VELOCIDAD;
-            seMovio = true;
+        if (bordes.tocaBorde(this)) {
+            revertirMovimiento(xAnterior, yAnterior);
+            return false;
         }
         
         areaAtaque.setLocation(x-10, y-10);
-       
-        return seMovio;
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
+        return true;
     }
     
     public void recibirImpacto(int daño) {
@@ -153,19 +149,16 @@ public class Angel extends Dibujo {
         this.agregador = agregador;
     }
     
-    public void lanzarRayos(Graphics contextoGrafico, int x, int y) {
-        if(energia <= 0){
-                return;
-        }
-        
+    public void lanzarRayos(int x, int y) {        
         Rayo nuevoRayo = new Rayo(this.x, this.y, imagenRayo, notificador,verificador); 
         nuevoRayo.setObjetivoX(x);
         nuevoRayo.setObjetivoY(y);
             
         agregador.agregarRayo(nuevoRayo);
+        notificador.notificarCambios(Notificable.EVENTO_LANZAR_RAYO);
         
        //nuevoRayo.moverRayo(x, y);
-        energia--;
+        energia = energia==0 ?0 :energia-1;
     }
     
     public void setVerificable(Verificable verificador){
@@ -219,6 +212,8 @@ public class Angel extends Dibujo {
         if (contadorPotenciadores >= 3)
             return;
         
+        potenciador.setAngel(this);
+        
         potenciadores[contadorPotenciadores] = potenciador;
         contadorPotenciadores++;
     }
@@ -226,6 +221,27 @@ public class Angel extends Dibujo {
     public boolean tieneLlaves() {
         return llavesCofres.contains(true);
     }
+
+    public void recuperarVida() {
+        if (vida >= 80)
+            recargarEnergia();
+        
+        this.vida += 20;
+    }
+
+    public void accionarPotenciador() {
+        if (contadorPotenciadores <= 0)
+            return;
+        
+        potenciadores[contadorPotenciadores-1].accionar(bordes);
+        potenciadores[contadorPotenciadores-1] = null;
+        contadorPotenciadores--;
+    }
+
+    public boolean tineEnergia() {
+        return energia > 0;
+    }
+
     
     
 }

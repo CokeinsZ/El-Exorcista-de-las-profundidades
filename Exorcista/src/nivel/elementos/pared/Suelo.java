@@ -13,8 +13,8 @@ import sprite.Dibujo;
  * @author salaz
  */
 public class Suelo extends Dibujo{
-    public static final int ANCHO = 50;
-    public static final int ALTO = 76;
+    public static final int ANCHO = 100;
+    public static final int ALTO = 100;
     
     public Suelo (int x, int y, Image imagen) {
         super(x, y, ANCHO, ALTO, imagen);

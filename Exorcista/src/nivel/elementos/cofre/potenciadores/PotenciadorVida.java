@@ -4,6 +4,7 @@
  */
 package nivel.elementos.cofre.potenciadores;
 
+import interfaces.Delimitable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -25,6 +26,11 @@ public class PotenciadorVida extends Potenciador {
     @Override
     public String toString() {
         return "Vida";
+    }
+
+    @Override
+    public void accionar(Delimitable bordes) {
+        angel.recuperarVida();
     }
     
     

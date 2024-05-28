@@ -35,39 +35,33 @@ public class HiloFuncionesEspeciales extends Thread implements Runnable {
         this.corriendo = true;
     }
 
-    @Override
+  @Override
     public void run() {
         long initialTime = System.currentTimeMillis();
-        long lastExecutionTime = 0;
+        long lastDemonioExecutionTime = 0;
+        long lastAngelExecutionTime = 0;
 
         while (corriendo) {
             long currentTime = System.currentTimeMillis() - initialTime;
-            
-            if (currentTime - lastExecutionTime >= 5000) {
-                lastExecutionTime = currentTime;
+
+            // Check and perform demonio.accionEspecial() every 5000 ms
+            if (currentTime - lastDemonioExecutionTime >= 5000) {
+                lastDemonioExecutionTime = currentTime;
                 synchronized (demonios) {
-                    for (int i = 0; i < demonios.size(); i++) {
-                        Demonio demonio = demonios.get(i);
-
-                        if(demonio instanceof DemonioHielo) {
-                            ((DemonioHielo) demonio).ponerTrampa();
-                           
-                        }
-                        
-                        if(demonio instanceof DemonioSelvatico){
-                            ((DemonioSelvatico) demonio).crearRocas();
-                            
-                        }
-
+                    for (Demonio demonio : demonios) {
+                        demonio.accionEspecial();
                     }
                 }
             }
 
-            if (currentTime % 10000 == 0)
+            // Check and perform angel.recargarEnergia() every 10000 ms
+            if (currentTime - lastAngelExecutionTime >= 10000) {
+                lastAngelExecutionTime = currentTime;
                 angel.recargarEnergia();
-            
+            }
         }
     }
+
     
     public void detenerHilo() throws java.lang.InterruptedException {
         corriendo = false;
