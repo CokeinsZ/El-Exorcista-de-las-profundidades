@@ -5,19 +5,17 @@
 package personajes.poderDemonios;
 
 import interfaces.Notificable;
-import interfaces.Verificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import personajes.Angel;
-import static personajes.poderAngel.Rayo.ALTO;
-import static personajes.poderAngel.Rayo.ANCHO;
+import static personajes.poderDemonios.Roca.DAÑO;
 import sprite.Dibujo;
 
 /**
  *
  * @author usuario
  */
-public class Roca extends Dibujo{
+public class Fuego extends Dibujo  {
     
     public static final int ANCHO = 50;
     public static final int ALTO = 50;
@@ -32,7 +30,7 @@ public class Roca extends Dibujo{
     
     private Angel objetivo;
        
-    public Roca(int x, int y, Image imagen, Notificable notificador, Angel objetivo) {
+    public Fuego(int x, int y, Image imagen, Notificable notificador, Angel objetivo) {
         super(x, y, ANCHO, ALTO, imagen);
         seLlego = false;
         
@@ -48,34 +46,11 @@ public class Roca extends Dibujo{
     public void setObjetivoY(int objetivoY) {
         this.objetivoY = objetivoY;
     }
-    
-    
-    
-    
-    
-/*
-   public boolean seguirPunto() {        
-   
-        if (this.x < objetivoX) { 
-            this.x += velocidad; // Mover hacia la derecha
-        } else if (this.x > objetivoX) {
-            this.x -= velocidad; // Mover hacia la izquierda
-        }
 
-        if (this.y < objetivoY) {
-            this.y += velocidad; // Mover hacia abajo
-        } else if (this.y > objetivoY) {
-            this.y -= velocidad; // Mover hacia arriba
-        }
-        
-        if (this.x >= objetivoX-velocidad && this.x <= objetivoX+velocidad  && this.y >= objetivoY-velocidad && this.y <= objetivoY+velocidad )
-            return true;
-     
-        notificador.notificarCambios();
-        return false;
-        
+    @Override
+    public void dibujar(Graphics2D g) {
+        g.drawImage(imagen, x, y,null);
     }
-*/
     
     
     public boolean seguirPunto() {
@@ -103,25 +78,17 @@ public class Roca extends Dibujo{
             this.y = objetivoY;
             seLlego = true;
         }
-        
-        if(this.intersects(objetivo)){
-            
+
+        if (this.intersects(objetivo)) {
+
             objetivo.recibirImpacto(DAÑO);
             notificador.notificarCambios();
             return true;
-            
+
         }
 
         notificador.notificarCambios();
         return seLlego;
-    }
-    
-
-    @Override
-    public void dibujar(Graphics2D g) {
-        
-        g.drawImage(imagen, x, y,null);
-        
     }
     
 }

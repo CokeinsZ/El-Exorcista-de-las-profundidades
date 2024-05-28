@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import personajes.Angel;
 import static personajes.demonios.DemonioElectrico.ALTO;
 import static personajes.demonios.DemonioElectrico.ANCHO;
+import personajes.poderDemonios.Fuego;
+import personajes.poderDemonios.Roca;
 
 /**
  *
@@ -41,6 +43,16 @@ public class DemonioFuego extends Demonio{
     public void dibujar(Graphics2D g) {
         g.drawImage(this.imagen, this.x, this.y,null);
     }
+    
+    public void crearFuego(){
+        
+        Fuego nuevoFuego= new Fuego(this.x, this.y, imagenFuego, notificador, enemigo);
+        nuevoFuego.setObjetivoX((int) enemigo.getX());
+        nuevoFuego.setObjetivoY((int) enemigo.getY());
+
+        agregador.agregarFuego(nuevoFuego);
+    
+    }
 
     @Override
     public void seguirAngel() {
@@ -49,12 +61,17 @@ public class DemonioFuego extends Demonio{
 
     @Override
     public void atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mover() {
-        return;
+    }
+
+    @Override
+    public void accionEspecial() {
+        
+        crearFuego();
+        
     }
 
     

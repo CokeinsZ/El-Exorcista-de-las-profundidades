@@ -10,6 +10,8 @@ import interfaces.Delimitable;
 import interfaces.Notificable;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.Timer;
+import java.util.TimerTask;
 import personajes.Angel;
 
 /**
@@ -30,21 +32,28 @@ public class DemonioElectrico extends Demonio {
     }
         
     @Override
-    public void seguirAngel() {        
+    public void seguirAngel() {
+        
         int angelX = (int) enemigo.getX();
         int angelY = (int) enemigo.getY();
 
         // Comparar posiciones del demonio y el ángel para determinar dirección de movimiento
-        if (x < angelX && x < bordes.getAncho() - ANCHO) { //TO-DO Nombre para el estatico margen
+        if (x < angelX ) { //TO-DO Nombre para el estatico margen
             x += velocidad; // Mover hacia la derecha
         } else if (x > angelX && x > 0) {
             x -= velocidad; // Mover hacia la izquierda
         }
 
-        if (y < angelY && y < bordes.getAlto() - ALTO) {
+        if (y < angelY) {
             y += velocidad; // Mover hacia abajo
         } else if (y > angelY && y > 0) {
             y -= velocidad; // Mover hacia arriba
+        }
+        
+        if(enemigo.intersects(this)){
+            
+            atacar();
+            
         }
         
         notificador.notificarCambios();
@@ -59,12 +68,34 @@ public class DemonioElectrico extends Demonio {
 
     @Override
     public void atacar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (tieneEnfriamiento == true) {
+            return;
+        }
+        
+        enemigo.recibirImpacto(daño);
+        iniciarEnfriamiento();
+    }
+    
+    
+     private void iniciarEnfriamiento() {
+        tieneEnfriamiento = true;
+
+        Timer timer = new Timer(); //recibe un objeto timertask que es una interfaz la cual debemos de implementar y un time
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                tieneEnfriamiento = false;
+            }
+        }, 3000);
     }
 
     @Override
     public void mover() {
         seguirAngel();
+    }
+
+    @Override
+    public void accionEspecial() {
     }
 
     

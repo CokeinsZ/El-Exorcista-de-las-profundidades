@@ -114,5 +114,10 @@ public class DemonioHielo extends Demonio{
         }, 3000);
     }
 
+    @Override
+    public void accionEspecial() {
+        ponerTrampa();
+    }
+
     
 }
