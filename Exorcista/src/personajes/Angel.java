@@ -18,6 +18,7 @@ import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 import java.util.Timer;
 import java.util.TimerTask;
+import static personajes.poderDemonios.Roca.DAÑO;
 
 /**
  *
@@ -241,6 +242,36 @@ public class Angel extends Dibujo {
         return energia > 0;
     }
 
+    
+    public void seguirPunto(int tornadoX, int tornadoY) {
+
+        boolean seLlego = false;
+
+        // Calcular la distancia en cada eje
+        double deltaX = tornadoX - this.x;
+        double deltaY = tornadoY - this.y;
+
+        // Calcular la distancia total
+        double distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Calcular las proporciones de movimiento
+        double proporcionX = deltaX / distancia;
+        double proporcionY = deltaY / distancia;
+
+        // Calcular los nuevos valores de x e y basados en la velocidad y las proporciones
+        if (distancia > VELOCIDAD) {
+            this.x += proporcionX * VELOCIDAD;
+            this.y += proporcionY * VELOCIDAD;
+        } else {
+            // Si estamos cerca del objetivo, mover directamente al objetivo
+            this.x = tornadoX;
+            this.y = tornadoY;
+            seLlego = true;
+        }
+
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
+        
+    }
     
     
 }

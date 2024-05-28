@@ -33,6 +33,7 @@ import nivel.elementos.cofre.potenciadores.Potenciador;
 import nivel.elementos.pared.Suelo;
 import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
+import personajes.poderDemonios.Tornado;
 
 
 /**
@@ -61,6 +62,7 @@ public class Nivel extends Dibujo
     private ArrayList<Roca> rocas;
     private ArrayList<Fuego> fuegos;
     private ArrayList<Suelo> suelos;
+    private ArrayList<Tornado> tornados;
     
     private Notificable notificador;
     
@@ -93,10 +95,12 @@ public class Nivel extends Dibujo
         this.paredes = paredes;
         this.puerta = puerta;
         this.suelos = suelos;
+     
                 
         this.rayos = new ArrayList<>();
         this.rocas = new ArrayList<>();
         this.fuegos = new ArrayList<>();
+        this.tornados = new ArrayList<>();
         
         demonios = new ArrayList<>();
         
@@ -112,7 +116,7 @@ public class Nivel extends Dibujo
         hiloCreacionDemonios = new HiloCreacionDemonios(this);
         hiloCreacionDemonios.start();
                 
-        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos);
+        hiloMovimiento = new HiloMovimiento(demonios, rayos, rocas,fuegos, tornados);
         hiloMovimiento.start();
                  
         hiloEspecial = new HiloFuncionesEspeciales(angel, demonios);
@@ -238,7 +242,7 @@ public class Nivel extends Dibujo
             if (iteradorTrampas.hasNext() && demonio.intersects(iteradorTrampas.next()))
                 return false;
             
-            if (demonio.intersects(iteradorParedes.next()) )
+            if (demonio.intersects(iteradorParedes.next()))
                 return false;
             
             if (iteradorDemonios.hasNext() && demonio.intersects(iteradorDemonios.next())) {
@@ -418,6 +422,14 @@ public class Nivel extends Dibujo
             Fuego fuego = fuegos.get(i);
             fuego.dibujar(g);
         }
+        
+        for (int i = 0; i < tornados.size(); i++) {
+            Tornado tornado = tornados.get(i);
+            tornado.dibujar(g);
+            
+        }
+        
+   
 
         angel.dibujar(g);
 
@@ -520,6 +532,13 @@ public class Nivel extends Dibujo
         fuegos.add(fuegonuevo);
         
     }
+    
+    public void agregarTornado(Tornado tornadonuevo){
+        
+        tornados.add(tornadonuevo);
+        
+    }
+    
 
     public void detener() throws java.lang.InterruptedException {
         hiloMovimiento.detenerHilo();

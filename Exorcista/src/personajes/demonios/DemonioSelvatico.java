@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import personajes.Angel;
 import personajes.poderDemonios.Roca;
+import personajes.poderDemonios.Tornado;
 
 /**
  *
@@ -48,8 +49,16 @@ public class DemonioSelvatico extends Demonio{
 
         //nuevoRayo.moverRayo(x, y);
     
+        
     }
-
+    
+    public void crearTornado(){
+        
+        Tornado tornadoNuevo = new Tornado(x, y, imagenRoca, notificador, enemigo);
+        agregador.agregarTornado(tornadoNuevo);
+        notificador.notificarCambios(daño);
+        
+    }
 
     @Override
     public void atacar() {

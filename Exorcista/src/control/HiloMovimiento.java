@@ -11,6 +11,7 @@ import personajes.demonios.Demonio;
 import personajes.poderAngel.Rayo;
 import personajes.poderDemonios.Fuego;
 import personajes.poderDemonios.Roca;
+import personajes.poderDemonios.Tornado;
 
 /**
  *
@@ -24,12 +25,14 @@ public class HiloMovimiento extends Thread implements Runnable {
     private ArrayList<Rayo> rayos;
     private ArrayList<Roca> rocas;
     private ArrayList<Fuego> fuegos;
+    private ArrayList<Tornado> tornados;
 
-    public HiloMovimiento(ArrayList<Demonio> demonios, ArrayList<Rayo> rayos, ArrayList<Roca> rocas, ArrayList<Fuego> fuegos) {
+    public HiloMovimiento(ArrayList<Demonio> demonios, ArrayList<Rayo> rayos, ArrayList<Roca> rocas, ArrayList<Fuego> fuegos, ArrayList<Tornado> tornados) {
         this.demonios = demonios;
         this.rayos = rayos;
         this.rocas = rocas;
         this.fuegos = fuegos;
+        this.tornados = tornados;
         this.corriendo = true;
     }
     
@@ -76,6 +79,15 @@ public class HiloMovimiento extends Thread implements Runnable {
                     if(control){
                         fuegos.remove(fuegoNuevo);
                     }
+                }
+                
+            }
+            
+            synchronized(tornados){ 
+                for (int i = 0; i < fuegos.size(); i++) {
+                    Tornado tornadoNuevo = tornados.get(i);
+                    tornadoNuevo.atraerAngel();
+                    
                 }
                 
             }

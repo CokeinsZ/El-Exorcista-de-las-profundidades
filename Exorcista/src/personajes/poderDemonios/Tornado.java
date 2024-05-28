@@ -40,7 +40,16 @@ public class Tornado extends Dibujo {
 
     @Override
     public void dibujar(Graphics2D g) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        g.drawImage(imagen, x, y,null);
+
+        
+    }
+    
+    public void atraerAngel(){
+        
+        objetivo.seguirPunto(this.x, this.y);
+        
     }
     
 }
