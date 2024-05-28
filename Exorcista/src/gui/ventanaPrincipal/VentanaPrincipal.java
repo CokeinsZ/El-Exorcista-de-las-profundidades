@@ -5,6 +5,7 @@
 package gui.ventanaPrincipal;
 
 import control.Mazmorra;
+import interfaces.Notificable;
 import interfaces.Refrescable;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -279,8 +280,58 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_jPanel1MousePressed
 
     @Override
-    public void refrescar() {
+    public void refrescar(int cambio) {
         cargarInformacion();
+        
+        switch (cambio) {
+
+            case Notificable.EVENTO_MUERTE_DEMONIO:
+                // Código para manejar el evento de muerte de demonio
+                break;
+            case Notificable.EVENTO_MUERTE_ANGEL:
+                // Código para manejar el evento de muerte de ángel
+                break;
+            case Notificable.EVENTO_LANZAR_RAYO:
+                // Código para manejar el evento de lanzar rayo
+                break;
+            case Notificable.EVENTO_LANZAR_FUEGO:
+                // Código para manejar el evento de lanzar fuego
+                break;
+            case Notificable.EVENTO_LANZAR_ROCA:
+                // Código para manejar el evento de lanzar roca
+                break;
+            case Notificable.EVENTO_FIN_NIVEL:
+                // Código para manejar el evento de fin de nivel
+                break;
+            case Notificable.EVENTO_COFRE_ABIERTO:
+                // Código para manejar el evento de cofre abierto
+                break;
+            case Notificable.EVENTO_TORNADO:
+                // Código para manejar el evento de tornado
+                break;
+            case Notificable.EVENTO_NUEVA_MINA:
+                // Código para manejar el evento de nueva mina
+                break;
+            case Notificable.EVENTO_ACTIVACION_MINA:
+                // Código para manejar el evento de activación de mina
+                break;
+            case Notificable.EVENTO_ACTIVACION_INMOVILIZADOR:
+                // Código para manejar el evento de activación de inmovilizador
+                break;
+            case Notificable.EVENTO_ACTIVACION_AGUJERO:
+                // Código para manejar el evento de activación de agujero
+                break;
+            case Notificable.EVENTO_POTENCIADOR_VIDA:
+                // Código para manejar el evento de potenciador de vida
+                break;
+            case Notificable.EVENTO_POTENCIADOR_ATAQUE:
+                // Código para manejar el evento de potenciador de ataque
+                break;
+            default:
+                // Código para manejar cualquier otro caso
+                break;
+        }
+
         
         repaint();
     }
@@ -335,7 +386,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (InterruptedException ex) {
-            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         
     }

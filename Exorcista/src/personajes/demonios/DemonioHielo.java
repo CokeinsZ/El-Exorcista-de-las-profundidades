@@ -35,6 +35,8 @@ public class DemonioHielo extends Demonio{
         daño = 1;
         velocidad = 5;
         
+        direccion = 39;
+        
         this.imagenTrampa = imagenTrampa;
         
         numMinas = 0;
@@ -92,7 +94,7 @@ public class DemonioHielo extends Demonio{
             cambiarDireccion();
         }
         
-        notificador.notificarCambios();
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
     
     public void revertirMovimiento(int xAnterior, int yAnterior) {
@@ -107,7 +109,7 @@ public class DemonioHielo extends Demonio{
         agregador.agregarTrampa(new Inmovilizadora(x, y, imagenTrampa, enemigo));
         numMinas += 1;
         
-        notificador.notificarCambios();
+        notificador.notificarCambios(Notificable.EVENTO_NUEVA_MINA);
     }
 
     private void iniciarEnfriamiento() {

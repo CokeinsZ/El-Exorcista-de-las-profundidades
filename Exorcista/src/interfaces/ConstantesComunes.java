@@ -33,7 +33,7 @@ public interface ConstantesComunes {
     public static final int IMAGEN_SUELO = 21;
     public static final int IMAGEN_SUELO2 = 22;
     
-    
+    public static final int SONIDO_MUERTE_DEMONIO = 0;
     
 
 }

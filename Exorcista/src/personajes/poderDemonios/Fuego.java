@@ -82,12 +82,12 @@ public class Fuego extends Dibujo  {
         if (this.intersects(objetivo)) {
 
             objetivo.recibirImpacto(DAÑO);
-            notificador.notificarCambios();
+            notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
             return true;
 
         }
 
-        notificador.notificarCambios();
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
         return seLlego;
     }
     

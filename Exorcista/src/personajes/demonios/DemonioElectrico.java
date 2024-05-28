@@ -56,7 +56,7 @@ public class DemonioElectrico extends Demonio {
             
         }
         
-        notificador.notificarCambios();
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
     }
     
 

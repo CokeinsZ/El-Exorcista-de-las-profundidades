@@ -8,14 +8,12 @@ import interfaces.Agregable;
 import interfaces.Delimitable;
 import interfaces.Notificable;
 import interfaces.Verificable;
-import java.awt.Graphics;
 import nivel.elementos.cofre.potenciadores.Potenciador;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import nivel.elementos.pared.Pared;
 import personajes.poderAngel.Rayo;
 import sprite.Dibujo;
 import java.util.Timer;
@@ -128,7 +126,7 @@ public class Angel extends Dibujo {
         }
         
         areaAtaque.setLocation(x-10, y-10);
-        notificador.notificarCambios();
+        notificador.notificarCambios(Notificable.EVENTO_MOVIMIENTO);
         return true;
     }
     
