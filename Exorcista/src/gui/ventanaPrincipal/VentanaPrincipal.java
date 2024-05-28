@@ -9,10 +9,19 @@ import interfaces.Refrescable;
 import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.List;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import nivel.elementos.cofre.potenciadores.Potenciador;
@@ -28,41 +37,61 @@ public class VentanaPrincipal extends javax.swing.JFrame
     
     private BufferedImage buffer;
     
-    private AudioClip MuerteDemonioHielo;
-    private AudioClip MuerteDemonioFuego;
-    private AudioClip LanzarRayo;
-    private AudioClip LanzarRoca;
-    private AudioClip MuerteDemonioElectrico;
-    private AudioClip MuerteDemonioSelvatico;
-    private AudioClip ExploBomba;
-    private AudioClip LanzarBolaFuego;
-    private AudioClip PasarNivel;
-    private AudioClip AbrirCofre;
-    private AudioClip MuerteAngel;
-    private AudioClip Hueco;
-    private AudioClip TrampaEmpuje;
+    private Clip[] sonidos;
     
-
+    
     public void setMazmorra(Mazmorra mazmorra) {
         this.mazmorra = mazmorra;
     }
     
-    private void setSonidos(){
-        
-    }
+
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal(int ancho, int alto) {
-        mazmorra = null;
-        setSize(ancho, alto);
+    public VentanaPrincipal(int ancho, int alto) throws UnsupportedAudioFileException, IOException {
+    mazmorra = null;
+    setSize(ancho, alto);
+
+    buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
+
+    initComponents();
+    ponerIconos();
+
+    sonidos = new Clip[10];
+
+    cargarSonidos(); // Método auxiliar para cargar todos los sonidos
+}
+
+private void cargarSonidos() throws UnsupportedAudioFileException, IOException {
+    String[] rutasSonidos = {
+        "Sonidos/LanzarRayoA.wav",
+        "Sonidos/MuerteDemonioFueg.wav",
+        "Sonidos/MuerteDemonioElec.wav",
+        "Sonidos/MuerteDemonio_1.wav",
         
-        buffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
         
-        initComponents();
-        ponerIconos();
-    
+        // ... (Rutas de los demás sonidos)
+    };
+
+    for (int i = 0; i < rutasSonidos.length; i++) {
+        cargarSonido(rutasSonidos[i], i);
     }
+}
+
+private void cargarSonido(String rutaSonido, int indice) throws UnsupportedAudioFileException, IOException {
+    try (AudioInputStream stream = AudioSystem.getAudioInputStream(new File(rutaSonido))) {
+        Clip clip = AudioSystem.getClip();
+        clip.open(stream);
+        sonidos[indice] = clip;
+    } catch (LineUnavailableException ex) {
+        Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        // Implementar mecanismo para notificar al usuario
+    }
+}
+
+        
+  
+    
     
     private void ponerIconos() {
     jLabel2.setIcon(new ImageIcon("imagenes/Iconos/Vidas.png"));
@@ -355,7 +384,6 @@ public class VentanaPrincipal extends javax.swing.JFrame
             JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (InterruptedException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
     }
 }

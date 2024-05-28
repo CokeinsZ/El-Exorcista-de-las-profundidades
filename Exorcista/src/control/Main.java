@@ -7,11 +7,12 @@ package control;
 import gui.inicio.MenuInicio;
 import gui.ventanaPrincipal.VentanaPrincipal;
 import java.io.IOException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 public class Main {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedAudioFileException, IOException {
         VentanaPrincipal ventana = new VentanaPrincipal(1280, 720);
         
         MenuInicio menu = new MenuInicio(ventana, true);
